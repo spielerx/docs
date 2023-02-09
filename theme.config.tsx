@@ -1,18 +1,21 @@
-import React from 'react'
-import { DocsThemeConfig } from 'nextra-theme-docs'
+import React from "react";
+import { DocsThemeConfig } from "nextra-theme-docs";
 
 const config: DocsThemeConfig = {
-  logo: <span>My Project</span>,
+  logo: <span>Spheron</span>,
   project: {
-    link: 'https://github.com/shuding/nextra-docs-template',
+    link: "https://github.com/argoapp-live",
   },
   chat: {
-    link: 'https://discord.com',
+    link: "https://discord.com/invite/ahxuCtm",
   },
-  docsRepositoryBase: 'https://github.com/shuding/nextra-docs-template',
+  docsRepositoryBase: "https://github.com/shuding/nextra-docs-template", // documentation repo for edit this page
+  feedback: {
+    content: null,
+  },
   footer: {
-    text: 'Nextra Docs Template',
+    text: "Spheron Protocol Docs",
   },
-}
+};
 
-export default config
+export default config;

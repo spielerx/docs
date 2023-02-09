@@ -1,15 +1,15 @@
 {
-  "index": "Introduction",
-  "another": "Another Page",
+  "index": "Quick Start",
+  "static": "Static App",
   "advanced": "Advanced (A Folder)",
   "about": {
     "title": "About",
     "type": "page"
   },
-  "contact": {
-    "title": "Contact ↗",
+  "signup": {
+    "title": "Signup ↗",
     "type": "page",
-    "href": "https://twitter.com/shuding_",
+    "href": "https://app.spheron.network/",
     "newWindow": true
   }
 }
