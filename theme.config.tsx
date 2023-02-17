@@ -9,12 +9,15 @@ const config: DocsThemeConfig = {
   chat: {
     link: "https://discord.com/invite/ahxuCtm",
   },
-  docsRepositoryBase: "https://github.com/shuding/nextra-docs-template", // documentation repo for edit this page
+  editLink: {
+    text: null,
+  },
   feedback: {
     content: null,
   },
   footer: {
-    text: "Spheron Protocol Docs",
+    text: null,
+    component: null,
   },
 };
 

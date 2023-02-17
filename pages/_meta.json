@@ -1,7 +1,14 @@
 {
   "index": "Quick Start",
-  "static": "Static App",
-  "advanced": "Advanced (A Folder)",
+  "billing": "Billing",
+  "organization": "Organization",
+  "--": {
+    "type": "separator",
+    "title": "Static App"
+  },
+  "deployment": "Deployment",
+  "projects": "Projects",
+  "edge": "Edge Network",
   "about": {
     "title": "About",
     "type": "page"
