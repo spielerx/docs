@@ -1,11 +1,8 @@
 {
   "index": "Quick Start",
+  "billing": "Billing",
+  "organization": "Organization",
   "static": "Static App",
-  "advanced": "Advanced (A Folder)",
-  "about": {
-    "title": "About",
-    "type": "page"
-  },
   "signup": {
     "title": "Signup ↗",
     "type": "page",
