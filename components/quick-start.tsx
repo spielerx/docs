@@ -1,5 +1,5 @@
 import QuickStartCard, { IQuickStartCard } from "./quick-start-card";
-import styles from "./quick.module.css";
+import styles from "../styles/quick.module.css";
 
 const QUICK_START_LIST = [
   {
@@ -16,7 +16,7 @@ const QUICK_START_LIST = [
   },
   {
     path: "/static/deployment/logs",
-    emoji: "⚡",
+    emoji: "🚀",
     title: "Static App",
     body: "Deploy static apps from Github, Gitlab, or Bitbucket.",
   },
@@ -26,8 +26,9 @@ const QuickStart = () => {
   return (
     <main>
       <section className={styles.section}>
-        {QUICK_START_LIST.map((item: IQuickStartCard) => (
+        {QUICK_START_LIST.map((item: IQuickStartCard, index) => (
           <QuickStartCard
+            key={index}
             path={item.path}
             emoji={item.emoji}
             title={item.title}
