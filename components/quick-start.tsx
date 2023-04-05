@@ -18,7 +18,19 @@ const QUICK_START_LIST = [
     path: "/static/deployment/logs",
     emoji: "🚀",
     title: "Static App",
-    body: "Deploy static apps from Github, Gitlab, or Bitbucket.",
+    body: "Deploy static apps from your Git provider.",
+  },
+  {
+    path: "/framework-guide",
+    emoji: "📍",
+    title: "Framework Guide",
+    body: "Discover the steps to deploy your framework.",
+  },
+  {
+    path: "/rest-api",
+    emoji: "🔌",
+    title: "Spheron API",
+    body: "Take a look at how the Spheron API works.",
   },
 ];
 
