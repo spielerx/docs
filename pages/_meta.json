@@ -4,6 +4,7 @@
   "organization": "Organization",
   "static": "Static App",
   "framework-guide": "Framework Guide",
+  "rest-api": "Spheron API",
   "signup": {
     "title": "Sign Up ↗",
     "type": "page",
