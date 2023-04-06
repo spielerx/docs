@@ -7,7 +7,6 @@ import styles from "./styles/global.module.css";
 
 const config: DocsThemeConfig = {
   logo: <>{SpheronLogo}</>,
-  logoLink: "https://spheron.network/",
   project: {
     link: "https://github.com/spheronFdn/docs",
     icon: <div className={styles.linkIcon}>{GithubLogo}</div>,
@@ -27,7 +26,7 @@ const config: DocsThemeConfig = {
     component: null,
   },
   navigation: false,
-  primaryHue: 220,
+  primaryHue: 200,
   sidebar: {
     defaultMenuCollapseLevel: 1,
   },
