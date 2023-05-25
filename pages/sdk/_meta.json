@@ -1,4 +1,5 @@
 {
   "storage": "Storage SDK",
-  "browser": "Browser Upload SDK"
+  "browser": "Browser Upload SDK",
+  "compute": "Compute SDK"
 }

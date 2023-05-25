@@ -63,5 +63,6 @@ export const Pages = [
   ["Spheron SDK", "/sdk"],
   ["Storage SDK", "/sdk/storage"],
   ["Browser Upload SDK", "/sdk/browser"],
+  ["Compute SDK", "/sdk/compute"],
   ["Spheron CLI", "/cli"],
 ];
