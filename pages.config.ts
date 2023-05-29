@@ -65,4 +65,6 @@ export const Pages = [
   ["Browser Upload SDK", "/sdk/browser"],
   ["Compute SDK", "/sdk/compute"],
   ["Spheron CLI", "/cli"],
+  ["Github Actions", "/github-actions"],
+  ["Instance Update Action", "/github-actions/instance-update-action"],
 ];
