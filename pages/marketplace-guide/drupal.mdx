@@ -1,0 +1,34 @@
+import Navigation from "components/navigation";
+
+# How to deploy Drupal?
+
+Spheron allows you to deploy a compute instance pre-installed with Drupal, all set up and ready to use on the Akash Network.
+To deploy Drupal:
+
+1. Click **New Cluster** on the top right corner.
+2. Select **Select marketplace app**.
+3. Pick **Drupal** from the marketplace.
+4. Spheron will automatically select the recommended plan for the specific template.
+5. If you want to change the plan, Click **Change Plan**.
+6. Select the instance plan that suits your needs, and Click **Select Plan**.
+7. Select your preferred **Region** if any. If you do not add a region, the container will be deployed in any region. [Click here](/compute/cluster/#region) to know more.
+8. Click **Deploy** to initiate deployment.
+
+## Advanced Configuration
+
+### Region
+
+Refer the [region section](/compute/cluster/#region) for more information.
+
+## Verify Installation
+
+Drupal can be accessed only after the Compute Instance is provisioned.
+Thus, you need to wait for the installation to complete before you can start using it.
+
+### How to connect to Drupal?
+
+- Use the `Connection URL` provided by Spheron under **Port Policy Info for Port 80** to access the Drupal dashboard.
+
+For more information, refer to the [Drupal docs](https://www.drupal.org/docs/user_guide/en/index.html).
+
+<Navigation name="Deploy Drupal" />
