@@ -45,6 +45,12 @@ const QUICK_START_LIST = [
     body: "Learn how to deploy your server.",
   },
   {
+    path: "/marketplace-guide",
+    emoji: "🏪",
+    title: "Marketplace Guide",
+    body: "Deploy pre-installed apps and develope fast.",
+  },
+  {
     path: "/rest-api",
     emoji: "🔌",
     title: "Spheron API",

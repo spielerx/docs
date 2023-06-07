@@ -1,0 +1,9 @@
+{
+  "mongodb": "Deploy MongoDB",
+  "redis": "Deploy Redis",
+  "postgresql": "Deploy PostgreSQL",
+  "mysql": "Deploy MySQL",
+  "grafana": "Deploy Grafana",
+  "vault": "Deploy Vault",
+  "ipfs": "Deploy IPFS Node"
+}
