@@ -1,0 +1,207 @@
+import { Callout } from "nextra-theme-docs";
+import Image from "next/image";
+import DockerImage from "assets/docker-image.png";
+import Navigation from "components/navigation";
+
+# How to deploy a Rust App?
+
+Rust is a modern systems programming language that focuses on memory safety, concurrency, and high performance. It empowers developers to create secure and scalable applications, making it an ideal choice for systems-level programming tasks.
+
+In this guide, you’ll configure a Rust app and deploy it to Spheron Compute using Docker.
+
+### Prerequisites
+
+To successfully follow this guide, you will need the following:
+
+- A [DockerHub](https://hub.docker.com/) account.
+- [Rust](https://www.rust-lang.org/tools/install) installed on your local machine.
+- A text editor. You can use [Visual Studio Code](https://code.visualstudio.com/) or your favorite text editor.
+
+## Step 1: Create a Rust App
+
+1. Create a new Rust project by running the following command:
+   ```sh
+   cargo new rustapp
+   ```
+2. Change into the project directory:
+   ```sh
+   cd rustapp
+   ```
+3. Open the **Cargo.toml** file and add the following dependencies under the **[dependencies]** section:
+
+   ```toml
+   [dependencies]
+   rocket = "=0.5.0-rc.3"
+   ```
+
+4. Open the **myproject/urls.py** file and replace its contents with the following code:
+
+   ```rust
+   #[macro_use]
+   extern crate rocket;
+
+   #[get("/hello")]
+   fn hello() -> &'static str {
+       "Hello, World!"
+   }
+
+   #[launch]
+   fn rocket() -> _ {
+        rocket::build().mount("/", routes![hello])
+   }
+   ```
+
+5. Start the app by running the following command:
+
+   ```sh
+   cargo run
+   ```
+
+6. Open your web browser and visit http://localhost:8000/hello. You should see the message "Hello, World!" displayed.
+
+> Check out the example [here.](https://github.com/spheronFdn/docs/tree/main/examples/rustapp)
+
+## Step 2: Create a Dockerfile
+
+Here's what the dockerfile for this Rust app will look like:
+
+```sh
+# Use an official Rust base image
+FROM rust:latest
+
+# Create a new directory for the app
+WORKDIR /usr/src/rustapp
+
+# Copy the Cargo.toml and Cargo.lock files to the container
+COPY Cargo.toml Cargo.lock ./
+
+# Copy the source code to the container
+COPY src ./src
+
+# Build the app
+RUN cargo build --release
+
+# Expose the port that the app listens on
+EXPOSE 8000
+
+# Run the app
+CMD ["cargo", "run", "--release"]
+```
+
+## Step 3: Set default platform for docker build
+
+Docker images built with Apple Silicon (or another **ARM64** based architecture) can create issues when deploying the images to a Linux or Windows based **AMD64** environment.
+Before running the docker build command, run this command in your terminal:
+
+```sh
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
+```
+
+## Step 4: Build Docker image
+
+To build the Docker image:
+
+1. Save the above Dockerfile in the root directory of your Rust app.
+2. Open a terminal and navigate to the root directory of your project where the Dockerfile is located.
+3. Run the following command to build the Docker image:
+
+```sh
+docker build -t rustapp .
+```
+
+4. After the build process completes, you can run a container based on the image using the following command:
+
+```sh
+docker run -p 8000:8000 rustapp
+```
+
+## Step 5: Push the app to DockerHub
+
+To push an image, you first need to create a repository on Docker Hub.
+
+### Create a repo
+
+To create a repository on Docker Hub:
+
+1. [Sign up](https://www.docker.com/pricing?utm_source=docker&utm_medium=webreferral&utm_campaign=docs_driven_upgrade) or Sign in to [Docker Hub](https://hub.docker.com/).
+2. Select the Create Repository button.
+3. For the repo name, use rustapp. Make sure the Visibility is Public.
+4. Select the Create button.
+
+### Push the image
+
+1. Login to the Docker Hub using the command docker login -u YOUR-USER-NAME.
+2. Use the docker tag command to give the rustapp image a new name. Be sure to swap out YOUR-USER-NAME with your Docker ID.
+
+```sh
+docker tag rustapp YOUR-USER-NAME/rustapp
+```
+
+3. Now try your push command again. If you’re copying the value from Docker Hub, you can drop the tagname portion, as you didn’t add a tag to the image name. If you don’t specify a tag, Docker will use a tag called latest.
+
+```sh
+docker push YOUR-USER-NAME/rustapp
+```
+
+**Here's what a Docker Image will look like on Docker Hub:**
+
+![Docker-Image](assets/docker-image.png)
+
+> Check out this docker image [here.](https://hub.docker.com/r/rekpero/nft-minter-server/tags)
+
+## Step 6: Run on Spheron Compute
+
+To run your app on Spheron:
+
+1. Click **New Cluster** on the top right corner.
+2. Select **Import from Docker Hub**.
+3. Enter the names for your cluster and docker image.
+4. Then, Add the tag and Click **Next**.
+5. Select the instance plan that suits your needs and Click **Select Plan**.
+6. Create new **Port Mapping**. Add the container port, and Select the exposed port you want to map it to. [Click here](/compute/cluster/#port-mapping) to know more.
+7. Add **Environment Variables** if any. Use the **Secret Key** toggle if the value is a secret key. When you enable the secret key toggle, it will not be saved in the
+   database. [Click here](/compute/cluster/#environment-variables) to know more.
+8. Select your preferred **Region** if any. If you do not add a region, the container will be deployed in any region. [Click here](/compute/cluster/#region) to know more.
+9. You can add advanced configuration if required. [Click here](/compute/cluster/#advanced-configuration) to know more.
+10. Click **Deploy** to initiate deployment without additional configuration.
+
+<Callout>
+  **Troubleshoot:** You can change your plan by clicking Change Plan above the
+  selected plan.
+</Callout>
+
+<Callout type="info">
+  **NOTE:** Spheron supports only public docker images at the moment.
+</Callout>
+
+## Verify Installation
+
+The Rust App can be accessed only after the Compute Instance is provisioned.
+Thus, you need to wait for the installation to complete before you can start using the app.
+Your Apps can be verified for successful installation using the instructions below, while others may require different procedures.
+
+Follow these instructions to verify installation:
+
+- **Attempt to access the app** \
+  An App has an estimated deployment time of about 1-2 minutes.
+  If you can successfully access it, the installation has completed successfully.
+  You can connect using the connection URL of the instance, which will also be provided after the instance is provisioned.
+- **Check instance logs and events** \
+  After successfully deploying your Rust App, it will produce logs and events, which you can check for any issues or errors.
+
+## Common Errors
+
+### Docker Fails When Building on Apple Silicon
+
+<Callout type="error">
+  ERROR: exec /usr/local/bin/docker-entrypoint.sh: exec format error
+</Callout>
+
+Docker images built with Apple Silicon (or another **ARM64** based architecture) can create issues when deploying the images to a Linux or Windows based **AMD64** environment.
+Before running the docker build command, you must run this command in your terminal:
+
+```sh
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
+```
+
+<Navigation name="Deploy Rust App" />

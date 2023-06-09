@@ -1,0 +1,14 @@
+Started GET "/" for 127.0.0.1 at 2023-06-05 18:52:30 +0530
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/aayushmahapatra/.rvm/gems/ruby-3.0.0/gems/railties-7.0.5/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/aayushmahapatra/.rvm/gems/ruby-3.0.0/gems/railties-7.0.5/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.9ms | Allocations: 839)
+Completed 200 OK in 11ms (Views: 3.0ms | ActiveRecord: 0.0ms | Allocations: 10028)
+
+
+Started GET "/welcome/hello" for 127.0.0.1 at 2023-06-05 18:52:45 +0530
+Processing by WelcomeController#hello as HTML
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 7)
+Completed 200 OK in 4ms (Views: 3.0ms | ActiveRecord: 0.0ms | Allocations: 934)
+
+

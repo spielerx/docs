@@ -1,0 +1,203 @@
+import { Callout } from "nextra-theme-docs";
+import Image from "next/image";
+import DockerImage from "assets/docker-image.png";
+import Navigation from "components/navigation";
+
+# How to deploy an Express App?
+
+Express is a flexible and minimalist web application framework for Node.js that enables developers to effortlessly build robust and scalable web applications. With its simple yet powerful design, Express offers a comprehensive range of tools and features for creating web APIs and handling HTTP requests.
+
+In this guide, you’ll configure an Express app and deploy it to Spheron Compute using Docker.
+
+### Prerequisites
+
+To successfully follow this guide, you will need the following:
+
+- A [DockerHub](https://hub.docker.com/) account.
+- [Nodejs](https://nodejs.org/en) installed on your local machine.
+- A text editor. You can use [Visual Studio Code](https://code.visualstudio.com/) or your favorite text editor.
+
+## Step 1: Create an Express App
+
+1. Create a new directory for your project and navigate into it:
+
+   ```sh
+   mkdir expressapp
+   cd expressapp
+   ```
+
+2. Initialize a new Node.js project:
+   ```sh
+   npm init -y
+   ```
+3. Install Express:
+   ```sh
+   npm install express
+   ```
+4. Create a new file **app.js** and add the following code:
+
+   ```js
+   const express = require("express");
+   const app = express();
+
+   app.get("/hello", (req, res) => {
+     res.send("Hello, World!");
+   });
+
+   app.listen(3000, () => {
+     console.log("Server running on port 3000");
+   });
+   ```
+
+5. Start the Express server:
+   ```sh
+   node app.js
+   ```
+6. Open your web browser and visit http://localhost:3000/hello. You should see the message "Hello, World!" displayed.
+
+> Check out the example [here.](https://github.com/spheronFdn/docs/tree/main/examples/expressapp)
+
+## Step 2: Create a Dockerfile
+
+Here's what the dockerfile for this Express app will look like:
+
+```sh
+# Use an official Node.js runtime as the base image
+FROM node:14-alpine
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy package.json and package-lock.json to the container
+COPY package*.json ./
+
+# Install app dependencies
+RUN npm install
+
+# Copy the application code to the container
+COPY . .
+
+# Expose the port that the Express app listens on
+EXPOSE 3000
+
+# Start the Express app
+CMD ["node", "app.js"]
+```
+
+## Step 3: Set default platform for docker build
+
+Docker images built with Apple Silicon (or another **ARM64** based architecture) can create issues when deploying the images to a Linux or Windows based **AMD64** environment.
+Before running the docker build command, run this command in your terminal:
+
+```sh
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
+```
+
+## Step 4: Build Docker image
+
+To build the Docker image:
+
+1. Save the above Dockerfile in the root directory of your Express app.
+2. Open a terminal and navigate to the root directory of your project where the Dockerfile is located.
+3. Run the following command to build the Docker image:
+
+```sh
+docker build -t expressapp .
+```
+
+4. After the build process completes, you can run a container based on the image using the following command:
+
+```sh
+docker run -p 8000:8000 expressapp
+```
+
+## Step 5: Push the app to DockerHub
+
+To push an image, you first need to create a repository on Docker Hub.
+
+### Create a repo
+
+To create a repository on Docker Hub:
+
+1. [Sign up](https://www.docker.com/pricing?utm_source=docker&utm_medium=webreferral&utm_campaign=docs_driven_upgrade) or Sign in to [Docker Hub](https://hub.docker.com/).
+2. Select the Create Repository button.
+3. For the repo name, use expressapp. Make sure the Visibility is Public.
+4. Select the Create button.
+
+### Push the image
+
+1. Login to the Docker Hub using the command docker login -u YOUR-USER-NAME.
+2. Use the docker tag command to give the expressapp image a new name. Be sure to swap out YOUR-USER-NAME with your Docker ID.
+
+```sh
+docker tag expressapp YOUR-USER-NAME/expressapp
+```
+
+3. Now try your push command again. If you’re copying the value from Docker Hub, you can drop the tagname portion, as you didn’t add a tag to the image name. If you don’t specify a tag, Docker will use a tag called latest.
+
+```sh
+docker push YOUR-USER-NAME/expressapp
+```
+
+**Here's what a Docker Image will look like on Docker Hub:**
+
+![Docker-Image](assets/docker-image.png)
+
+> Check out this docker image [here.](https://hub.docker.com/r/rekpero/nft-minter-server/tags)
+
+## Step 6: Run on Spheron Compute
+
+To run your app on Spheron:
+
+1. Click **New Cluster** on the top right corner.
+2. Select **Import from Docker Hub**.
+3. Enter the names for your cluster and docker image.
+4. Then, Add the tag and Click **Next**.
+5. Select the instance plan that suits your needs and Click **Select Plan**.
+6. Create new **Port Mapping**. Add the container port, and Select the exposed port you want to map it to. [Click here](/compute/cluster/#port-mapping) to know more.
+7. Add **Environment Variables** if any. Use the **Secret Key** toggle if the value is a secret key. When you enable the secret key toggle, it will not be saved in the
+   database. [Click here](/compute/cluster/#environment-variables) to know more.
+8. Select your preferred **Region** if any. If you do not add a region, the container will be deployed in any region. [Click here](/compute/cluster/#region) to know more.
+9. You can add advanced configuration if required. [Click here](/compute/cluster/#advanced-configuration) to know more.
+10. Click **Deploy** to initiate deployment without additional configuration.
+
+<Callout>
+  **Troubleshoot:** You can change your plan by clicking Change Plan above the
+  selected plan.
+</Callout>
+
+<Callout type="info">
+  **NOTE:** Spheron supports only public docker images at the moment.
+</Callout>
+
+## Verify Installation
+
+The Express App can be accessed only after the Compute Instance is provisioned.
+Thus, you need to wait for the installation to complete before you can start using the app.
+Your Apps can be verified for successful installation using the instructions below, while others may require different procedures.
+
+Follow these instructions to verify installation:
+
+- **Attempt to access the app** \
+  An App has an estimated deployment time of about 1-2 minutes.
+  If you can successfully access it, the installation has completed successfully.
+  You can connect using the connection URL of the instance, which will also be provided after the instance is provisioned.
+- **Check instance logs and events** \
+  After successfully deploying your Express App, it will produce logs and events, which you can check for any issues or errors.
+
+## Common Errors
+
+### Docker Fails When Building on Apple Silicon
+
+<Callout type="error">
+  ERROR: exec /usr/local/bin/docker-entrypoint.sh: exec format error
+</Callout>
+
+Docker images built with Apple Silicon (or another **ARM64** based architecture) can create issues when deploying the images to a Linux or Windows based **AMD64** environment.
+Before running the docker build command, you must run this command in your terminal:
+
+```sh
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
+```
+
+<Navigation name="Deploy Express App" />
