@@ -5,6 +5,7 @@ import RustIcon from "../assets/rust.svg";
 import GoIcon from "../assets/go.svg";
 import RailsIcon from "../assets/rails.svg";
 import ExpressIcon from "../assets/express.svg";
+import NestIcon from "../assets/nest.svg";
 import styles from "../styles/framework.module.css";
 
 const SERVER_LIST = [
@@ -43,6 +44,12 @@ const SERVER_LIST = [
     logo: ExpressIcon,
     alt: "express",
     title: "Deploy Express App",
+  },
+  {
+    path: "/server-guide/nest",
+    logo: NestIcon,
+    alt: "nest",
+    title: "Deploy Nest App",
   },
 ];
 

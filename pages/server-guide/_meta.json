@@ -4,5 +4,6 @@
   "django": "Deploy Django App",
   "go": "Deploy Go App",
   "rails": "Deploy Rails App",
-  "express": "Deploy Express App"
+  "express": "Deploy Express App",
+  "nest": "Deploy Nest App"
 }

@@ -63,6 +63,7 @@ export const Pages = [
   ["Deploy Go App", "/server-guide/go"],
   ["Deploy Rails App", "/server-guide/rails"],
   ["Deploy Express App", "/server-guide/express"],
+  // ["Deploy Nest App", "/server-guide/nest"],
   ["Marketplace App Guide", "/marketplace-guide"],
   ["Deploy MongoDB", "/marketplace-guide/mongodb"],
   ["Deploy Redis", "/marketplace-guide/redis"],
