@@ -80,7 +80,7 @@ Function `upload` takes two parameters:
   3.  `configuration.onUploadInitiated` **(Optional)**
       - Callback function `(uploadId: string) => void`. The function will be called once, when the upload is initiated, right before the data is uploaded. The function will be called with one parameter, `uploadId`, which represents the id of the started upload.
   4.  `configuration.onChunkUploaded` **(Optional)**
-      - Callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. the first one `uploadedSize` represents the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
+      - Callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. The first one `uploadedSize` represents, the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
 
 **Response**
 
@@ -102,13 +102,13 @@ interface UploadRes {
 
 ### Encrypt Upload
 
-Used to encrypt a string, or a file and upload it to IPFS.
+Used to encrypt a string or a file and upload it to IPFS.
 
 <Callout type="info">
-  **NOTE:** Both the `encryptUpload` functions, require an instance of
-  LitNodeClient that is already connected. To create an instance checkout the
+  **NOTE:** Both the `encryptUpload` functions require an instance of
+  LitNodeClient that is already connected. To create an instance, checkout the
   [@lit-protocol/lit-node-client](https://www.npmjs.com/package/@lit-protocol/lit-node-client)
-  package, or our
+  package or our
   [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/encrypt.js)
 </Callout>
 
@@ -128,7 +128,7 @@ const { uploadId, bucketId, protocolLink, dynamicLinks } =
 
 Parameters of `encryptUpload`:
 
-- **authSig** - (optional) The authSig of the user. You can use [siwe](https://www.npmjs.com/package/siwe) to create it, checkout the [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/utils.js).
+- **authSig** - (optional) The authSig of the user. You can use [siwe](https://www.npmjs.com/package/siwe) to create it. Checkout the [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/utils.js).
 - **sessionSigs:** - (optional) the session signatures to use to authorize the user with the nodes.
 - **accessControlConditions** - (optional) The access control conditions that the user must meet to obtain this signed token. This could be possession of an NFT, for example.
 - **evmContractConditions** - (optional) EVM Smart Contract access control conditions that the user must meet to obtain this signed token. This could be possession of an NFT, for example. This is different than accessControlConditions because accessControlConditions only supports a limited number of contract calls. evmContractConditions supports any contract call.
@@ -151,8 +151,8 @@ Parameters of `encryptUpload`:
 - **litNodeClient** - An instance of LitNodeClient that is already connected.
 - **configuration**:
   - **name** - Represents the name of the bucket on which you are uploading the data.
-  - **onUploadInitiated** - (optional) Callback function `(uploadId: string) => void`. The function will be called once, when the upload is initiated, right before the data is uploaded. The function will be called with one parameter, `uploadId`, which represents the id of the started upload.
-  - **onChunkUploaded** - (optional) Callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. the first one `uploadedSize` represents the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
+  - **onUploadInitiated** - (optional) Callback function `(uploadId: string) => void`. The function will be called once when the upload is initiated, right before the data is uploaded. The function will be called with one parameter, `uploadId`, which represents the id of the started upload.
+  - **onChunkUploaded** - (optional) Callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. the first `uploadedSize` represents the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
 
 **Response**
 
@@ -169,7 +169,7 @@ interface UploadRes {
 <Callout type="info">
   **NOTE:** Checkout the
   [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/encrypt.js)
-  on how to use `encryptUpload` function.
+  on how to use the `encryptUpload` function.
 </Callout>
 
 ---
@@ -179,10 +179,10 @@ interface UploadRes {
 Used to decrypt the data of the previously encrypted upload.
 
 <Callout type="info">
-  **NOTE:** Both the `decryptUpload` functions, require an instance of
-  LitNodeClient that is already connected. To create an instance checkout the
+  **NOTE:** Both the `decryptUpload` functions require an instance of
+  LitNodeClient that is already connected. To create an instance, checkout the
   [@lit-protocol/lit-node-client](https://www.npmjs.com/package/@lit-protocol/lit-node-client)
-  package, or our
+  package or our
   [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/decrypt.js)
 </Callout>
 
@@ -196,9 +196,9 @@ const decryptedData: Uint8Array = spheron.decryptUpload({
 
 Function `decryptUpload` parameters:
 
-- **authSig** - (optional) The authSig of the user. You can use [siwe](https://www.npmjs.com/package/siwe) to create it, checkout the [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/utils.js).
+- **authSig** - (optional) The authSig of the user. You can use [siwe](https://www.npmjs.com/package/siwe) to create it. Checkout the [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/utils.js).
 - **sessionSigs** - (optional) the session signatures to use to authorize the user with the nodes.
-- **ipfsCid** - The IPFS cid, of the upload that was previously encrypted & uploaded.
+- **ipfsCid** - The IPFS cid of the upload that was previously encrypted & uploaded.
 - **litNodeClient** - An instance of LitNodeClient that is already connected
 
 **Response**
@@ -207,7 +207,7 @@ Function `decryptUpload` parameters:
   <Callout type="info">
     **NOTE:** Checkout the
     [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/decrypt.js)
-    on how to use `decryptUpload` function.
+    on how to use the `decryptUpload` function.
   </Callout>
 
 ---
@@ -363,7 +363,7 @@ const bucketDomain: Domain = await client.getBucketDomain(
 Function `getBucketDomain` takes two parameters:
 
 - **bucketId** - (string) - The id of the bucket.
-- **domainIdentifier** - (string) - It can ether be the id of the domain, or the name of the domain.
+- **domainIdentifier** - (string) - It can either be the id of the domain or the name of the domain.
 
 **Response**
 
@@ -392,11 +392,11 @@ interface Domain {
 
 Used to add a new domain to the specified bucket. The `link` property needs to have the `protocolLink` value of an existing bucket id. After adding a new domain, you will need to setup the record on your DNS provider:
 
-- **domain**: you should create a **A** type record with value `13.248.203.0`, and the same name as the domain you have added.
-- **subdomain** : you should create a **CNAME** type record with value `cname.spheron.io`, and the same name as the domain you have added.
-- **handshake-domain**: you should create a **A** type record with value `ipfs.namebase.io`, and `@` for name. Also you should create a **TXT** type record with `link` for a value, and `_contenthash` for name.
-- **handshake-subdomain**: you should create a **A** type record with value `ipfs.namebase.io`, and the same name as the domain you have added. Also you should create a **TXT** type record with `link` for a value, and `_contenthash.<name_of_the_domain>` for name.
-- **ens-domain**: you should create a **CONTENT** type record with `link` for a value, and the same name as the domain you have added.
+- **domain**: you should create a **A** type record with the value `13.248.203.0` and the same name as the domain you have added.
+- **subdomain**: you should create a **CNAME** type record with the value `cname.spheron.io` and the same name as the domain you have added.
+- **handshake-domain**: you should create a **A** type record with the value `ipfs.namebase.io` and `@` for name. Also, you should create a **TXT** type record with the `link` for a value and `_contenthash` for a name.
+- **handshake-subdomain**: you should create a **A** type record with the value `ipfs.namebase.io` and the same name as the domain you have added. Also, you should create a **TXT** type record with the `link` for a value and `_contenthash.<name_of_the_domain>` for a name.
+- **ens-domain**: you should create a **CONTENT** type record with the `link` for a value and the same name as the domain you have added.
 
 ```js
 const bucketDomain: Domain = await client.addBucketDomain(bucketId, {
@@ -409,7 +409,7 @@ const bucketDomain: Domain = await client.addBucketDomain(bucketId, {
 Function `addBucketDomain` takes two parameters:
 
 - **bucketId** - (string) - The id of the bucket.
-- **bucketDetails** - An object with the link, type and name of the bucket to be added.
+- **bucketDetails** - An object with the link, type, and name of the bucket to be added.
 
 After you have setup the record on your DNS provider, then you should call the `verifyBucketDomain` method to verify your domain on Spheron. After the domain is verified, the data behind the link will be cached on the Spheron CDN.
 
@@ -454,7 +454,7 @@ const bucketDomain: Domain = await client.updateBucketDomain(
 Function `updateBucketDomain` takes three parameters:
 
 - **bucketId** - (string) - The id of the bucket.
-- **domainIdentifier** - (string) - It can ether be the id of the domain, or the name of the domain.
+- **domainIdentifier** - (string) - It can either be the id of the domain or the name of the domain.
 - **options** - An object with the link and name of the bucket to be updated.
 
 **Response**
@@ -494,7 +494,7 @@ const domainStatus: Domain = await client.verifyBucketDomain(
 Function `verifyBucketDomain` takes two parameters:
 
 - **bucketId** - (string) - The id of the bucket.
-- **domainIdentifier** - (string) - It can ether be the id of the domain, or the name of the domain.
+- **domainIdentifier** - (string) - It can either be the id of the domain or the name of the domain.
 
 **Response**
 
@@ -547,7 +547,7 @@ await client.deleteBucketDomain(bucketId, domainIdentifier);
 Function `deleteBucketDomain` takes two parameters:
 
 - **bucketId** - (string) - The id of the bucket.
-- **domainIdentifier** - (string) - It can ether be the id of the domain, or the name of the domain.
+- **domainIdentifier** - (string) - It can either be the id of the domain or the name of the domain.
 
 ---
 
@@ -607,7 +607,7 @@ interface BucketRes {
 
 ### Get Bucket Uploads
 
-Used to get the uploads of the bucket. The default value for `skip` is 0. The default value for `limit` is 6.
+Used to get the uploads of the bucket. The default value for the `skip` is 0. The default value for the `limit` is 6.
 
 ```js
 const bucketUploads: Upload[] = await client.getBucketUploads(bucketId, { skip: number; limit: number; });

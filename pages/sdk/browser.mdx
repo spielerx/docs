@@ -25,11 +25,11 @@ yarn add @spheron/browser-upload
 
 ## Usage
 
-The Browser SDK allows you to upload files directly from your browser to `IPFS`, `Filecoin` or `Arweave`. \
+The Browser SDK allows you to upload files directly from your browser to `IPFS`, `Filecoin`, or `Arweave`. \
 To use the Browser SDK, you have to set up the following:
 
-1. A web server that will be used by the frontend to get the `uploadToken` for uploading the data.
-2. A web app that uses `@spheron/browser-upload` to upload files directly from browser.
+1. A web server will be used by the frontend to get the `uploadToken` for uploading the data.
+2. A web app that uses `@spheron/browser-upload` to upload files directly from the browser.
 
 > You can checkout the working example [here](https://github.com/spheronFdn/sdk/tree/main/examples/browser-upload).
 
@@ -112,7 +112,7 @@ import { upload } from "@spheron/browser-upload";
 
 ...
 
-const response = await fetch(`<BACKEND_URL>/initiate-upload`); // get the temporary access token from server
+const response = await fetch(`<BACKEND_URL>/initiate-upload`); // get the temporary access token from the server
 const resJson = await response.json();
 const token =  resJson.uploadToken;
 
@@ -135,9 +135,9 @@ Function `upload` takes two parameters:
 - **files** - ( File[] | FileList ) - An array of files to be uploaded.
 - **configuration:** An object with the following parameters:
   1.  `configuration.token`
-      - The upload token that was fetched from server.
+      - The upload token was fetched from the server.
   2.  `configuration.onChunkUploaded` **(Optional)**
-      - callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. the first one `uploadedSize` represents the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
+      - callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. The first one `uploadedSize` represents the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
 
 **Response**
 
@@ -157,13 +157,13 @@ interface UploadRes {
 
 #### Encrypt Upload
 
-Used to encrypt a string, or a file and upload it to IPFS.
+Used to encrypt a string or a file and upload it to IPFS.
 
 <Callout type="info">
-  **NOTE:** Both the `encryptUpload` functions, require an instance of
-  LitNodeClient that is already connected. To create an instance checkout the
+  **NOTE:** Both the `encryptUpload` functions require an instance of
+  LitNodeClient that is already connected. To create an instance, checkout the
   [@lit-protocol/lit-node-client](https://www.npmjs.com/package/@lit-protocol/lit-node-client)
-  package, or our
+  package or our
   [example](https://github.com/spheronFdn/sdk/blob/main/examples/browser-upload/client/src/lit.ts)
 </Callout>
 
@@ -183,7 +183,7 @@ const { uploadId, bucketId, protocolLink, dynamicLinks } =
 
 Parameters of `encryptUpload`:
 
-- **authSig** - (optional) The authSig of the user. You can use `checkAndSignAuthMessage` function from [@lit-protocol/lit-node-client](https://www.npmjs.com/package/@lit-protocol/lit-node-client) to create it, checkout the [example](https://github.com/spheronFdn/sdk/blob/main/examples/browser-upload/client/src/lit.ts).
+- **authSig** - (optional) The authSig of the user. You can use `checkAndSignAuthMessage` function from [@lit-protocol/lit-node-client](https://www.npmjs.com/package/@lit-protocol/lit-node-client) to create it. Checkout the [example](https://github.com/spheronFdn/sdk/blob/main/examples/browser-upload/client/src/lit.ts).
 - **sessionSigs:** - (optional) the session signatures to use to authorize the user with the nodes.
 - **accessControlConditions** - (optional) The access control conditions that the user must meet to obtain this signed token. This could be possession of an NFT, for example.
 - **evmContractConditions** - (optional) EVM Smart Contract access control conditions that the user must meet to obtain this signed token. This could be possession of an NFT, for example. This is different than accessControlConditions because accessControlConditions only supports a limited number of contract calls. evmContractConditions supports any contract call.
@@ -199,14 +199,14 @@ Parameters of `encryptUpload`:
 - **file** - (optional) The File you wish to encrypt.
 
   <Callout type="info">
-    **NOTE:** The function requires either `string` of `file` parameter to be
+    **NOTE:** The function requires either `string` of `file` parameters to be
     passed.
   </Callout>
 
 - **litNodeClient** - An instance of LitNodeClient that is already connected.
 - **configuration**:
-  - **token** - The upload token that was fetched from server.
-  - **onChunkUploaded** - (optional) callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. the first one `uploadedSize` represents the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
+  - **token** - The upload token was fetched from the server.
+  - **onChunkUploaded** - (optional) callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. The first one `uploadedSize` represents the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
 
 **Response**
 
@@ -233,10 +233,10 @@ interface UploadRes {
 Used to decrypt the data of the previously encrypted upload.
 
 <Callout type="info">
-  **NOTE:** Both the `decryptUpload` functions, require an instance of
-  LitNodeClient that is already connected. To create an instance checkout the
+  **NOTE:** Both the `decryptUpload` functions require an instance of
+  LitNodeClient that is already connected. To create an instance, checkout the
   [@lit-protocol/lit-node-client](https://www.npmjs.com/package/@lit-protocol/lit-node-client)
-  package, or our
+  package or our
   [example](https://github.com/spheronFdn/sdk/blob/main/examples/browser-upload/client/src/lit.ts)
 </Callout>
 
@@ -250,9 +250,9 @@ const decryptedData: Uint8Array = spheron.decryptUpload({
 
 Function `decryptUpload` parameters:
 
-- **authSig** - (optional) The authSig of the user. You can use `checkAndSignAuthMessage` function from [@lit-protocol/lit-node-client](https://www.npmjs.com/package/@lit-protocol/lit-node-client) to create it, checkout the [example](https://github.com/spheronFdn/sdk/blob/main/examples/browser-upload/client/src/lit.ts).
+- **authSig** - (optional) The authSig of the user. You can use `checkAndSignAuthMessage` function from [@lit-protocol/lit-node-client](https://www.npmjs.com/package/@lit-protocol/lit-node-client) to create it Checkout the [example](https://github.com/spheronFdn/sdk/blob/main/examples/browser-upload/client/src/lit.ts).
 - **sessionSigs** - (optional) the session signatures to use to authorize the user with the nodes.
-- **ipfsCid** - The IPFS cid, of the upload that was previously encrypted & uploaded.
+- **ipfsCid** - The IPFS cid of the upload that was previously encrypted & uploaded.
 - **litNodeClient** - An instance of LitNodeClient that is already connected.
 
 **Response**

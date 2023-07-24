@@ -82,7 +82,7 @@ CMD ["rails", "server", "-b", "0.0.0.0"]
 
 ## Step 3: Set default platform for docker build
 
-Docker images built with Apple Silicon (or another **ARM64** based architecture) can create issues when deploying the images to a Linux or Windows based **AMD64** environment.
+Docker images built with Apple Silicon (or another **ARM64** based architecture) can create issues when deploying the images to a Linux or Windows-based **AMD64** environment.
 Before running the docker build command, run this command in your terminal:
 
 ```sh
@@ -94,7 +94,7 @@ export DOCKER_DEFAULT_PLATFORM=linux/amd64
 To build the Docker image:
 
 1. Save the above Dockerfile in the root directory of your Rails app.
-2. Open a terminal and navigate to the root directory of your project where the Dockerfile is located.
+2. Open a terminal and navigate to the root directory of your project, where the Dockerfile is located.
 3. Run the following command to build the Docker image:
 
 ```sh
@@ -145,17 +145,17 @@ docker push YOUR-USER-NAME/railsapp
 
 To run your app on Spheron:
 
-1. Click **New Cluster** on the top right corner.
+1. Click "New Cluster" on the top right corner.
 2. Select **Import from Docker Hub**.
 3. Enter the names for your cluster and docker image.
-4. Then, Add the tag and Click **Next**.
-5. Select the instance plan that suits your needs and Click **Select Plan**.
+4. Then, Add the tag and Click "Next".
+5. Select the instance plan that suits your needs and Click "Select Plan".
 6. Create new **Port Mapping**. Add the container port, and Select the exposed port you want to map it to. [Click here](/compute/cluster/#port-mapping) to know more.
-7. Add **Environment Variables** if any. Use the **Secret Key** toggle if the value is a secret key. When you enable the secret key toggle, it will not be saved in the
+7. Add **Environment Variables**, if any. Use the **Secret Key** toggle if the value is a secret key. When you enable the secret key toggle, it will not be saved in the
    database. [Click here](/compute/cluster/#environment-variables) to know more.
-8. Select your preferred **Region** if any. If you do not add a region, the container will be deployed in any region. [Click here](/compute/cluster/#region) to know more.
+8. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in any region. [Click here](/compute/cluster/#region) to know more.
 9. You can add advanced configuration if required. [Click here](/compute/cluster/#advanced-configuration) to know more.
-10. Click **Deploy** to initiate deployment without additional configuration.
+10. Click "Deploy" to initiate deployment without additional configuration.
 
 <Callout>
   **Troubleshoot:** You can change your plan by clicking Change Plan above the
@@ -172,11 +172,11 @@ The Rails App can be accessed only after the Compute Instance is provisioned.
 Thus, you need to wait for the installation to complete before you can start using the app.
 Your Apps can be verified for successful installation using the instructions below, while others may require different procedures.
 
-Follow these instructions to verify installation:
+Follow these instructions to verify the installation:
 
 - **Attempt to access the app** \
   An App has an estimated deployment time of about 1-2 minutes.
-  If you can successfully access it, the installation has completed successfully.
+  If you can successfully access it, the installation has been completed successfully.
   You can connect using the connection URL of the instance, which will also be provided after the instance is provisioned.
 - **Check instance logs and events** \
   After successfully deploying your Rails App, it will produce logs and events, which you can check for any issues or errors.
@@ -189,7 +189,7 @@ Follow these instructions to verify installation:
   ERROR: exec /usr/local/bin/docker-entrypoint.sh: exec format error
 </Callout>
 
-Docker images built with Apple Silicon (or another **ARM64** based architecture) can create issues when deploying the images to a Linux or Windows based **AMD64** environment.
+Docker images built with Apple Silicon (or another **ARM64** based architecture) can create issues when deploying the images to a Linux or Windows-based **AMD64** environment.
 Before running the docker build command, you must run this command in your terminal:
 
 ```sh

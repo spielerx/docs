@@ -14,7 +14,7 @@ Before you begin, please ensure that you have the following prerequisites instal
 
 ## Installation
 
-Spheron terraform provider can be accessed here:
+Spheron Terraform provider can be accessed here:
 [Spheron Terraform Provider](https://registry.terraform.io/providers/spheronFdn/spheron/latest)
 
 To install the Spheron provider plugin, follow these steps:
@@ -84,7 +84,7 @@ provider "spheron" {
 
 Optional:
 
-- `token` (String) Spheron access token. If left empty provide SPHERON_TOKEN env variable.
+- `token` (String) Spheron access token. If left empty, provide SPHERON_TOKEN env variable.
 
 
 ## Resources and DataSources
@@ -127,20 +127,20 @@ resource "spheron_instance" "instance_test" {
 Required:
 
 - `cluster_name` (String) The name of the cluster.
-- `image` (String) The docker image to deploy. Currently only public dockerhub images are supported.
+- `image` (String) The docker image to deploy. Currently, only public dockerhub images are supported.
 - `ports` (Attributes List) The list of port mappings (see [below for nested schema](/terraform/#nested-schema-for-ports))
-- `region` (String) Region to which to deploy instance. (see [below for available regions](/terraform/#available-regions))
+- `region` (String) Region to which to deploy the instance. (see [below for available regions](/terraform/#available-regions))
 - `replicas` (Number) Number of instance replicas.
 - `storage` (Number) Instance storage in GB. Value cannot exceed 1024GB
-- `tag` (String) The tag of docker image.
+- `tag` (String) The tag of the docker image.
 
 Optional:
 
 - `args` (List of String) List of params for docker CMD command.
 - `commands` (List of String) List of executables for docker CMD command.
 - `cpu` (String) Instance CPU. Available values [0.5, 1, 2, 4, 8, 16, 32].
-- `env` (Attributes Set) The list of environmetnt variables. (see [below for nested schema](/terraform/#nested-schema-for-env))
-- `env_secret` (Attributes Set) The list of secret environmetnt variables. (see [below for nested schema](/terraform/#nested-schema-for-env_secret))
+- `env` (Attributes Set) The list of environment variables. (see [below for nested schema](/terraform/#nested-schema-for-env))
+- `env_secret` (Attributes Set) The list of secret environment variables. (see [below for nested schema](/terraform/#nested-schema-for-env_secret))
 - `health_check` (Attributes) Path and container port on which health check should be done. (see [below for nested schema](/terraform/#nested-schema-for-health_check))
 - `id` (String) Id of the instance.
 - `machine_image` (String) Machine image name which should be used for deploying instance. (see [below for available images](/terraform/#available-machine-images))
@@ -169,7 +169,7 @@ Required:
 
 Optional:
 
-- `exposed_port` (Number) The port container port will be exposed to. Currently only posible to expose to port 80. Leave empty to map to random value. Exposed port will be know and available for use after the deployment.
+- `exposed_port` (Number) The port container port will be exposed to. Currently only possible to expose to port 80. Leave empty to map to a random value. The exposed port will be known and available for use after the deployment.
 
 #### Nested Schema for `health_check`
 
@@ -182,8 +182,8 @@ Required:
 
 Required:
 
-- `class` (String) Storage class. Available classes are HDD, SSD and NVMe
-- `mount_point` (String) Attachement point used fot attaching persistent storage.
+- `class` (String) Storage class. Available classes are HDD, SSD, and NVMe.
+- `mount_point` (String) Attachment point used for attaching persistent storage.
 - `size` (Number) Persistent storage in GB. Value cannot exceed 1024GB
 
 ### Spheron marketplace instance (Resource)
@@ -217,14 +217,14 @@ resource "spheron_marketplace_instance" "market_instance_test" {
 Required:
 
 - `name` (String) The name of the marketplace app. (see [below for available marketplace apps](/terraform/#available-marketplace-apps))
-- `region` (String) Region to which to deploy instance. (see [below for available regions](/terraform/#available-regions))
+- `region` (String) Region to which to deploy the instance. (see [below for available regions](/terraform/#available-regions))
 - `replicas` (Number) Number of instance replicas.
 - `storage` (Number) Instance storage in GB. Value cannot exceed 1024GB
 
 Optional:
 
 - `cpu` (String) Instance CPU. Available values [0.5, 1, 2, 4, 8, 16, 32].
-- `env` (Attributes Set) The list of environmetnt variables. NOTE: Some marketplace apps have required env variables that must be provided. (see [below for nested schema](/terraform/#nested-schema-for-env-1))
+- `env` (Attributes Set) The list of environment variables. NOTE: Some marketplace apps have required env variables that must be provided. (see [below for nested schema](/terraform/#nested-schema-for-env-1))
 - `machine_image` (String) Machine image name which should be used for deploying instance. (see [below for available images](/terraform/#available-machine-images))
 - `memory` (String) Instance Memory in GB. Available values [0.5, 1, 2, 4, 8, 16, 32].
 - `persistent_storage` (Attributes) Persistent storage that will be attached to the instance. (see [below for nested schema](/terraform/#nested-schema-for-persistent_storage-1))
@@ -245,8 +245,8 @@ Required:
 
 Required:
 
-- `class` (String) Storage class. Available classes are HDD, SSD and NVMe
-- `mount_point` (String) Attachement point used fot attaching persistent storage.
+- `class` (String) Storage class. Available classes are HDD, SSD, and NVMe.
+- `mount_point` (String) Attachment point used for attaching persistent storage.
 - `size` (Number) Persistent storage in GB. Value cannot exceed 1024GB
 
 
@@ -255,7 +255,7 @@ Required:
 Read-Only:
 
 - `container_port` (Number) Container port that will be exposed.
-- `exposed_port` (Number) The port container port will be exposed to. Exposed port will be know and available for use after the deployment.
+- `exposed_port` (Number) The port container port will be exposed to. The exposed port will be known and available for use after the deployment.
 
 #### Available marketplace apps
 
@@ -336,14 +336,14 @@ resource "spheron_domain" "domain_test" {
 Required:
 
 - `instance_id` (String) The id of an instance to which to attach the domain.
-- `instance_port` (Number) Container port of the instnace to whict to attach the domain.
+- `instance_port` (Number) Container port of the instance to which to attach the domain.
 - `name` (String) The domain name
 - `type` (String) Type of the domain. Available options are domain and subdomain.
 
 Read-Only:
 
 - `id` (String) Id of the domain.
-- `verified` (Boolean) Is veriffied. True means that the domain is verified and that it will start serving the content
+- `verified` (Boolean) Is verified. True means that the domain is verified and that it will start serving the content
 
 ### Spheron organization (Data Source)
 

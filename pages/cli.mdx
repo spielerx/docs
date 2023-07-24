@@ -3,7 +3,7 @@ import Navigation from "components/navigation";
 
 # Spheron CLI
 
-The Spheron CLI is a Command Line Interface (CLI) tool to create and deploy dapps to web3.
+The Spheron CLI is a Command Line Interface (CLI) tool to create and deploy dApps to web3.
 
 ## Installation
 
@@ -41,7 +41,7 @@ Spheron CLI 1.0.7
 spheron [command]
 
 Commands:
-  spheron login                Logs into yout Spheron account
+  spheron login                Logs into your Spheron account
   spheron logout               Logs out of your account
   spheron upload               Upload
   spheron publish              Upload your project setup in spheron.json
@@ -140,7 +140,7 @@ The `spheron upload` command allows you to directly upload your file/directory t
 spheron upload
 ```
 
-Upon running this command, a prompter will appear that will allow you to add path, select protocol, add project name, and add organization id. Here is how it will look:
+Upon running this command, a prompter will appear that will allow you to add the path, select protocol, add the project name and add the organization id. Here is how it will look:
 
 ```sh
 ? Path to file: (./)
@@ -162,10 +162,10 @@ spheron upload --path {file_path} --protocol {protocol} [--project {project_name
 
 **Arguments**
 
-- `--path` : The location of dir/file that you want to upload. The default path is `./`.
+- `--path` : The location of the dir/file that you want to upload. The default path is `./`.
 - `--protocol` : Choose from `arweave`, `filecoin`, or `ipfs`.
 - `--project` (Optional) : The name of the project. If not provided, the last segment of the path will be taken.
-- `--organization` (Optional) : The `organizationId` to override the existing one. By default, it will take the one received after running `spheron login`.
+- `--organization` (Optional) : The `organizationId` to override the existing one. By default, it will take the one received after running the `spheron login`.
 
 <Callout type="info">
   **NOTE:** The prompter will be opened if all the required arguments are not
@@ -184,7 +184,7 @@ The `spheron init` command allows you to initialize a new Spheron project. A `sp
 spheron init
 ```
 
-Upon running this command, a prompter will appear that will allow you to select protocol, add project name, add path, and select framework. Here is how it will look:
+Upon running this command, a prompter will appear that will allow you to select protocol, add the project name, add path and select framework. Here is how it will look:
 
 ```sh
 ? Project name: (Code)
@@ -282,7 +282,7 @@ The `spheron create-dapp` allows you to create a template project that can be ea
 spheron create-dapp
 ```
 
-Upon running this command, a prompter will appear that will allow you to select protocol, add project name, add path, and select framework. Here is how it will look:
+Upon running this command, a prompter will appear that will allow you to select protocol, add the project name, add path and select framework. Here is how it will look:
 
 ```sh
 ? What type of dapp do you want to create? (Use arrow keys)
@@ -350,7 +350,7 @@ The `spheron create-organization` command allows you to create a new organizatio
 spheron create-organization
 ```
 
-Upon running this command, a prompter will appear that will allow you to add organization name, and add organization username. Here is how it will look:
+Upon running this command, a prompter will appear that will allow you to add organization name and add organization username. Here is how it will look:
 
 ```sh
 ? Name of the organization: (org-593)
@@ -389,7 +389,7 @@ The `spheron configure` command allows you to switch your default organization.
 spheron configure
 ```
 
-Upon running this command, a prompter will appear that will allow you to add organization id. Here is how it will look:
+Upon running this command, a prompter will appear that will allow you to add the organization id. Here is how it will look:
 
 ```sh
 ? Default organization ID:

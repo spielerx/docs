@@ -3,13 +3,13 @@ import Navigation from "components/navigation";
 
 # Spheron API
 
-Spheron API is an API that give users access over our platform, providing all the resources that is available to you, exposed as HTTPS endpoints.
+Spheron API is an API that gives users access over our platform, providing all the resources that are available to you, exposed as HTTPS endpoints.
 
 ## API style
 
 ### REST API
 
-REST API called “Representational State Transfer” and it makes the APIs relatively easy to use and discover. Spheron API is a REST-styled API that makes all data available. REST makes data and functionality available as resources, using unique URLs. To request a data or resource,you just need to provide its URL.
+REST API is called “Representational State Transfer,” and it makes the APIs relatively easy to use and discover. Spheron API is a REST-styled API that makes all data available. REST makes data and functionality available as resources using unique URLs. To request data or resources, you just need to provide its URL.
 
 ## API Basics
 
@@ -19,7 +19,7 @@ Our API is exposed as an HTTP/1 and HTTP/2 service over SSL. All endpoints live 
 ### HTTP and TLS
 
 The API supports HTTP versions 1, 1.1, and 2, although HTTP/2 is preferred.
-TLS versions 1.2 and 1.3 are supported, with resumption.
+TLS versions 1.2 and 1.3 are supported with resumption.
 
 ### Content Type
 
@@ -27,7 +27,7 @@ All requests made to the API must be encoded as JSON with the `Content-Type: app
 
 ### For new users
 
-Before creating an access token for authentication, you need to sync your GitHub or GitLab account to give spheron access. Click here for more instructions about granting access to your repository.
+Before creating an access token for authentication, you need to sync your GitHub or GitLab account to give Spheron access. Click here for more instructions about granting access to your repository.
 
 ## Authentication
 
@@ -45,12 +45,12 @@ Authorization: Bearer <TOKEN>
 
 Access Tokens can be created and managed from inside your account settings.
 
-1. Go to your profile icon in your spheron dashboard app and click on it.
+1. Go to your profile icon in your Spheron dashboard app and click on it.
 2. Click on settings from the image above to go to your settings page and navigate to the Tokens in your Account Settings.
 3. Click Create to open a new Access Token.
-4. Enter a descriptive name and choose the scope from the list of Organization in the drop-down menu and select an expiration date for the token and click create token.
+4. Enter a descriptive name and choose the scope from the list of Organizations in the drop-down menu and select an expiration date for the token, and click create token.
 
-The scope ensures that only your specified Organization can use an Access Token. Once you've created an Access Token securely store the value as it will not be shown again.
+The scope ensures that only your specified Organization can use an Access Token. Once you've created an Access Token, securely store the value, as it will not be shown again.
 
 ## Expiration
 
@@ -65,7 +65,7 @@ If authentication is unsuccessful for a request, the error status code 403 is re
 All endpoints and examples are designated with a specific version. Versions vary per endpoint and are not global.
 The response shape of a certain endpoint is not guaranteed to be fixed over time. In particular, we might add new keys to responses without bumping a version endpoint, which will be noted in the changelog.
 
-To ensure the security and correctness of your application, make sure to only read the keys from the response that your application needs. Don't proxy entire responses to third-parties without validation.
+To ensure the security and correctness of your application, make sure to only read the keys from the response that your application needs. Don't proxy entire responses to third parties without validation.
 Old versions of each endpoint are supported for as long as possible. When we intend to deprecate, we will notify users in the changelog section.
 
 Endpoint versions follow the base URL and come before the endpoint. For example:
@@ -76,7 +76,7 @@ https://api-v2.spheron.network/v1/deployments
 
 ## API response codes
 
-REST APIs use the Status-Line part of an HTTP response message to inform clients of their request’s overarching result. Spheron API uses the standardized status codes from 100 to 511.
+REST APIs use the Status-Line part of an HTTP response message to inform clients of their request’s overarching result. Spheron API uses standardized status codes from 100 to 511.
 
 | Code | Description                                                                                                                                                                                                                                                             |
 | ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -85,6 +85,6 @@ REST APIs use the Status-Line part of an HTTP response message to inform clients
 
 ## API Reference
 
-We have generated a [swagger documentation](https://api-v2.spheron.network/docs/rest-api/) for all the API endpoints that developers can access using their API token.
+We have generated [swagger documentation](https://api-v2.spheron.network/docs/rest-api/) for all the API endpoints that developers can access using their API token.
 
 <Navigation name="Spheron API" />
