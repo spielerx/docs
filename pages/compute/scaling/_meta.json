@@ -1,4 +1,5 @@
 {
   "no-scaling": "No Scaling",
-  "manual": "Manual Scaling"
+  "manual-scaling": "Manual Scaling",
+  "auto-scaling": "Auto Scaling"
 }
