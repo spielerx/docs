@@ -3,6 +3,26 @@ import Navigation from "components/navigation";
 
 # Storage SDK
 
+<Callout type="info">
+  This is the documentation for `@spheron/storage` SDK versions `<2.0.0`. 
+  
+  The `@spheron/storage` SDK `<2.0.0` require a token for a Static Site organization, and all the usages are bound to the provided organization.
+    
+  Static Site organizations that are created after the release of version `2.0.0` will not work with any version of the storage SDK.
+
+If you are using a Static Site organization and wish to migrate your existing buckets to a new Storage organization to take advantage of the latest features and improvements, we have provided a convenient method for this purpose.
+
+- To migrate the buckets of your Static Site organization to your new Storage organization, please refer to the [migrateStaticSiteOrgToStorage](/sdk/storage-v2/#migrate-buckets-from-static-site-organization) method in our documentation. By following the migration process, you can seamlessly transition to the latest version of the SDK and leverage the enhanced features it offers while maintaining your existing data.
+
+- In the following [section](/sdk/storage-v2/#changes-between-200-and-200) you can checkout the changes between `<2.0.0` and `>=2.0.0`.
+
+</Callout>
+
+<Callout type="warning">
+  The support to create buckets and uploads using Static Site organization will
+  be deprecated on 1st of December.
+</Callout>
+
 The Spheron Storage SDK is equipped with multi-chain storage capabilities powered by Spheron.
 
 <Callout type="warning">
@@ -210,6 +230,32 @@ Function `decryptUpload` parameters:
     [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/decrypt.js)
     on how to use the `decryptUpload` function.
   </Callout>
+
+---
+
+### Create Single Upload Token
+
+Used to create a token that can be used to upload data directly from browser, using the [@spheron/browser-upload](https://www.npmjs.com/package/@spheron/browser-upload) package. Checkout the browser-upload [docs](/sdk/browser/) for more information.
+
+```js
+const { uploadToken } = await client.createSingleUploadToken({
+  name: bucketName,
+  protocol,
+});
+```
+
+Function `createSingleUploadToken` takes two parameters:
+
+- **name** - (string) - Represents the name of the bucket on which you are uploading the data.
+- **protocol** - (string) - The protocol on which the data will be uploaded. The supported protocols are [ `ARWEAVE`, `IPFS`, `FILECOIN`].
+
+**Response**
+
+```js
+interface TokenRes {
+  uploadToken: string;
+}
+```
 
 ---
 
