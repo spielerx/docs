@@ -1,4 +1,8 @@
 {
   "buckets": "Buckets",
-  "upload": "Upload"
+  "upload": "Upload",
+  "gateways": {
+    "title": "Dedicated Gateways",
+    "href": "/gateways/dedicated"
+  }
 }
