@@ -42,6 +42,7 @@ export const Pages = [
   ["On Demand", "/compute/type/on-demand"],
   ["Autoscale", "/compute/type/autoscale"],
   ["Plans", "/compute/plans"],
+  ["Upload", "/storage/upload"],
   ["Dedicated Gateways", "/gateways/dedicated"],
   ["Public Gateway", "/gateways/public-gateway"],
   ["Framework Guide", "/framework-guide"],
