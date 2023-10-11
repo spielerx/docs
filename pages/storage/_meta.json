@@ -1,6 +1,11 @@
 {
-  "buckets": "Buckets",
   "upload": "Upload",
+  "buckets": "Buckets",
+  "encryption": "Encryption & Access Control",
+  "billing": "Billing",
+  "migration": "SDK Migration",
+  "comparision": "Browser vs Storage",
+  "rate-limits": "Rate Limits",
   "gateways": {
     "title": "Dedicated Gateways",
     "href": "/gateways/dedicated"
