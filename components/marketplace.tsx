@@ -22,6 +22,7 @@ import JupyterIcon from "../assets/jupyter.svg";
 import VSCodeIcon from "../assets/vscode.svg";
 import MinecraftIcon from "../assets/minecraft.svg";
 import AvailIcon from "../assets/avail.png";
+import TensorFlowIcon from "../assets/tensorflow.svg";
 import ShardeumIcon from "../assets/shardeum.svg";
 import styles from "../styles/framework.module.css";
 
@@ -169,6 +170,12 @@ const MARKETPLACE_APP_LIST = [
     logo: AvailIcon,
     alt: "avail",
     title: "Deploy Avail Node",
+  },
+  {
+    path: "/marketplace-guide/tensorflow",
+    logo: TensorFlowIcon,
+    alt: "tensorflow",
+    title: "Deploy TensorFlow GPU",
   },
   {
     path: "/marketplace-guide/shardeum",
