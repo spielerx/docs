@@ -5,9 +5,13 @@ const withNextra = require("nextra")({
 });
 
 module.exports = withNextra({
-  images: {
-    loader: "akamai",
-    path: "",
+  async redirects() {
+    return [
+      {
+        source: "/sdk/storage-v2",
+        destination: "/sdk/storage",
+        permanent: true,
+      },
+    ];
   },
-  trailingSlash: true,
 });
