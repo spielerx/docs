@@ -118,6 +118,7 @@ export const Pages = [
   ["Deploy Avail Light Client", "/marketplace-guide/avail-light"],
   ["Deploy TensorFlow GPU", "/marketplace-guide/tensorflow"],
   ["Deploy Shardeum Node", "/marketplace-guide/shardeum"],
+  ["Deploy Celestia Light Node", "/marketplace-guide/celestia-light"],
   ["Spheron SDK", "/sdk"],
   ["Storage SDK", "/sdk/storage"],
   ["Browser Upload SDK", "/sdk/browser"],
