@@ -121,6 +121,7 @@ export const Pages = [
   ["Deploy Celestia Light Node", "/marketplace-guide/celestia-light"],
   ["Deploy Elixir Validator Node", "/marketplace-guide/elixir"],
   ["Deploy Fuel Node", "/marketplace-guide/fuel"],
+  ["Deploy Lava Validator Testnet", "/marketplace-guide/lava"],
   ["Spheron SDK", "/sdk"],
   ["Storage SDK", "/sdk/storage"],
   ["Browser Upload SDK", "/sdk/browser"],
