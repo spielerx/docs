@@ -30,5 +30,8 @@
   "celestia-light": "Deploy Celestia Light Node",
   "elixir": "Deploy Elixir Validator Node",
   "fuel": "Deploy Fuel Node",
-  "lava": "Deploy Lava Validator Testnet"
+  "lava": "Deploy Lava Validator Testnet",
+  "babylon": "Deploy Babylon Validator Testnet",
+  "pryzm": "Deploy Pryzm Validator Testnet",
+  "subspace": "Deploy Subspace Node"
 }
