@@ -3,12 +3,6 @@ import styles from "../styles/quick.module.css";
 
 const TYPE_LIST = [
   {
-    path: "/compute/type/spot",
-    emoji: "😢",
-    title: "Spot",
-    body: "Easy instance setup.",
-  },
-  {
     path: "/compute/type/on-demand",
     emoji: "🚀",
     title: "On Demand",

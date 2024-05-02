@@ -26,7 +26,7 @@ To create a cluster:
 4. Select **Import from Docker Hub**.
 5. Enter the names for your cluster and docker image.
 6. Then, Add the tag and Click "Next."
-7. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for **Spot**, or in the **eu-east** region for **On Demand**. [Click here](/compute/cluster/compute/#region) to know more.
+7. When selecting a region, we recommend starting by trying to deploy in a region closer to you. If you encounter any issues, you can consider switching to other regions. Choosing a region closer to you can improve performance and reduce latency. [Click here](/compute/cluster/compute/#region) to know more.
 8. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, Create new Port Policy Mapping and just Click "Deploy" to initiate deployment.
 9. Select the instance plan that suits your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
 10. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
@@ -55,20 +55,12 @@ Spheron offers the following regions for you to choose from:
 - eu-west
 - any
 
-<Callout type="info">
-  **NOTE:** It is recommended to select **any** region for **Spot** to get
-  higher chances of successful deployment as it will deploy on any providers in
-  the network.
-</Callout>
-
 #### On Demand
 
 For On Demand deployments, we only have **eu-east** region live right now.
 
 <Callout type="info">
-  **NOTE:** <br />
-  For Spot, the region will be set to **any** by default. <br />
-  For On Demand, the region will be set to **eu-east** by default.
+  **NOTE:** For On Demand, the region will be set to **eu-east** by default.
 </Callout>
 
 ### Additional Configuration
@@ -124,7 +116,7 @@ To configure Health Checkup:
 
 ## Deploy from Marketplace App
 
-Spheron allows you to deploy a compute instance pre-installed with various applications, all setup and ready to use on the Akash Network.
+Spheron allows you to deploy a compute instance pre-installed with various applications, all setup and ready to use.
 To deploy a marketplace app:
 
 1. Click "New Cluster" on the top right corner.
@@ -132,7 +124,7 @@ To deploy a marketplace app:
 3. Choose your desired Compute Type option under **Compute Type**.
 4. Select **Start from Marketplace App**.
 5. Pick your desired template from the marketplace.
-6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for **Spot**, or in the **eu-east** region for **On Demand**. [Click here](/compute/cluster/compute/#region) to know more.
+6. When selecting a region, we recommend starting by trying to deploy in a region closer to you. If you encounter any issues, you can consider switching to other regions. Choosing a region closer to you can improve performance and reduce latency. [Click here](/compute/cluster/compute/#region) to know more.
 7. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, just Click "Deploy" to initiate deployment.
 8. Select the instance plan that suits your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
 9. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
