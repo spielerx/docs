@@ -3,22 +3,22 @@ import styles from "../styles/quick.module.css";
 
 const QUICK_START_LIST = [
   {
-    path: "/billing",
-    emoji: "💸",
-    title: "Billing",
-    body: "Upgrade to Pro to enjoy additional benefits.",
-  },
-  {
-    path: "/organization",
-    emoji: "🗂️",
-    title: "Organization",
-    body: "Learn how to create multiple organizations.",
+    path: "/protocol/architecture",
+    emoji: "🛠️",
+    title: "Spheron Protocol",
+    body: "Everything about the Protocol.",
   },
   {
     path: "/compute",
     emoji: "✈️",
     title: "Compute",
     body: "Deploy compute instances with one click.",
+  },
+  {
+    path: "/billing",
+    emoji: "💸",
+    title: "Billing",
+    body: "Upgrade to Pro to enjoy additional benefits.",
   },
   {
     path: "/server-guide",
@@ -31,6 +31,12 @@ const QUICK_START_LIST = [
     emoji: "🏪",
     title: "Marketplace Guide",
     body: "Deploy pre-installed apps and develope fast.",
+  },
+  {
+    path: "/organization",
+    emoji: "🗂️",
+    title: "Organization",
+    body: "Learn how to create multiple organizations.",
   },
   {
     path: "/rest-api",
@@ -49,12 +55,6 @@ const QUICK_START_LIST = [
     emoji: "🌀",
     title: "Github Actions",
     body: "Actions for working with Clusters.",
-  },
-  {
-    path: "/terraform",
-    emoji: "⚙️",
-    title: "Spheron Terraform",
-    body: "Deploy compute instances with Terraform.",
   },
 ];
 
