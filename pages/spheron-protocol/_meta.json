@@ -1,5 +1,6 @@
 {
   "service-provider": "Service Provider",
   "deployment-lifecycle": "Deployment lifecycle",
-  "payment-system": "Payment System"
+  "payment-system": "Payment System",
+  "icl": "Infrastructure Composition Language (ICL)"
 }

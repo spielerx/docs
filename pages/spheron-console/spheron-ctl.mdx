@@ -1,0 +1,519 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+
+# Spheron CTL CLI
+
+Explore detailed steps and options of the Spheron CTL CLI. In this guide we will define each environment variable and use within each command.
+
+## Install Spheron CLI (Linux, MacOS)
+
+### Prerequisites
+
+To install Spheron CLI using script, make sure you have [`curl`](https://curl.se/) installed on your system. To check, quickly:
+
+```sh
+curl --version
+```
+
+### Install Spheron CLI
+
+1. To install the Spheron CLI on the system, just run this one command in your terminal:
+
+```sh
+curl -sL1 spheron.sh | bash
+```
+
+2. Move the Spheron Binary
+
+```sh
+# Move the binary file into a directory included in your path
+sudo mv ./bin/spheronctl /usr/local/bin
+
+```
+
+3. Verify Spheron Installation
+
+```sh
+# Verify the installation by using a simple command to check the Spheron version
+spheronctl --version
+
+# Expect/Example Output
+Spheron v0.0.1
+```
+
+## Wallet Configurations
+
+### Creating a Wallet
+
+To create a new wallet, start by configuring the name of your key. Run the command below, replacing `[wallet name]` with a name of your choice:
+
+```sh
+
+spheronctl keys create [wallet name]
+```
+
+Make sure to read the output carefully and save your mnemonic phrase and key secret in a secure location. 
+
+Once created, the wallet will be saved locally at `~/.spheron`. You can access the key-secret of the current wallet in `~/.spheron/config.json`. 
+The newly created wallet will automatically be set as the current wallet. If needed, you can change the wallet by following the instructions in the "Changing Your Wallet" section.
+
+### Checking the Current Wallet
+
+To see which wallet is currently in use for deployments, run the following command:
+
+```sh
+spheronctl keys current
+```
+
+Here is an example of how the result will look:
+
+```sh
+path: /Users/mitrasish-personal/.spheron/abc.json
+address: 0x2c11A76298A111B8cAASCCS205dc8f0A268ASCS
+passphrase: testPaxxxx
+```
+
+### Changing Your Wallet
+
+If you need to switch to a different wallet, use the command below, providing the name and the key-secret of the new wallet:
+
+```sh
+spheronctl keys use --name [wallet name] --key-secret [key secret]
+```
+
+Here is an example of how the result will look:
+
+```sh
+path: /Users/mitrasish-personal/.spheron/acbv.json
+address: 0x2c11A76298A111B8cAAvvvvvv05dc8f0A268ASCS
+passphrase: test
+```
+This will update the current wallet to the specified one.
+
+## Account Overview
+
+You need to fund your wallet with some ETH to deploy anything on Spheron. We are currently deployed on Arbitrum chain, you can try getting some ETH from the faucet or buy it from the market to pay for the transaction fees.
+
+### Depositing Balance
+
+You need to deposit some minimum balance of any token to your account before doing any deployment. Any deployment on Spheron need user to deposit some amount of token that is used for the deployment otherwise the deployment will not start. To deposit a specific token like USDT, you need to run this command:
+
+```sh
+spheronctl payment deposit --amount [amount] --token [token name]
+```
+Here is an example of how the result will look:
+
+```sh
+Successfully deposited [amount] [token name]! Start deploying!!!
+```
+The amount you pass need to be in full precision i.e if the USDT has 6 precision then the amount of 1 USDT will be 1000000.
+
+<Callout type="info">
+**Note:** There is a restriction on minimum of 15$ deposited funds in your account of any token to start any deployment
+</Callout>
+
+
+### Withdrawing Balance
+
+To withdraw a specific token, you need to run this command:
+
+```bash
+spheronctl payment withdraw --amount [amount] --token [token name]
+```
+
+Here is an example of how the result will look:
+
+```bash
+    Successfully withdrawn [amount] [token name]! 
+    Tx hash: 0xefd43a8031cf281ef743691d25c3b7bf60211b2093668dd573ccc15e86ff7407
+    
+    If you want to deposit some other token, Please do this:
+    spheronctl payment deposit --amount [amount] --token [token address]
+ ```
+
+The amount you pass need to be in full precision i.e if the USDT has 6 precision then the amount of 1 USDT will be 1000000.
+
+
+### Checking your Account Balance
+Check your account has sufficient balance by running:
+
+```sh
+spheronctl payment balance --token [token name]
+```
+​
+Here is an example of how the result will look:
+
+```sh
+This is your current balance for this token [token address]:
+ Total: 443064994100000000
+
+Deposited USDT balance
+ Unlocked: 22929459
+ Locked: 4164    
+```
+
+### Listing All the Payment Tokens
+To find all the payment tokens that are registered in Spheron Protocol, you need to run this command to fetch them:
+
+```sh
+spheronctl payment tokens
+​```
+
+Here is an example of how the result will look:
+
+```sh
+Available tokens:
+Denom: SPH, Precision: 18, TokenAddress: 0x0000000000000000000000000000000000000000
+Denom: USDT, Precision: 6, TokenAddress: 0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292
+```
+
+## Create your Configuration
+
+Create a deployment configuration **deploy.yaml** to deploy the `jupyter/minimal-notebook` for Jupyter Notebook container using ICL.
+
+You can use cURL to download the file:
+
+```bash
+curl -s https://spheron.network/icl-examples/deploy.yml > deploy.yml
+```
+
+### Modify your Configuration
+
+You may use the sample deployment file as-is or modify it for your own needs as described in our ICL **(Infrastructure Composition Language)** documentation. A typical modification would be to reference your own image instead of our demo app image.
+
+EXAMPLE CONFIGURATION:
+
+```sh
+cat > deploy.yml <<EOF
+---
+version: "2.0"
+
+services:
+  web:
+    image: jupyter/minimal-notebook:latest
+    expose:
+      - port: 8888
+        as: 8888
+        to:
+          - global: true
+    env:
+      - TEST=test
+
+profiles:
+  compute:
+    web:
+      resources:
+        cpu:
+          units: 0.5
+        memory:
+          size: 1Gi
+        storage:
+          size: 1Gi
+  placement:
+    westcoast:
+      attributes:
+        region: us-east
+      pricing:
+        web:
+          denom: USDT
+          amount: 500000
+
+deployment:
+  web:
+    westcoast:
+      profile: web
+      count: 1
+      
+EOF
+```
+
+## Deployment Overview
+
+### Create your Deployment
+To deploy on Spheron, run:
+
+```sh
+spheronctl deployment create deploy.yml --duration [Duration of running]
+```
+
+Here is an example of how the result will look:
+
+```sh
+Checking ballance for wallet: 0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8
+Validating SDL configuration.
+SDL validated.
+Sending configuration for provider matching.
+Waiting for providers to bid on the deployment order...
+Bid found.
+Order matched successfully.
+Deployment created using wallet 0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8
+ lid: 44
+ provider: 0x6634d41cccBD1E1576Ed4c6226832521A66bF874
+ agreed price: 158747943694
+Sending the manifest for deployment…
+Deployment manifest sent, waiting for acknowledgment.
+Deployment is finished.
+```
+
+The `lid` that we get from the deployment is called Lease ID. This is the identifier that you need to use to access your deployment’s logs, and status. During the deployment you also pass duration to run the deployment which will be in 1s, 1min, 1h, 1d, 1mon, & 1y. This will specify how much time the lease need to run and accordingly lock funds to continue to run the deployment. When you close the deployment prematurely, then you will unlock the amount that has not been spent.
+
+### Fetch Deployment Details
+To fetch your deployment / lease details, you need to run this command to fetch it:
+
+This will contain URL to access the deployment server, all the assigned ports and the URI to access it. With this you can check your deployment status.
+
+```sh
+spheronctl deployment get --lid [Lease ID] 
+```
+
+Here is an example of how the result will look:
+
+```sh
+Here is the status of the Lease ID: 101
+Services running:
+  web
+    URL: []
+    Ports:
+      - provider.provider.devnetasphn.com:8888 -> 42100 (TCP)
+    Replicas: 1/1 available, 1 ready
+    Host URI: provider.devnetasphn.com
+    Region: us-east
+    IPs: []
+```
+
+### Fetch Deployment Logs
+To fetch your deployment’s logs, you need to run this command to fetch it:
+
+```sh
+spheronctl deployment logs --lid [Lease ID]
+```
+
+Here is an example of how the result will look:
+
+```sh
+Here is the logs for the Lease ID: 101
+
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] Entered start.sh with args: jupyter lab
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] Running hooks in: /usr/local/bin/start-notebook.d as uid: 1000 gid: 100
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] Done running hooks in: /usr/local/bin/start-notebook.d
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] Running hooks in: /usr/local/bin/before-notebook.d as uid: 1000 gid: 100
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] Done running hooks in: /usr/local/bin/before-notebook.d
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] Executing the command: jupyter lab
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:39.753 ServerApp] Package jupyterlab took 0.0000s to import
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:39.776 ServerApp] Package jupyter_lsp took 0.0222s to import
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [W 2024-07-02 15:19:39.776 ServerApp] A `_jupyter_server_extension_points` function was not found in jupyter_lsp. Instead, a `_jupyter_server_extension_paths` function was found and will be used for now. This function name will be deprecated in future releases of Jupyter Server.
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:39.832 ServerApp] Package jupyter_server_terminals took 0.0560s to import
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:39.837 ServerApp] Package nbclassic took 0.0043s to import
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [W 2024-07-02 15:19:39.841 ServerApp] A `_jupyter_server_extension_points` function was not found in nbclassic. Instead, a `_jupyter_server_extension_paths` function was found and will be used for now. This function name will be deprecated in future releases of Jupyter Server.
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:39.841 ServerApp] Package notebook took 0.0000s to import
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:39.846 ServerApp] Package notebook_shim took 0.0000s to import
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [W 2024-07-02 15:19:39.846 ServerApp] A `_jupyter_server_extension_points` function was not found in notebook_shim. Instead, a `_jupyter_server_extension_paths` function was found and will be used for now. This function name will be deprecated in future releases of Jupyter Server.
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:39.847 ServerApp] jupyter_lsp | extension was successfully linked.
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:39.855 ServerApp] jupyter_server_terminals | extension was successfully linked.
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:39.864 ServerApp] jupyterlab | extension was successfully linked.
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:39.870 ServerApp] nbclassic | extension was successfully linked.
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:39.877 ServerApp] notebook | extension was successfully linked.
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:39.931 ServerApp] Writing Jupyter server cookie secret to /home/jovyan/.local/share/jupyter/runtime/jupyter_cookie_secret
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:40.649 ServerApp] notebook_shim | extension was successfully linked.
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:40.677 ServerApp] notebook_shim | extension was successfully loaded.
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:40.732 ServerApp] jupyter_lsp | extension was successfully loaded.
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:40.733 ServerApp] jupyter_server_terminals | extension was successfully loaded.
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:40.735 LabApp] JupyterLab extension loaded from /opt/conda/lib/python3.11/site-packages/jupyterlab
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:40.735 LabApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:40.736 LabApp] Extension Manager is 'pypi'.
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:40.739 ServerApp] jupyterlab | extension was successfully loaded.
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:40.744 ServerApp] nbclassic | extension was successfully loaded.
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:40.747 ServerApp] notebook | extension was successfully loaded.
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:40.748 ServerApp] Serving notebooks from local directory: /home/jovyan
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:40.748 ServerApp] Jupyter Server 2.8.0 is running at:
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:40.748 ServerApp] http://web-65cc59bb99-bq78t:8888/lab?token=ad8463c28bf7ee346f2a707da463eb7ada77129d4c63637a
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:40.748 ServerApp]     http://127.0.0.1:8888/lab?token=ad8463c28bf7ee346f2a707da463eb7ada77129d4c63637a
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:40.748 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [C 2024-07-02 15:19:40.752 ServerApp]
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t]
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t]     To access the server, open this file in a browser:
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t]         file:///home/jovyan/.local/share/jupyter/runtime/jpserver-7-open.html
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t]     Or copy and paste one of these URLs:
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t]         http://web-65cc59bb99-bq78t:8888/lab?token=ad8463c28bf7ee346f2a707da463eb7ada77129d4c63637a
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t]         http://127.0.0.1:8888/lab?token=ad8463c28bf7ee346f2a707da463eb7ada77129d4c63637a
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:42.460 ServerApp] Skipped non-installed server(s): bash-language-server, dockerfile-language-server-nodejs, javascript-typescript-langserver, jedi-language-server, julia-language-server, pyright, python-language-server, python-lsp-server, r-languageserver, sql-language-server, texlab, typescript-language-server, unified-language-server, vscode-css-languageserver-bin, vscode-html-languageserver-bin, vscode-json-languageserver-bin, yaml-language-server
+```
+There are some other options that you can use to stream logs or change output format, etc. 
+
+### Other Options:
+
+| Option          | Default   | Description                                                                                                             |
+|-----------------|-----------|---------------------------------------------------------------------------------------|
+| `-f, --follow`  |           | Follow log output                                                                     |
+| `-o, --output`  | 'text'    | Output format `text | json`. Defaults to text (default "text")                        |
+| `-t, --tail`    | `all`     | The number of lines from the end of the logs to show. Defaults to `all`.              |
+| `--service`     | No        | Name of service you want specifically query the logs from.                            |
+
+### Fetch Deployment Events
+
+To fetch your deployment’s events, you need to run this command to fetch it:
+
+```sh
+spheronctl deployment events --lid [Lease ID]
+```
+Here is an example of how the result will look:
+
+```sh
+Here is the logs for the Lease ID: 101
+
+{
+  "type": "Normal",
+  "reportingController": "default-scheduler",
+  "reportingInstance": "default-scheduler-provider.devnetasphn.com",
+  "reason": "Scheduled",
+  "note": "Successfully assigned 48qqj898n07hat4i3gkjfufcnpmej2hssi2hd0tjk7ua6/web-65cc59bb99-bq78t to spheron-node2",
+  "object": {
+    "kind": "Pod",
+    "namespace": "48qqj898n07hat4i3gkjfufcnpmej2hssi2hd0tjk7ua6",
+    "name": "web-65cc59bb99-bq78t"
+  },
+  "lease_id": {
+    "owner": "0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8",
+    "dseq": 46,
+    "gseq": 1,
+    "oseq": 1,
+    "provider": "0x6634d41cccBD1E1576Ed4c6226832521A66bF874"
+  }
+}
+{
+  "type": "Normal",
+  "reportingController": "kubelet",
+  "reportingInstance": "spheron-node2",
+  "reason": "Pulled",
+  "note": "Container image \"jupyter/minimal-notebook:latest\" already present on machine",
+  "object": {
+    "kind": "Pod",
+    "namespace": "48qqj898n07hat4i3gkjfufcnpmej2hssi2hd0tjk7ua6",
+    "name": "web-65cc59bb99-bq78t"
+  },
+  "lease_id": {
+    "owner": "0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8",
+    "dseq": 46,
+    "gseq": 1,
+    "oseq": 1,
+    "provider": "0x6634d41cccBD1E1576Ed4c6226832521A66bF874"
+  }
+}
+{
+  "type": "Normal",
+  "reportingController": "kubelet",
+  "reportingInstance": "spheron-node2",
+  "reason": "Created",
+  "note": "Created container web",
+  "object": {
+    "kind": "Pod",
+    "namespace": "48qqj898n07hat4i3gkjfufcnpmej2hssi2hd0tjk7ua6",
+    "name": "web-65cc59bb99-bq78t"
+  },
+  "lease_id": {
+    "owner": "0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8",
+    "dseq": 46,
+    "gseq": 1,
+    "oseq": 1,
+    "provider": "0x6634d41cccBD1E1576Ed4c6226832521A66bF874"
+  }
+}
+{
+  "type": "Normal",
+  "reportingController": "kubelet",
+  "reportingInstance": "spheron-node2",
+  "reason": "Started",
+  "note": "Started container web",
+  "object": {
+    "kind": "Pod",
+    "namespace": "48qqj898n07hat4i3gkjfufcnpmej2hssi2hd0tjk7ua6",
+    "name": "web-65cc59bb99-bq78t"
+  },
+  "lease_id": {
+    "owner": "0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8",
+    "dseq": 46,
+    "gseq": 1,
+    "oseq": 1,
+    "provider": "0x6634d41cccBD1E1576Ed4c6226832521A66bF874"
+  }
+}
+{
+  "type": "Normal",
+  "reportingController": "replicaset-controller",
+  "reason": "SuccessfulCreate",
+  "note": "Created pod: web-65cc59bb99-bq78t",
+  "object": {
+    "kind": "ReplicaSet",
+    "namespace": "48qqj898n07hat4i3gkjfufcnpmej2hssi2hd0tjk7ua6",
+    "name": "web-65cc59bb99"
+  },
+  "lease_id": {
+    "owner": "0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8",
+    "dseq": 46,
+    "gseq": 1,
+    "oseq": 1,
+    "provider": "0x6634d41cccBD1E1576Ed4c6226832521A66bF874"
+  }
+}
+{
+  "type": "Normal",
+  "reportingController": "deployment-controller",
+  "reason": "ScalingReplicaSet",
+  "note": "Scaled up replica set web-65cc59bb99 to 1",
+  "object": {
+    "kind": "Deployment",
+    "namespace": "48qqj898n07hat4i3gkjfufcnpmej2hssi2hd0tjk7ua6",
+    "name": "web"
+  },
+  "lease_id": {
+    "owner": "0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8",
+    "dseq": 46,
+    "gseq": 1,
+    "oseq": 1,
+    "provider": "0x6634d41cccBD1E1576Ed4c6226832521A66bF874"
+  }
+}
+```
+
+There are some other options that you can use to stream events or change output format, etc. 
+
+### Other Options:
+
+| Option          | Default   | Description                                                                                                             |
+|-----------------|-----------|---------------------------------------------------------------------------------------|
+| `-f, --follow`  |           | Follow log output                                                                     |
+| `-t, --tail`    | 'all'     | The number of lines from the end of the logs to show. Defaults to 'all'.              |
+| `--service`     | No        | Name of service you want specifically query the logs from.                            |
+
+
+### Connect to Deployment Shell
+To connect to your deployment’s shell access, you need to run this command to fetch it:
+
+```sh
+spheronctl deployment shell --lid [Lease ID]
+```
+​
+### Update the Deployment
+Update the `deploy.yml` manifest file with the desired change.
+
+<Callout type="info">
+**NOTE:** Not all attributes of the manifest file are eligible for deployment update. If the ports are changed, a re-deployment of the workload is necessary. Other attributes, such as specs, deployment image and environment, are eligible for updates.
+</Callout>
+
+```sh
+spheronctl deployment update --lid [Lease ID]
+​```
+
+### Close Deployment
+Should you need to close the deployment follow this step.
+
+```sh
+spheronctl deployment close --lid [Lease ID]
+```
+Here is an example of how the result will look:
+
+```sh
+Close request sent to provider!
+```
+
+<Navigation name="Spheron CTL CLI" />
