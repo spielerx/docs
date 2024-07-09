@@ -2,5 +2,10 @@
   "service-provider": "Service Provider",
   "deployment-lifecycle": "Deployment lifecycle",
   "payment-system": "Payment System",
-  "icl": "Infrastructure Composition Language (ICL)"
+  "icl": "Infrastructure Composition Language (ICL)",
+  "provider-onboarding": "Provider Onboarding",
+  "protocol-cli": {
+    "title": "Spheron Protocol CLI",
+    "href": "/spheron-cli/protocol-cli"
+  }
 }

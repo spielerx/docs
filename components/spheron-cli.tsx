@@ -3,20 +3,20 @@ import styles from "../styles/quick.module.css";
 
 const CLUSTER_TYPE_LIST = [
   {
-    path: "/spheron-console/spheron-cli",
+    path: "/spheron-cli/cloud-cli",
     emoji: "🖥️",
-    title: "Spheron CLI",
-    body: "Spheron CLI is a Command Line Interface tool",
+    title: "Cloud CLI",
+    body: "Cloud CLI is for CLoud API interaction.",
   },
   {
-    path: "/spheron-console/spheron-ctl",
+    path: "/spheron-cli/protocol-cli",
     emoji: "🛠️",
-    title: "Spheron CTL CLI",
-    body: "Spheron CTL CLI",
+    title: "Protocol CLI",
+    body: "Protocol CLI is for Protocol interaction.",
   },
 ];
 
-const SpheronConsole = () => {
+const SpheronCLI = () => {
   return (
     <main>
       <section className={styles.section}>
@@ -34,4 +34,4 @@ const SpheronConsole = () => {
   );
 };
 
-export default SpheronConsole;
+export default SpheronCLI;

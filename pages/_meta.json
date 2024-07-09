@@ -10,7 +10,7 @@
   "server-guide": "Server Guide",
   "marketplace-guide": "Marketplace Guide",
   "sdk": "Spheron SDK",
-  "spheron-console": "Spheron Console",
+  "spheron-cli": "Spheron CLI",
   "rest-api": "Spheron API",
   "github-actions": "Github Actions",
   "terraform": "Spheron Terraform",
