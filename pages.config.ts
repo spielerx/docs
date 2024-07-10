@@ -1,7 +1,7 @@
 export const Pages = [
   ["Getting Started", "/"],
   ["Spheron Protocol", "/spheron-protocol"],
-  ["Service Provider", "/spheron-protocol/service-provider"],
+  ["Providers", "/spheron-protocol/service-provider"],
   ["Deployment Lifecycle", "/spheron-protocol/deployment-lifecycle"],
   ["Payment System", "/spheron-protocol/payment-system"],
   ["Infrastructure Composition Language", "/spheron-protocol/icl"],
