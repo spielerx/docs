@@ -24,7 +24,7 @@ To install Ansible on a Mac, you can use various methods such as Homebrew, pip, 
 If you haven't installed Homebrew yet, open Terminal and run:
 
 ```
-/bin/bash -c "$(curl -fsSL <https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)>"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 ### Install Ansible
@@ -33,6 +33,14 @@ Once Homebrew is installed, run:
 ```
 brew install ansible
 ```
+Alternatively, if you have Python installed, you can use:
+
+```
+pip install ansible
+```
+
+For other distributions, refer to the [Ansible Community Documentation](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html) for specific installation instructions.
+
 ### Verify the Installation
 Check the version of Ansible to confirm it's installed:
 

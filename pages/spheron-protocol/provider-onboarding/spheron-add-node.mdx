@@ -1,0 +1,203 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+
+# Adding Nodes to a Spheron Cluster
+
+This document provides step-by-step instructions for adding both CPU and GPU nodes to a Spheron cluster. It includes preparations, script modifications, and necessary commands to ensure successful integration and functionality of the nodes within the cluster.
+
+1. [Adding a CPU Node](/spheron-protocol/provider-onboarding/spheron-add-node#adding-a-cpu-node)
+2. [Adding a GPU Node](/spheron-protocol/provider-onboarding/spheron-add-node#adding-a-gpu-node)
+
+## Adding a CPU Node
+To add a CPU node to your Spheron cluster, follow these steps:
+
+### Prepare the Node:
+
+1. Prepare a node for the installation using Ansible from the [earlier step](/spheron-protocol/provider-onboarding/setup-ansible).
+2. When prompted, select `no` when asked if this is the first node.
+3. SSH into the first node (master node)of the cluster and follow the steps.
+4. Use `add-agent.sh` for adding the node run following commands:
+
+```sh
+sudo su spheron
+wget -q https://raw.githubusercontent.com/spheronFdn/provider-deployment/devnet/scripts/add-agent.sh
+```
+
+5. Edit the Master node IP and Child node IPs in the script. Use vim or nano editor to edit these lines.
+
+```sh
+SPHERON_NODE1_IP=134.195.196.81 # your master node
+
+# all you child nodes
+nodes=(
+    ["spheron-node2"]="134.195.196.213" ## add nodes like this in the list
+)
+
+```
+6. Run the script on master node:
+
+```sh
+sudo chmod +x add-agent.sh
+./add-agent.sh
+```
+
+## Adding a GPU Node
+
+### Prepare the Node:
+
+1. Prepare a node for the installation using Ansible from the [earlier step](/spheron-protocol/provider-onboarding/setup-ansible).
+2. When prompted, select `no` when asked if this is the first node.
+3. This process will install the necessary GPU drivers and some additional scripts.
+4. SSH into the first node (master node)of the cluster and follow the steps.
+5. Use `add-agent.sh` for adding the node run following commands:
+
+```sh
+sudo su spheron
+wget -q https://raw.githubusercontent.com/spheronFdn/provider-deployment/devnet/scripts/add-agent.sh
+```
+
+6. Edit the Master node IP and Child node IPs in the script. Use vim or nano editor to edit these lines.
+
+```sh
+SPHERON_NODE1_IP=134.195.196.81 # your master node
+
+# all you child nodes
+nodes=(
+    ["spheron-node2"]="134.195.196.213" ## add nodes like this in the list
+)
+```
+
+7. Run the script on master node:
+
+```sh
+sudo chmod +x add-agent.sh
+./add-agent.sh
+```
+
+8. Now run these commands to install the Nvidia driver.
+
+```sh
+sudo su spheron
+helm repo add nvidia https://helm.ngc.nvidia.com/nvidia
+helm repo add nvdp https://nvidia.github.io/k8s-device-plugin
+
+helm repo update
+
+kubectl apply -f /home/spheron/gpu-nvidia-runtime-class.yaml
+
+helm upgrade -i nvdp nvdp/nvidia-device-plugin \
+  --namespace nvidia-device-plugin \
+  --create-namespace \
+  --version 0.14.5 \
+  --set runtimeClassName="nvidia"
+```
+
+9. Create this configuration using the root user:
+
+```sh
+sudo su 
+
+# Create NVIDIA RuntimeClass
+cat > /home/spheron/gpu-nvidia-runtime-class.yaml <<EOF
+kind: RuntimeClass
+apiVersion: node.k8s.io/v1
+metadata:
+  name: nvidia
+handler: nvidia
+EOF
+```
+
+10. **Now login on to the New Node** and Check if this file is present or not `/etc/rancher/k3s/config.yaml` 
+
+- Check command:  `cat /etc/rancher/k3s/config.yaml` 
+- If the above command doesn't show any output create the file using the following command.
+
+```sh
+cat > /etc/rancher/k3/config.yaml <<'EOF'
+containerd_additional_runtimes:
+  - name: nvidia
+    type: "io.containerd.runc.v2"
+    engine: ""
+    root: ""
+    options:
+      BinaryName: '/usr/bin/nvidia-container-runtime'
+EOF
+```
+
+11. Restart k3s to apply the new configuration: 
+
+```sh
+sudo systemctl restart k3s
+```
+
+## Test GPU Configuration from the Master Node
+
+1. **Come back to the master node** Now create a GPU test pod to check if the GPU is configured successfully with Kubernetes.
+
+```sh
+cat > gpu-test-pod.yaml << EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nbody-gpu-benchmark
+  namespace: default
+spec:
+  restartPolicy: OnFailure
+  runtimeClassName: nvidia
+  containers:
+  - name: cuda-container
+    image: nvcr.io/nvidia/k8s/cuda-sample:nbody
+    args: ["nbody", "-gpu", "-benchmark"]
+    resources:
+      limits:
+        nvidia.com/gpu: 1
+    env:
+    - name: NVIDIA_VISIBLE_DEVICES
+      value: all
+    - name: NVIDIA_DRIVER_CAPABILITIES
+      value: all
+EOF
+
+kubectl apply -f gpu-test-pod.yaml
+echo "Waiting 60 seconds for the test pod to start..."
+sleep 60
+kubectl get pods -A -o wide
+kubectl logs nbody-gpu-benchmark
+kubectl delete pod nbody-gpu-benchmark
+```
+
+## Label GPU Nodes
+
+1. We need to add some labels to the GPU nodes `spheron.network/capabilities.gpu.vendor.nvidia.model.[gpumodel]=true` to activate GPU.
+2. Find the GPU model of the node using this command:
+
+```sh
+nvidia-smi --query-gpu=gpu_name --format=csv,noheader
+
+## Example Output
+TESLA P4
+```
+
+3. To apply the label use the following command
+
+```sh
+kubectl label node [spheron-node2] [spheron.network/capabilities.gpu.vendor.nvidia.model.p4=1]
+```
+
+## Update Provider Capabilities
+
+1. Update the capabilities of the provider.
+
+```sh
+spheron provider add --from ~/.spheron/wallet.json --key-secret testPassword --payment-token 0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292 --region [us-central-devnet] --domain [provider.devnetcsphn.com] --attributes ["region=us-central-devnet,capabilities/gpu/vendor/nvidia/model/p4=true"]
+```
+
+2. Restart the provider to apply new capabilities.
+
+```sh
+kubectl rollout restart statefulset/spheron-provider -n spheron-services
+```
+
+3. Now you provider should have GPU working.
+
+<Navigation name="Adding Nodes to a Spheron Cluster" />

@@ -52,7 +52,7 @@ cd /home/spheron
 
 export KUBECONFIG=/home/spheron/.kube/kubeconfig
 
-git clone  https://github.com/spheronFdn/provider-helm-charts.git
+git clone https://github.com/spheronFdn/provider-helm-charts.git
 cd provider-helm-charts
 git checkout devnet-spheron
 cd charts
@@ -64,10 +64,11 @@ helm repo add nvidia https://helm.ngc.nvidia.com/nvidia
 helm repo update
 
 kubectl create ns spheron-services
-kubectl label ns spheron-services akash.network/name=spheron-services akash.network=true
+kubectl label ns spheron-services spheron.network/name=spheron-services spheron.network=true
 kubectl create ns lease
-kubectl label ns lease akash.network=true
-kubectl apply -f https://raw.githubusercontent.com/akash-network/provider/main/pkg/apis/akash.network/crd.yaml
+kubectl label ns lease spheron.network=true
+wget https://spheron-release.s3.amazonaws.com/crd/crd.yaml
+kubectl apply -f crd.yaml
 ```
 
 ## Setup Ingress
@@ -110,7 +111,7 @@ helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
     -f ingress-nginx-custom.yaml
 
 kubectl label ns ingress-nginx app.kubernetes.io/name=ingress-nginx app.kubernetes.io/instance=ingress-nginx
-kubectl label ingressclass spheron-ingress-class akash.network=true
+kubectl label ingressclass spheron-ingress-class spheron.network=true
 ```
 
 ## Only For the GPU Cluster
@@ -190,7 +191,7 @@ kubectl logs nbody-gpu-benchmark
 kubectl delete pod nbody-gpu-benchmark
 ```
 
-We need to add some labels to the GPU nodes `akash.network/capabilities.gpu.vendor.nvidia.model.gpumodel=true` to activate GPU.
+We need to add some labels to the GPU nodes `spheron.network/capabilities.gpu.vendor.nvidia.model.gpumodel=true` to activate GPU.
 
 4. Find the GPU model of the node using this command 
 
@@ -204,8 +205,31 @@ TESLA P4
 5. To apply the label use the following command
 
 ```
-kubectl label node spheron-node2 [akash.network/capabilities.gpu.vendor.nvidia.model.p4=1]
+kubectl label node spheron-node2 [spheron.network/capabilities.gpu.vendor.nvidia.model.p4=1]
 ```
+
+## Add Pricing
+
+The init scripts download both the pricing script and price config. Price config is available at `/home/spheron/price.json`. It is a JSON file with the following data.
+
+```sh
+{
+  "cpu": "3.00",
+  "memory": "1.00",
+  "ephemeral": "0.03",
+  "hdd": "0.02",
+  "ssd": "0.04",
+  "nvme": "0.05",
+  "endpoint": "0.06",
+  "ip": "6",
+  "gpu": "p4=50,rtx4090=80"
+}
+```
+<Callout type="info">
+**Note:** 
+1. That all the prices are per unit price in USD value. For example, the CPU is set to 3 USD per 1 CPU / Thread per Month and similarly, others are set like that. For GPU, if you have multiple of them, you need to pass it in comma separated and the value should be set to unit price of the 1 GPU for a month.
+2. Update this file using Vim or Nano with the values you want.
+</Callout>
 
 ## Install Provider
 Set up the following variables
@@ -362,7 +386,7 @@ cephBlockPools:
         min_size: "1"
     storageClass:
       enabled: true
-      name: akash-nodes
+      name: spheron-nodes
       isDefault: false
       reclaimPolicy: Delete
       allowVolumeExpansion: true
@@ -401,17 +425,26 @@ helm upgrade --install --create-namespace -n rook-ceph rook-ceph-cluster --set o
 
 sleep 30
 
-kubectl label sc spheron-nodes akash.network=true
-kubectl label sc beta3 akash.network=true
-kubectl label sc beta2 akash.network=true
-kubectl label sc beta1 akash.network=true
+kubectl label sc spheron-nodes spheron.network=true
+kubectl label sc beta3 spheron.network=true
+kubectl label sc beta2 spheron.network=true
+kubectl label sc beta1 spheron.network=true
 
 echo "Did you update this label to the same node in rook-ceph-cluster.values1.yml?"
-kubectl label node $PERSISTENT_STORAGE_NODE1 akash.network/storageclasses=${PERSISTENT_STORAGE_NODE1_CLASS} --overwrite
-kubectl label node $PERSISTENT_STORAGE_NODE2 akash.network/storageclasses=${PERSISTENT_STORAGE_NODE3_CLASS} --overwrite
-kubectl label node $PERSISTENT_STORAGE_NODE3 akash.network/storageclasses=${PERSISTENT_STORAGE_NODE3_CLASS} --overwrite
+kubectl label node $PERSISTENT_STORAGE_NODE1 spheron.network/storageclasses=${PERSISTENT_STORAGE_NODE1_CLASS} --overwrite
+kubectl label node $PERSISTENT_STORAGE_NODE2 spheron.network/storageclasses=${PERSISTENT_STORAGE_NODE3_CLASS} --overwrite
+kubectl label node $PERSISTENT_STORAGE_NODE3 spheron.network/storageclasses=${PERSISTENT_STORAGE_NODE3_CLASS} --overwrite
 
 echo "If health not OK, do this"
 kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') -- bash -c "ceph health mute POOL_NO_REDUNDANCY"
 ```
+
+##  Check the status of your provider
+
+Use the following curl request to check the status of the provider.
+
+```
+curl --insecure https://[provider.devnetdsphn.com]:8443/status
+```
+
 <Navigation name="Setup Provider" />
