@@ -3,10 +3,10 @@ import styles from "../styles/quick.module.css";
 
 const CLUSTER_TYPE_LIST = [
   {
-    path: "/spheron-protocol/provider-onboarding/setup-ansible",
+    path: "/spheron-protocol/provider-onboarding/prepare-linux-instances",
     emoji: "🅰️",
-    title: "Setup Ansible",
-    body: "Deploying a provider using Ansible.",
+    title: "Prepare Instances",
+    body: "Preparing your instances using Ansible.",
   },
   {
     path: "/spheron-protocol/provider-onboarding/setup-provider",
@@ -18,7 +18,7 @@ const CLUSTER_TYPE_LIST = [
     path: "/spheron-protocol/provider-onboarding/spheron-add-node",
     emoji: "🚧",
     title: "Add Nodes",
-    body: "Adding Nodes to a Spheron Cluster",
+    body: "Adding Nodes to Spheron Provider.",
   },
 ];
 
