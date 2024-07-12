@@ -303,30 +303,4 @@ Restart the provider on new GPU node to apply the new capabilities:
 kubectl rollout restart statefulset/spheron-provider -n spheron-services  
 ```
 
-## Installing Spheron CLI
-To install the Spheron CLI, follow these steps:
-
-1. Download the Installation Script
-```
-wget -O install.sh https://sphnctl.sh
-```
-
-2. Make the Script Executable
-
-```
-chmod +x install.sh
-```
-
-3. Run the Installation Script
-```
-./install.sh
-```
-
-## Fetching the Mnemonic
-To retrieve the mnemonic, SSH into the first node and run the following command:
-
-```
-cat /home/spheron/logs/installer/wallet.log | grep mnemonic
-```
-
 <Navigation name="Adding Nodes to a Spheron Cluster" />

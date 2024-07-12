@@ -71,6 +71,13 @@ You will receive output similar to:
 
 4. Go to the [**Faucet**](https://spheron-devnet.hub.caldera.xyz/) to obtain some test gas tokens for the address you got from the previous step. These tokens will allow you to perform on-chain transactions.
 
+<Callout type="info">
+To retrieve the mnemonic, SSH into the first node and run the following command:
+
+```
+cat /home/spheron/logs/installer/wallet.log | grep mnemonic
+```
+</Callout>
 
 ## Registering a Provider
 
@@ -112,6 +119,10 @@ spheron.network/capabilities.storage.class.beta1=true
 
 To change the provider capabilities, modify the `--attributes` field like this:
 
+<Callout type="info">
+**Note:** For detailed information on GPU support and the corresponding labels, please refer to the [GPU support page](/spheron-protocol/gpu-tiering). The GPU capability attributes should be selected from the GPU support list and must match the GPU model of all the nodes. Providers can specify multiple GPU capabilities as comma-separated values.
+</Callout>
+
 ```
 --attributes "region=us-east,capabilities/gpu/vendor/nvidia/model/p4=true" 
 ```
@@ -121,7 +132,7 @@ The full command would look like this:
 spheron provider add --from ~/.spheron/wallet.json --key-secret testPassword --payment-token 0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292 --region us-central-devnet --domain provider.devnetcsphn.com --attributes "region=us-east,capabilities/gpu/vendor/nvidia/model/p4=true"
 ```
 <Callout type="info">
-Note: You can modify and change provider details using provider add command.
+Note: You can modify and change provider details using provider `add command`.
 </Callout>
 
 ## Setup Environment
