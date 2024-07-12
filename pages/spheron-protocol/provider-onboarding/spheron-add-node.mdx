@@ -228,7 +228,7 @@ EOF
 sudo systemctl restart k3s
 ```
 
-### Test GPU Configuration (First GPU Node Only)
+### Create a GPU Test Pod (First GPU Node Only)
 
 SSH back to the master node and create a GPU test pod to check if the GPU is configured successfully with Kubernetes.
 
@@ -269,7 +269,7 @@ kubectl delete pod nbody-gpu-benchmark
 We need to add some labels to the GPU nodes `spheron.network/capabilities.gpu.vendor.nvidia.model.[gpumodel]=true` to activate GPU.
 
 <Callout type="info">
-**Note:** You can check the [GPU support](/spheron-protocol/gpu-tiering) page for all the labels
+**Note:** For detailed information on GPU support and the corresponding labels, please refer to the [GPU support page]([GPU support](/spheron-protocol/gpu-tiering)). The capabilities should be selected from the table provided on that page.
 </Callout>
 
 1. On the new GPU node, find the GPU model using the below command:

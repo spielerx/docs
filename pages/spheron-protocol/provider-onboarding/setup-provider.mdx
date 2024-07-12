@@ -276,6 +276,11 @@ kubectl delete pod nbody-gpu-benchmark
 
 We need to add some labels to the GPU nodes `spheron.network/capabilities.gpu.vendor.nvidia.model.gpumodel=true` to activate GPU.
 
+<Callout type="info">
+**Note:** For detailed information on GPU support and the corresponding labels, please refer to the [GPU support page]([GPU support](/spheron-protocol/gpu-tiering)). The capabilities should be selected from the table provided on that page.
+</Callout>
+
+
 4. Find the GPU model of the node using this command 
 
 ```
