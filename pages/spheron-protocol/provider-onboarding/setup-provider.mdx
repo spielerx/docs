@@ -7,7 +7,46 @@ This guide provides detailed instructions on how to set up a Spheron provider. T
 
 Follow the steps below to complete the setup.
 
-1. Access your provider instance using SSH
+## Initialize setup
+
+### 1. SSH into the Provider Instance
+
+Use the following command to SSH into your provider instance:
+
+```
+ssh -i [ssh_key] root@[provider-ip]
+```
+
+### 2. Initialize Configuration Prompts
+
+1. Upon the first setup, you will be prompted with a question. Respond with `y` if this is your first node setup for the provider.
+
+![Provider Setup 1](assets/provider-setup-1.png)
+
+2. Respond with `y` if you are setting up the node for GPU. 
+
+<Callout type="info">
+**Note:** This will be prompted only if you have a GPU in the server.
+</Callout>
+
+![Provider Setup 2](assets/provider-setup-2.png)
+
+3. If you already have a wallet, provide the mnemonic. Otherwise, choose `n` to let the script create a new wallet for you.
+
+![Provider Setup 3](assets/provider-setup-3.png)
+
+4. Provide the domain you attached in the [playbook hostname](/spheron-protocol/provider-onboarding/prepare-linux-instances#step-3-edit-playbook).
+
+![Provider Setup 4](assets/provider-setup-4.png)
+
+5. After the successful script run, you would see a output like below.
+
+![Provider Setup 5](assets/provider-setup-5.png)
+
+
+## Deposit SPH to the provider’s wallet
+
+1. Use the following command to SSH into your provider instance
 
 ```
 ssh -i [ssh_key] root@[provider-ip]
@@ -33,9 +72,9 @@ You will receive output similar to:
 4. Go to the [**Faucet**](https://spheron-devnet.hub.caldera.xyz/) to obtain some test gas tokens for the address you got from the previous step. These tokens will allow you to perform on-chain transactions.
 
 
-## Register Provider
+## Registering a Provider
 
-Register the provider using the following command:
+To register a provider, use the following command:
 
 <Callout type="info">
 Make sure you modify the attributes accordingly
@@ -44,6 +83,46 @@ Make sure you modify the attributes accordingly
 ```
 spheron provider add --from ~/.spheron/wallet.json --key-secret testPassword --payment-token 0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292 --region [us-central-devnet] --domain [provider.devnetcsphn.com] --attributes ["region=us-central-devnet"]
 ```
+
+### Adding Multiple Payment Tokens
+
+You can add multiple tokens using the `--payment-token` flag as shown below:
+
+```
+--payment-token="t1,t2"
+```
+
+### Provider Capabilities
+
+Each provider has certain properties defned by the attribute flag for example: GPU Model, Region, and Storage options.
+
+- Example of GPU capability: 
+
+```
+spheron.network/capabilities.gpu.vendor.nvidia.model.p4=true 
+```
+
+- Example of Storage capability: 
+
+```
+spheron.network/capabilities.storage.class.beta1=true
+```
+
+### Changing Provider Attributes
+
+To change the provider capabilities, modify the `--attributes` field like this:
+
+```
+--attributes "region=us-east,capabilities/gpu/vendor/nvidia/model/p4=true" 
+```
+The full command would look like this:
+
+```
+spheron provider add --from ~/.spheron/wallet.json --key-secret testPassword --payment-token 0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292 --region us-central-devnet --domain provider.devnetcsphn.com --attributes "region=us-east,capabilities/gpu/vendor/nvidia/model/p4=true"
+```
+<Callout type="info">
+Note: You can modify and change provider details using provider add command.
+</Callout>
 
 ## Setup Environment
 
@@ -149,6 +228,7 @@ The script we executed in the initial steps creates a configuration file at `/et
 2. For creating the configuration file use the following command.
 
 ```
+sudo su
 cat > /etc/rancher/k3/config.yaml <<'EOF'
 containerd_additional_runtimes:
   - name: nvidia
@@ -158,6 +238,7 @@ containerd_additional_runtimes:
     options:
       BinaryName: '/usr/bin/nvidia-container-runtime'
 EOF
+sudo su spheron
 ```
 3. Now create a GPU test pod to check if the GPU is configured successfully with Kubernetes
 
@@ -200,14 +281,22 @@ We need to add some labels to the GPU nodes `spheron.network/capabilities.gpu.ve
 ```
 nvidia-smi --query-gpu=gpu_name --format=csv,noheader
 
-## Example Output
+the output will look like below
+
+```
 TESLA P4
 ```
 
-5. To apply the label use the following command
+5. Fetch the node name using following command:
 
 ```
-kubectl label node spheron-node2 [spheron.network/capabilities.gpu.vendor.nvidia.model.p4=1]
+kubectl get nodes
+```
+
+6. To apply the label use the following command
+
+```
+kubectl label node [spheron-node2] [spheron.network/capabilities.gpu.vendor.nvidia.model.p4=1]
 ```
 
 ## Add Pricing
@@ -233,6 +322,14 @@ The init scripts download both the pricing script and price config. Price config
 2. Update this file using Vim or Nano with the values you want.
 </Callout>
 
+```
+vim /home/spheron/price.json
+```
+or 
+```
+nano /home/spheron/price.json
+```
+
 ## Install Provider
 Set up the following variables
 
@@ -243,6 +340,8 @@ DOMAIN=[provider.devnetdsphn.com]
 Install helm charts
 
 ```
+sudo su spheron
+cd /home/spheron/provider-helm-charts/charts
 helm upgrade --install spheron-provider ./spheron-provider -n spheron-services \
         --set from=/spheron-key/wallet.json \
         --set keysecret=testPassword \

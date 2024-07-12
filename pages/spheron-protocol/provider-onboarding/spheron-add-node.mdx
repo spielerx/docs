@@ -9,54 +9,144 @@ This document provides step-by-step instructions for adding both CPU and GPU nod
 2. [Adding a GPU Node](/spheron-protocol/provider-onboarding/spheron-add-node#adding-a-gpu-node)
 
 ## Adding a CPU Node
+
 To add a CPU node to your Spheron cluster, follow these steps:
 
-### Prepare the Node
+### Preparing a CPU Node for Installation
 
-1. Prepare a node for the installation using Ansible from the [earlier step](/spheron-protocol/provider-onboarding/setup-ansible).
-2. When prompted, select `no` when asked if this is the first node.
-3. SSH into the first node (master node)of the cluster and follow the steps.
-4. Use `add-agent.sh` for adding the node run following commands:
+#### 1. Prepare a node for the installation using Ansible from the [earlier step](/spheron-protocol/provider-onboarding/setup-ansible).
+#### 2. Clone the Provider Deployment Repository
 
-```sh
+If you haven't already, clone the Spheron provider deployment repository: [spheronFdn/provider-deployment](https://github.com/spheronFdn/provider-deployment)
+
+```
+git clone https://github.com/spheronFdn/provider-deployment.git
+```
+
+Repo has the following file structure: 
+![Provider Deployment Repo](assets/provider-deployment-repo.png)
+
+#### 3. Edit the Inventory File
+
+Open `playbook/inventory.ini` and update it with your server details. Example:
+
+<Callout type="info">
+Ensure you set up the server IP, username, and SSH key correctly.
+</Callout>
+
+```
+[new-instance] ansible_host=[23.158.40.38] ansible_user=root ansible_ssh_private_key_file=[~/.ssh/id_rsa]
+```
+#### 4. Execute the Ansible Playbook
+
+```
+cd playbook
+ansible-playbook -i inventory.ini playbook.yml
+```
+- The server will restart after the execution. When prompted, say `No` to the request for the first node.
+
+![Provider Deployment Repo](assets/cpu-node-1.png)
+
+- Follow the Prompt like this:
+
+![Provider Deployment Repo](assets/cpu-node-2.png)
+
+#### 5. SSH into the Master Node
+SSH into the first node (master node) of the cluster and follow the steps:
+
+- Add the Node Using the `add-agent.sh` Script, run the following commands:
+
+```
 sudo su spheron
 wget -q https://raw.githubusercontent.com/spheronFdn/provider-deployment/devnet/scripts/add-agent.sh
 ```
 
-5. Edit the Master node IP and Child node IPs in the script. Use vim or nano editor to edit these lines.
+- Use Vim or Nano to edit the `add-agent.sh` script. Update the master node IP and add child node IPs:
 
 ```sh
-SPHERON_NODE1_IP=134.195.196.81 # your master node
+vim add-agent.sh
+```
+Edit the following lines:
+
+```sh
+SPHERON_NODE1_IP=[134.195.196.81] # your master node
 
 # all you child nodes
 nodes=(
     ["spheron-node2"]="134.195.196.213" ## add nodes like this in the list
+    ["spheron-node3"]="134.195.196.214" ## add nodes like this in the list
 )
-
 ```
-6. Run the script on master node:
+- Run the Script on the Master Node
 
 ```sh
 sudo chmod +x add-agent.sh
 ./add-agent.sh
 ```
+
+
 
 ## Adding a GPU Node
 
-### Prepare the Node
+To add a GPU node to your Spheron cluster, follow these steps:
 
-1. Prepare a node for the installation using Ansible from the [earlier step](/spheron-protocol/provider-onboarding/setup-ansible).
-2. When prompted, select `no` when asked if this is the first node.
-3. This process will install the necessary GPU drivers and some additional scripts.
-4. SSH into the first node (master node)of the cluster and follow the steps.
-5. Use `add-agent.sh` for adding the node run following commands:
+### Preparing a CPU Node for Installation
 
-```sh
+#### 1. Prepare a node for the installation using Ansible from the [earlier step](/spheron-protocol/provider-onboarding/setup-ansible).
+#### 2. Clone the Provider Deployment Repository
+
+If you haven't already, clone the Spheron provider deployment repository: [spheronFdn/provider-deployment](https://github.com/spheronFdn/provider-deployment)
+
+```
+git clone https://github.com/spheronFdn/provider-deployment.git
+```
+
+Repo has the following file structure: 
+![Provider Deployment Repo](assets/provider-deployment-repo.png)
+
+#### 3. Edit the Inventory File
+
+Open `playbook/inventory.ini` and update it with your server details. Example:
+
+<Callout type="info">
+Ensure you set up the server IP, username, and SSH key correctly.
+</Callout>
+
+```
+[new-instance-gpu] ansible_host=[23.158.40.38] ansible_user=root ansible_ssh_private_key_file=[~/.ssh/id_rsa]
+```
+#### 4. Execute the Ansible Playbook
+
+```
+cd playbook
+ansible-playbook -i inventory.ini playbook.yml
+```
+- The server will restart after the execution. When prompted, say `No` to the request for the first node.
+
+![Provider Deployment Repo](assets/cpu-node-1.png)
+
+- Follow the Prompt like this:
+
+![Provider Deployment Repo](assets/cpu-node-2.png)
+
+It will isntall the GPU drivers and some scripts.
+
+#### 5. SSH into the Master Node
+SSH into the first node (master node) of the cluster and follow the steps:
+
+- Add the Node Using the `add-agent.sh` Script, run the following commands:
+
+```
 sudo su spheron
 wget -q https://raw.githubusercontent.com/spheronFdn/provider-deployment/devnet/scripts/add-agent.sh
 ```
 
-6. Edit the Master node IP and Child node IPs in the script. Use vim or nano editor to edit these lines.
+- Use Vim or Nano editor to edit the `add-agent.sh` script. Update the master node IP and add child node IPs:
+
+```sh
+vim add-agent.sh
+```
+- Edit the following lines:
 
 ```sh
 SPHERON_NODE1_IP=134.195.196.81 # your master node
@@ -66,17 +156,21 @@ nodes=(
     ["spheron-node2"]="134.195.196.213" ## add nodes like this in the list
 )
 ```
-
-7. Run the script on master node:
+- Run the Script on the Master Node
 
 ```sh
 sudo chmod +x add-agent.sh
 ./add-agent.sh
 ```
 
-8. Now run these commands to install the Nvidia driver.
+### Install the Nvidia Driver (First GPU Node Only)
 
-```sh
+1. If this is the first GPU node, run these commands:
+
+<Callout type="info">
+  **NOTE:** Only Execute if this is the first GPU Node.
+</Callout>
+```
 sudo su spheron
 helm repo add nvidia https://helm.ngc.nvidia.com/nvidia
 helm repo add nvdp https://nvidia.github.io/k8s-device-plugin
@@ -92,9 +186,9 @@ helm upgrade -i nvdp nvdp/nvidia-device-plugin \
   --set runtimeClassName="nvidia"
 ```
 
-9. Create this configuration using the root user:
+2. Create the Nvidia RuntimeClass (First GPU Node Only) using the root user.
 
-```sh
+```
 sudo su 
 
 # Create NVIDIA RuntimeClass
@@ -107,12 +201,16 @@ handler: nvidia
 EOF
 ```
 
-10. **Now login on to the New Node** and Check if this file is present or not `/etc/rancher/k3s/config.yaml` 
+### Check the Configuration on the New Node
 
-- Check command:  `cat /etc/rancher/k3s/config.yaml` 
-- If the above command doesn't show any output create the file using the following command.
+1. SSH into the new node and check if the file `/etc/rancher/k3/config.yaml` exists:
 
-```sh
+```
+cat /etc/rancher/k3/config.yaml
+```
+2. If the above command doesn't show any output, create the file using following command:
+
+```
 cat > /etc/rancher/k3/config.yaml <<'EOF'
 containerd_additional_runtimes:
   - name: nvidia
@@ -124,17 +222,17 @@ containerd_additional_runtimes:
 EOF
 ```
 
-11. Restart k3s to apply the new configuration: 
+3. Now restart k3s using
 
-```sh
+```
 sudo systemctl restart k3s
 ```
 
-## Test GPU Configuration from the Master Node
+### Test GPU Configuration (First GPU Node Only)
 
-1. **Come back to the master node** Now create a GPU test pod to check if the GPU is configured successfully with Kubernetes.
+SSH back to the master node and create a GPU test pod to check if the GPU is configured successfully with Kubernetes.
 
-```sh
+```
 cat > gpu-test-pod.yaml << EOF
 apiVersion: v1
 kind: Pod
@@ -166,38 +264,69 @@ kubectl logs nbody-gpu-benchmark
 kubectl delete pod nbody-gpu-benchmark
 ```
 
-## Label GPU Nodes
+### Label the GPU Nodes
 
-1. We need to add some labels to the GPU nodes `spheron.network/capabilities.gpu.vendor.nvidia.model.[gpumodel]=true` to activate GPU.
-2. Find the GPU model of the node using this command:
+We need to add some labels to the GPU nodes `spheron.network/capabilities.gpu.vendor.nvidia.model.[gpumodel]=true` to activate GPU.
 
-```sh
+<Callout type="info">
+**Note:** You can check the [GPU support](/spheron-protocol/gpu-tiering) page for all the labels
+</Callout>
+
+1. On the new GPU node, find the GPU model using the below command:
+
+```
 nvidia-smi --query-gpu=gpu_name --format=csv,noheader
+```
+The output will look like this
 
-## Example Output
+```
 TESLA P4
 ```
+2. On the master node, apply the label using the below command:
 
-3. To apply the label use the following command
-
-```sh
+```
 kubectl label node [spheron-node2] [spheron.network/capabilities.gpu.vendor.nvidia.model.p4=1]
 ```
 
-## Update Provider Capabilities
+### Update Provider Capabilities
+On the new GPU node, update the provider capabilities:
 
-1. Update the capabilities of the provider.
-
-```sh
-spheron provider add --from ~/.spheron/wallet.json --key-secret testPassword --payment-token 0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292 --region [us-central-devnet] --domain [provider.devnetcsphn.com] --attributes ["region=us-central-devnet,capabilities/gpu/vendor/nvidia/model/p4=true"]
+```
+spheron key use --key-secret testPassword --name wallet
+spheron provider update --attributes ["region=us-central-devnet,capabilities/gpu/vendor/nvidia/model/p4=true"] 
 ```
 
-2. Restart the provider to apply new capabilities.
+### Restart the Provider
+Restart the provider on new GPU node to apply the new capabilities:
 
-```sh
-kubectl rollout restart statefulset/spheron-provider -n spheron-services
+```
+kubectl rollout restart statefulset/spheron-provider -n spheron-services  
 ```
 
-3. Now you provider should have GPU working.
+## Installing Spheron CLI
+To install the Spheron CLI, follow these steps:
+
+1. Download the Installation Script
+```
+wget -O install.sh https://sphnctl.sh
+```
+
+2. Make the Script Executable
+
+```
+chmod +x install.sh
+```
+
+3. Run the Installation Script
+```
+./install.sh
+```
+
+## Fetching the Mnemonic
+To retrieve the mnemonic, SSH into the first node and run the following command:
+
+```
+cat /home/spheron/logs/installer/wallet.log | grep mnemonic
+```
 
 <Navigation name="Adding Nodes to a Spheron Cluster" />
