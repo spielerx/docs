@@ -17,27 +17,18 @@ curl --version
 
 ### Install Spheron Protocol CLI
 
-1. To install the Spheron Protocol CLI on the system, just run this one command in your terminal:
+1. To install the Spheron Protocol CLI on the system, just run this one command in your terminal and pass the password during the prompt:
 
 ```sh
-curl -sL1 spheron.sh | bash
+curl -sL1 https://sphnctl.sh | bash
 ```
 
-2. Move the Spheron Binary
-
-```sh
-# Move the binary file into a directory included in your path
-sudo mv ./bin/sphnctl /usr/local/bin
-```
-
-3. Verify Spheron Installation
+2. Verify Spheron Installation
 
 ```sh
 # Verify the installation by using a simple command to check the Spheron version
-sphnctl --version
+sphnctl -h
 
-# Expect/Example Output
-Spheron v0.0.1
 ```
 
 ## Wallet Configurations
@@ -179,22 +170,15 @@ Denom: USDT, Precision: 6, TokenAddress: 0x24A05B480235Ccb450bf7Ce7e9F65072Ed732
 
 ## Create your Configuration
 
-Create a deployment configuration **deploy.yaml** to deploy the `jupyter/minimal-notebook` for Jupyter Notebook container using ICL.
+Create a deployment configuration **gpu.yaml** to deploy the `jupyter/minimal-notebook` for Jupyter Notebook container using ICL.
 
-You can use cURL to download the file:
 
-```bash
-curl -s https://spheron.network/icl-examples/deploy.yml > deploy.yml
-```
-
-### Modify your Configuration
-
-You may use the sample deployment file as-is or modify it for your own needs as described in our ICL **(Infrastructure Composition Language)** documentation. A typical modification would be to reference your own image instead of our demo app image.
+You may use the sample deployment file as-is or modify it for your own needs as described in our ICL **(Infrastructure Composition Language)** documentation. A typical modification would be to reference your own image instead of our image.
 
 EXAMPLE CONFIGURATION:
 
 ```sh
-cat > deploy.yml <<EOF
+cat > gpu.yml <<EOF
 ---
 version: "2.0"
 

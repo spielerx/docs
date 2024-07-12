@@ -56,7 +56,9 @@ ssh -i [ssh_key] root@[provider-ip]
 
 ```
 sudo su spheron
-cd 
+```
+```
+cd
 ```
 
 3. Run the following command to get your wallet address. 
@@ -72,7 +74,7 @@ You will receive output similar to:
 4. Go to the [**Faucet**](https://spheron-devnet.hub.caldera.xyz/) to obtain some test gas tokens for the address you got from the previous step. These tokens will allow you to perform on-chain transactions.
 
 <Callout type="info">
-To retrieve the mnemonic, SSH into the first node and run the following command:
+To retrieve the mnemonic, run the following command:
 
 ```
 cat /home/spheron/logs/installer/wallet.log | grep mnemonic
@@ -84,11 +86,13 @@ cat /home/spheron/logs/installer/wallet.log | grep mnemonic
 To register a provider, use the following command:
 
 <Callout type="info">
-Make sure you modify the attributes accordingly
+- Update the region in the config to reflect where your provider is located. If you have servers in different locations, create multiple providers, each with its own region.
+- Update the payment tokens in the config to include all the tokens you want to accept for payments.
+- Lastly, update the hostname to match the domain you configured at the beginning of the setup, as this will be exposed to users.
 </Callout>
 
 ```
-spheron provider add --from ~/.spheron/wallet.json --key-secret testPassword --payment-token 0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292 --region [us-central-devnet] --domain [provider.devnetcsphn.com] --attributes ["region=us-central-devnet"]
+spheron provider add --from ~/.spheron/wallet.json --key-secret testPassword --payment-token "0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292" --region [us-central-devnet] --domain [provider.devnetcsphn.com] --attributes ["region=us-central-devnet"]
 ```
 
 ### Adding Multiple Payment Tokens
@@ -96,7 +100,7 @@ spheron provider add --from ~/.spheron/wallet.json --key-secret testPassword --p
 You can add multiple tokens using the `--payment-token` flag as shown below:
 
 ```
---payment-token="t1,t2"
+--payment-token "t1,t2"
 ```
 
 ### Provider Capabilities
@@ -129,7 +133,7 @@ To change the provider capabilities, modify the `--attributes` field like this:
 The full command would look like this:
 
 ```
-spheron provider add --from ~/.spheron/wallet.json --key-secret testPassword --payment-token 0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292 --region us-central-devnet --domain provider.devnetcsphn.com --attributes "region=us-east,capabilities/gpu/vendor/nvidia/model/p4=true"
+spheron provider add --from ~/.spheron/wallet.json --key-secret testPassword --payment-token "0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292" --region us-central-devnet --domain provider.devnetcsphn.com --attributes "region=us-east,capabilities/gpu/vendor/nvidia/model/p4=true"
 ```
 <Callout type="info">
 Note: You can modify and change provider details using provider `add command`.
@@ -145,9 +149,7 @@ cd /home/spheron
 export KUBECONFIG=/home/spheron/.kube/kubeconfig
 
 git clone https://github.com/spheronFdn/provider-helm-charts.git
-cd provider-helm-charts
-git checkout devnet-spheron
-cd charts
+cd provider-helm-charts/charts
 
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo add rook-release https://charts.rook.io/release
@@ -234,12 +236,14 @@ helm upgrade -i nvdp nvdp/nvidia-device-plugin \
   --version 0.14.5 \
   --set runtimeClassName="nvidia"
 ```
-The script we executed in the initial steps creates a configuration file at `/etc/rancher/k3s/config.yaml` location. Verify if it is present or else create it. 
+The script we executed in the initial steps creates a configuration file at `/etc/rancher/k3/config.yaml` location. Verify if it is present or else create it. 
 
-2. For creating the configuration file use the following command.
+2. For creating the configuration file use the following command. Run the command one by one:
 
 ```
 sudo su
+```
+```
 cat > /etc/rancher/k3/config.yaml <<'EOF'
 containerd_additional_runtimes:
   - name: nvidia
@@ -249,9 +253,11 @@ containerd_additional_runtimes:
     options:
       BinaryName: '/usr/bin/nvidia-container-runtime'
 EOF
+```
+```
 sudo su spheron
 ```
-3. Now create a GPU test pod to check if the GPU is configured successfully with Kubernetes
+3. Now create a GPU test pod to check if the GPU is configured successfully with Kubernetes. Run the command one by one:
 
 ```
 cat > gpu-test-pod.yaml << EOF
@@ -276,7 +282,8 @@ spec:
     - name: NVIDIA_DRIVER_CAPABILITIES
       value: all
 EOF
-
+```
+```
 kubectl apply -f gpu-test-pod.yaml
 echo "Waiting 60 seconds for the test pod to start..."
 sleep 60
@@ -297,7 +304,7 @@ We need to add some labels to the GPU nodes `spheron.network/capabilities.gpu.ve
 ```
 nvidia-smi --query-gpu=gpu_name --format=csv,noheader
 
-the output will look like below
+The output will look like below
 
 ```
 TESLA P4
@@ -309,10 +316,13 @@ TESLA P4
 kubectl get nodes
 ```
 
-6. To apply the label use the following command
+6. To apply the label use the following command.
+<Callout type="info">
+**Note:** Update the node name from the above command and gpu capability using the table provided in the [Supported GPU](/spheron-protocol/gpu-tiering)
+</Callout>
 
 ```
-kubectl label node [spheron-node2] [spheron.network/capabilities.gpu.vendor.nvidia.model.p4=1]
+kubectl label node [node-name] [gpu-capability]
 ```
 
 ## Add Pricing
@@ -347,13 +357,14 @@ nano /home/spheron/price.json
 ```
 
 ## Install Provider
-Set up the following variables
+Set up the following variables by updating the region name and the domain.
 
 ```
 REGION=[us-central-devnet]
 DOMAIN=[provider.devnetdsphn.com]
 ```
-Install helm charts
+
+Install the helm charts:
 
 ```
 sudo su spheron
@@ -558,10 +569,10 @@ kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-ceph-t
 
 ##  Check the status of your provider
 
-Use the following curl request to check the status of the provider.
+Use the following curl request to check the status of the provider. Update the hostname with your own hostname to properly test the provider status.
 
 ```
-curl --insecure https://[provider.devnetdsphn.com]:8443/status
+curl --insecure https://[hostname]:8443/status
 ```
 
 <Navigation name="Setup Provider" />
