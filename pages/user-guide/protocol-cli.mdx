@@ -38,7 +38,7 @@ sphnctl -h
 To create a new wallet, start by configuring the name of your key. Run the command below, replacing `[wallet name]` with a name of your choice:
 
 ```sh
-sphnctl keys create --name [Wallet Name]
+sphnctl wallet create --name [Wallet Name]
 ```
 
 Here is an example of how the result will look:
@@ -61,7 +61,7 @@ The newly created wallet will automatically be set as the current wallet. If nee
 To see which wallet is currently in use for deployments, run the following command:
 
 ```sh
-sphnctl keys current
+sphnctl wallet current
 ```
 
 Here is an example of how the result will look:
@@ -78,7 +78,7 @@ Currently using account xxx:
 If you need to switch to a different wallet, use the command below, providing the name and the key-secret of the new wallet:
 
 ```sh
-sphnctl keys use --name [Wallet Name] --key-secret [Key Secret]
+sphnctl wallet use --name [Wallet Name] --key-secret [Key Secret]
 ```
 
 Here is an example of how the result will look:

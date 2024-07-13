@@ -27,13 +27,13 @@ const QUICK_START_LIST = [
     body: "Deploy pre-installed apps and develope fast.",
   },
   {
-    path: "/rest-api",
+    path: "/toolings/cloud-api",
     emoji: "🔌",
     title: "Cloud API",
     body: "Take a look at how the Cloud API works.",
   },
   {
-    path: "/cli",
+    path: "/toolings/cloud-cli",
     emoji: "💬",
     title: "Cloud CLI",
     body: "Create & deploy dapps right from your terminal.",

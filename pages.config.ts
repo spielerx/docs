@@ -1,6 +1,6 @@
 export const Pages = [
   ["Getting Started", "/"],
-  ["Core Conceps", "/core-concepts"],
+  ["Core Concepts", "/core-concepts"],
   ["Providers", "/core-concepts/providers"],
   ["Deployment Lifecycle", "/core-concepts/deployment-lifecycle"],
   ["Payment System", "/core-concepts/payment-system"],

@@ -16,7 +16,7 @@ To build a strong and fully functioning decentralized network for sharing comput
 A key part of our discussion has been about the different types of provider nodes on the network. There are two main categories:
 
 1. Fizz Nodes **(We Will Update this section soon)**
-1. [Providers](/spheron-protocol/service-provider)
+1. [Providers](/core-concepts/providers)
 
 The following sections will explain in detail the architecture and process involved specifically for Providers when it comes to:
 
@@ -29,7 +29,7 @@ We'll cover things like the role of smart contracts, the matchmaking process, an
 
 ![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jvbv86s65ytndpodf1k9.png)
 
-This architecture is centered around a matchmaking engine, a pivotal component within the network. This engine processes order details and provider bids, selecting the optimal provider for each deployment based on specific parameters outlined in [Section](/spheron-protocol#matching-parameters-for-provider-selection). After a match is made, the order smart contract initiates a lease with the selected provider. Subsequently, the user transmits the deployment manifest to initiate workload deployment on the designated provider over MTLS connection. Upon completion, the user can verify the deployment status and access all relevant deployment details such as connection URLs and port mappings.
+This architecture is centered around a matchmaking engine, a pivotal component within the network. This engine processes order details and provider bids, selecting the optimal provider for each deployment based on specific parameters outlined in [Section](/core-concepts#matching-parameters-for-provider-selection). After a match is made, the order smart contract initiates a lease with the selected provider. Subsequently, the user transmits the deployment manifest to initiate workload deployment on the designated provider over MTLS connection. Upon completion, the user can verify the deployment status and access all relevant deployment details such as connection URLs and port mappings.
 
 ## Matchmaking Mechanism: Facilitating Decentralized Resource Allocation
 

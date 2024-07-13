@@ -11,12 +11,12 @@ The `deploy.yaml` file, which can also use the `.yml` extension, serves as a req
 
 It's structured into several key sections:
 
-1. [Network Configuration](/spheron-protocol/icl#1-network-configuration) 
-2. [Version](/spheron-protocol/icl#2-version-configuration)
-3. [Services](/spheron-protocol/icl#3-services-configuration)
-4. [Profiles](/spheron-protocol/icl#4-profiles)
-5. [Deployment](/spheron-protocol/icl#5-deployment-configuration)
-6. [GPU Support](/spheron-protocol/icl#6-gpu-integration-support-in-compute-profiles)
+1. [Network Configuration](/user-guide/icl#1-network-configuration) 
+2. [Version](/user-guidel/icl#2-version-configuration)
+3. [Services](/user-guide/icl#3-services-configuration)
+4. [Profiles](/user-guide/icl#4-profiles)
+5. [Deployment](/user-guide/icl#5-deployment-configuration)
+6. [GPU Support](/user-guide/icl#6-gpu-integration-support-in-compute-profiles)
 
 An example deployment configuration can be found here.
 
@@ -35,8 +35,8 @@ It's structured as a map where each key represents a unique service name, and th
 | image      | Yes                | Specifies the Docker image for the container. Caution: Using `:latest` tags is not recommended due to extensive caching by Spheron Providers. |
 | command    | No                 | Defines a custom command to be executed when launching the container.                                                                         |
 | args       | No                 | Provides arguments for the custom command specified in the 'command' field.                                                                   |
-| env        | No                 | Sets environment variables for the running container. Refer to the [services.env](/spheron-protocol/icl#3-services-configuration) section for more details.                                     |
-| expose     | No                 | Determines which entities are permitted to connect to the services. See the [services.expose](/spheron-protocol/icl#port-exposure-in-servicesexpose) section for additional information.               |
+| env        | No                 | Sets environment variables for the running container. Refer to the [services.env](/user-guide/icl#3-services-configuration) section for more details.                                     |
+| expose     | No                 | Determines which entities are permitted to connect to the services. See the [services.expose](/user-guide/icl#port-exposure-in-servicesexpose) section for additional information.               |
 
 ### Environment Variables for `services.env`
 
@@ -108,7 +108,7 @@ If a service name is specified and `global` is set to `false`, only services wit
 When `global` is set to `false`, a service name must be provided.
 
 ## 4. Profiles
-The profiles section is used to define named compute and placement profiles that can be referenced in the [deployment section](/spheron-protocol/icl#5-deployment-configuration).
+The profiles section is used to define named compute and placement profiles that can be referenced in the [deployment section](/user-guide/icl#5-deployment-configuration).
 
 ### Compute Profiles
 Within `profiles.compute`, you can create a map of named compute profiles. 
