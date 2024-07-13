@@ -7,10 +7,10 @@
   "edge-network": "Edge network",
   "github-actions": {
     "title": "Github Actions",
-    "href": "/github-actions"
+    "href": "/toolings/github-action"
   },
   "terraform": {
     "title": "Spheron Terraform",
-    "href": "/terraform"
+    "href": "/toolings/terraform"
   }
 }

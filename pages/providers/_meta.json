@@ -1,5 +1,6 @@
 {
   "prepare-linux-instances": "Prepare Instances",
   "setup-provider": "Setup Provider",
-  "spheron-add-node": "Adding More Nodes"
+  "add-nodes": "Adding More Nodes",
+  "reward-details": "Reward Details"
 }

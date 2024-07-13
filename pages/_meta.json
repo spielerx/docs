@@ -2,17 +2,32 @@
   "index": {
     "title": "Getting Started"
   },
-  "spheron-protocol": "Spheron Protocol",
+  "----": {
+    "type": "separator"
+  },
+  "-----": {
+    "type": "separator",
+    "title": "PROTOCOL DOCS"
+  },
+  "core-concepts": "Protocol Core Concepts",
+  "user-guide": "User Guide",
+  "providers": "Provider Onboarding",
+  "------": {
+    "type": "separator"
+  },
+  "---": {
+    "type": "separator",
+    "title": "CLOUD DOCS"
+  },
+  "compute": "Compute",
   "billing": "Billing",
   "organization": "Organization",
-  "compute": "Compute",
+  "toolings": "Dev Toolings",
   "server-guide": "Server Guide",
   "marketplace-guide": "Marketplace Guide",
-  "sdk": "Spheron SDK",
-  "spheron-cli": "Spheron CLI",
-  "rest-api": "Spheron API",
-  "github-actions": "Github Actions",
-  "terraform": "Spheron Terraform",
+  "-------": {
+    "type": "separator"
+  },
   "general-info": "General Information",
   "signup": {
     "title": "Sign Up ↗",

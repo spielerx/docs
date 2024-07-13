@@ -1,24 +1,24 @@
 import QuickStartCard, { IQuickStartCard } from "./quick-start-card";
 import styles from "../styles/quick.module.css";
 
-const PROVIDERS_TYPE_LIST = [
+const GUIDE_TYPE_LIST = [
   {
-    path: "/providers/prepare-linux-instances",
-    emoji: "🅰️",
-    title: "Prepare Instances",
-    body: "Preparing your instances using Ansible.",
+    path: "/user-guide/icl",
+    emoji: "🗂️",
+    title: "ICL Configuration",
+    body: "Learn about the deployment config.",
   },
   {
-    path: "/providers/setup-provider",
-    emoji: "🌐",
-    title: "Setup Provider",
-    body: "Set up a Spheron provider.",
+    path: "/user-guide/protocol-cli",
+    emoji: "🏪",
+    title: "Protocol CLI",
+    body: "Lease GPU with Protocol Native CLI.",
   },
   {
-    path: "/providers/spheron-add-node",
-    emoji: "🚧",
-    title: "Add Nodes",
-    body: "Adding Nodes to Spheron Provider.",
+    path: "/user-guide/supports#gpu-support--tiering",
+    emoji: "🌀",
+    title: "GPU Supports",
+    body: "Know all the GPU support and it's tiering.",
   },
 ];
 
@@ -26,7 +26,7 @@ const ProviderOnboarding = () => {
   return (
     <main>
       <section className={styles.section}>
-        {PROVIDERS_TYPE_LIST.map((item: IQuickStartCard, index) => (
+        {GUIDE_TYPE_LIST.map((item: IQuickStartCard, index) => (
           <QuickStartCard
             key={index}
             path={item.path}

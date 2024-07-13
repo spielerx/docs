@@ -1,12 +1,12 @@
 import { Callout } from "nextra-theme-docs";
 import Navigation from "components/navigation";
 
-# Spheron Compute SDK
+# Spheron Cloud SDK
 
-<Callout type="warning">The Compute SDK is currently unmaintained and needs some of the latest updates to be on the same version as the API.</Callout>
+<Callout type="warning">The Cloud SDK is currently unmaintained and needs some of the latest updates to be on the same version as the Cloud API.</Callout>
 
 
-The Spheron Compute SDK is a npm package that provides support for working with Spheron Compute organizations.
+The Spheron Cloud SDK is a npm package that provides support for working with Spheron Cloud platform service.
 
 <Callout type="info">
   **NOTE:** The package is only meant for Node.js environments and will not work
@@ -29,7 +29,7 @@ yarn add @spheron/compute
 
 ## Usage
 
-To use the Spheron Compute SDK, you have to create an instance of `SpheronClient`.
+To use the Spheron Cloud SDK, you have to create an instance of `SpheronClient`.
 
 ```js
 import { SpheronClient } from "@spheron/compute";
@@ -38,7 +38,7 @@ const spheron = new SpheronClient({ token });
 ```
 
 The `SpheronClient` constructor takes an object that has one property `token`.
-Follow the instructions in the [DOCS](https://docs.spheron.network/rest-api/#creating-an-access-token) to generate this token. When you are creating the tokens, please choose **Compute** type in the dashboard.
+Follow the instructions in the [DOCS](https://docs.spheron.network/rest-api/#creating-an-access-token) to generate this token.
 The `SpheronClient` has five properties:
 
 - `organization` provides methods for working with the organization.
@@ -1026,4 +1026,4 @@ const regions: string[] = await spheron.computeMachine.getRegions();
 
 Returns a list of available regions.
 
-<Navigation name="Compute SDK" />
+<Navigation name="Spheron Cloud SDK" />
