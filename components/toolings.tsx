@@ -6,7 +6,7 @@ const TOOLING_LIST = [
     path: "/toolings/cloud-api",
     emoji: "🔌",
     title: "Cloud API",
-    body: "Take a look at how the Cloud API works.",
+    body: "Discover how the Cloud API works.",
   },
   {
     path: "/toolings/cloud-cli",

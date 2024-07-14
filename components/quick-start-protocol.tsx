@@ -15,8 +15,8 @@ const QUICK_START_LIST = [
     body: "Build a Cloud Provider and lend GPU.",
   },
   {
-    path: "/tiering",
-    emoji: "🗂️",
+    path: "/providers/reward-details",
+    emoji: "🏆",
     title: "Provider Reward Details",
     body: "Learn about the provider rewards.",
   },

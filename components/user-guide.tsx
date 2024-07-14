@@ -4,7 +4,7 @@ import styles from "../styles/quick.module.css";
 const GUIDE_TYPE_LIST = [
   {
     path: "/user-guide/icl",
-    emoji: "🗂️",
+    emoji: "⚡",
     title: "ICL Configuration",
     body: "Learn about the deployment config.",
   },
@@ -16,7 +16,7 @@ const GUIDE_TYPE_LIST = [
   },
   {
     path: "/user-guide/supports#gpu-support--tiering",
-    emoji: "🌀",
+    emoji: "📟",
     title: "GPU Supports",
     body: "Know all the GPU support and it's tiering.",
   },
