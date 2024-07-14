@@ -1,0 +1,63 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+
+# Reward Details
+
+To understand rewarding system, let's first understand how reward emission works in the Spheron Protocol.
+
+## Reward Emission
+
+Providers are incentivized with liveness rewards based on tiers and multipliers to ensure they remain active within the network. This approach prevents potential exits due to insufficient returns on investment (ROI) or the inability to cover operational expenses (OpEx).
+
+- The liveness rewards are currently issued in a points system until the launch of the $SPHN token. These points are non-transferable.
+- The liveness reward is issued every **ERA** (which is 24 hours) and will be accumulated in the provider's wallet. 
+
+<Callout type="info">
+**Note:** Providers are advised to securely save their provider wallet to avoid losing the rewards.
+</Callout>
+Liveness rewards are determined based on several factors:
+
+### Resource Rewards
+
+Providers earn rewards based on the GPU and compute resources they provide to the network. The higher the quality of the resource, the better the reward multiplier. Different resource categories will be introduced, each with different base rewards and multipliers based on tiering (e.g., CPU tiering, Storage tiering, and Connectivity tiering). Currently, only GPU tiering with 10 tiers has been introduced.
+
+**How are resource rewards calculated?**
+
+Let's say you have **x** units of **GPU A**, which falls in **Medium Tier 1** with a multiplier of **1x**, and **y** units of **GPU B**, which falls in **High Tier 2** with a multiplier of **6x**. The base reward for GPU Tier is **k**. The resource reward calculation will be: 
+```
+(x * 1 + y * 6) * k
+```
+
+### Trust Reward Booster
+
+Providers must maintain a specific uptime based on their current tier requirement to receive ERA liveness rewards. Failure to maintain the required uptime within an ERA will results in a 100% slashing of rewards for that ERA.
+
+Uptime in the Spheron network is calculated based on challenges performed by the Slark node (currently maintained by Spheron). Every hour, at a random time, the Slark node will challenge the provider to perform a Proof of Compute challenge. If the challenge is successful, it will be recorded, and after 24 hours, all challenges are evaluated. If the uptime is below than required, a slashing transaction will be made on-chain to slash the provider's reward.
+
+However, if the provider performs well for three consecutive Eras, they will be promoted to the next higher Tier, resulting in a higher booster on their liveness rewards. Conversely, if the provider underperforms for five consecutive Eras, they will be demoted to a lower Tier and receive a lower booster on their liveness rewards.
+
+Each Tier has an associated booster. The higher the Tier, the greater the booster on the rewards. For more information about the Tier Boosters, refer to the [Trust & Performance Tier](/providers/reward-details#trust--performance-tier) section.
+
+<Callout type="info">
+The reward for the provider is multiplied by the booster of their current Tier. **The last tier (Tier 7) does not receive any rewards, so providers need to achieve at least Tier 6 to start receiving liveness rewards.**
+</Callout>
+
+## Slashing
+
+As mentioned in the Trust & Performance Booster section, slashing occurs when a provider fails to maintain the required uptime metrics for their current Tier. The uptime requirements are detailed in the [Trust & Performance Tier](/providers/reward-details#trust--performance-tier) section.
+
+## Trust & Performance Tier
+
+Provider Nodes are categorized into 7 tiers, with each tier representing a higher level of service quality and reliability. The Trust and Performance Tiers classify providers based on their reliability, performance, and trustworthiness. Higher tiers indicate greater trust and performance, leading to higher prioritization and rewards.
+
+| **Tier** | **Tier Name**               | **Uptime (%)** | **Slashing Requirement (%)** | **Rewards Multiplier** |
+|:--------:|:----------------------------|:--------------:|:----------------------------:|:----------------------:|
+| 1        | Most Trusted Providers      | > 99           | < 85                         | 2.0                    |
+| 2        | Highly Trusted Providers    | > 98           | < 80                         | 1.7                    |
+| 3        | Trusted Providers           | > 97           | < 75                         | 1.5                    |
+| 4        | Somewhat Trusted Providers  | > 95           | < 70                         | 1.2                    |
+| 5        | Less Trusted Providers      | > 90           | < 65                         | 1.1                    |
+| 6        | Untrusted Providers         | > 85           | < 60                         | 1.0                    |
+| 7        | Most Untrusted Providers    | > 75           | -                            | 0.0                    |
+
+<Navigation name="Reward Details" />

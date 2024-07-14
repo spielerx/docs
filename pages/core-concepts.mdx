@@ -15,8 +15,8 @@ To build a strong and fully functioning decentralized network for sharing comput
 
 A key part of our discussion has been about the different types of provider nodes on the network. There are two main categories:
 
-1. Light Nodes **(We Will Update this section soon)**
-1. [roviders](/spheron-protocol/service-provider)
+1. Fizz Nodes **(We Will Update this section soon)**
+1. [Providers](/core-concepts/providers)
 
 The following sections will explain in detail the architecture and process involved specifically for Providers when it comes to:
 
@@ -27,9 +27,9 @@ We'll cover things like the role of smart contracts, the matchmaking process, an
 
 ## Deployment Order Workflow
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jvbv86s65ytndpodf1k9.png)
+![Depolyment Order Workflow](assets/depolyment-order-workflow.png)
 
-This architecture is centered around a matchmaking engine, a pivotal component within the network. This engine processes order details and provider bids, selecting the optimal provider for each deployment based on specific parameters outlined in [Section](/spheron-protocol#matching-parameters-for-provider-selection). After a match is made, the order smart contract initiates a lease with the selected provider. Subsequently, the user transmits the deployment manifest to initiate workload deployment on the designated provider over MTLS connection. Upon completion, the user can verify the deployment status and access all relevant deployment details such as connection URLs and port mappings.
+This architecture is centered around a matchmaking engine, a pivotal component within the network. This engine processes order details and provider bids, selecting the optimal provider for each deployment based on specific parameters outlined in [Section](/core-concepts#matching-parameters-for-provider-selection). After a match is made, the order smart contract initiates a lease with the selected provider. Subsequently, the user transmits the deployment manifest to initiate workload deployment on the designated provider over MTLS connection. Upon completion, the user can verify the deployment status and access all relevant deployment details such as connection URLs and port mappings.
 
 ## Matchmaking Mechanism: Facilitating Decentralized Resource Allocation
 
@@ -39,7 +39,7 @@ This section details the operational dynamics, economic incentives, and the comp
 
 ## Operational Dynamics of the Matchmaker Operator
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/64jpa10ny2qc3xasfw35.png)
+![Matchmaker Operator](assets/matchmaker-operator.png)
 
 Spheron has adopted an AVS-based architecture for our matching engine, leveraging the Economic and Ethereum Inclusion Trust afforded by the Eigen Layer AVS protocol. This protocol is trusted economically due to ETH restaking and offers decentralization through a broad network of ETH validator operators.
 When a user initiates a new deployment request on our L2 chain, they execute a function on the Deployment Order Smart Contract, which then emits an `ORDER_CREATED` event. Providers listen for this event and submit their bids to the Deployment Order Smart Contract. 
@@ -62,4 +62,4 @@ The consensus mechanism at the heart of the Matchmaker Node is engineered to eva
 These parameters are synthesized through a robust algorithm, culminating in selecting a provider node that aligns with the deployment's stipulated criteria. The Matchmaker Node executes an on-chain transaction `(CREATE_LEASE)`, officially documenting the allocation and commencing the deployment process.
 
 
-<Navigation name="Spheron Protocol" />
+<Navigation name="Core Concepts" />

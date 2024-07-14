@@ -35,7 +35,7 @@ ssh -i [ssh_key] root@[provider-ip]
 
 ![Provider Setup 3](assets/provider-setup-3.png)
 
-4. Provide the domain you attached in the [playbook hostname](/spheron-protocol/provider-onboarding/prepare-linux-instances#step-3-edit-playbook).
+4. Provide the domain you attached in the [playbook hostname](/providers/prepare-linux-instances#step-3-edit-playbook).
 
 ![Provider Setup 4](assets/provider-setup-4.png)
 
@@ -44,7 +44,7 @@ ssh -i [ssh_key] root@[provider-ip]
 ![Provider Setup 5](assets/provider-setup-5.png)
 
 
-## Deposit SPH to the provider’s wallet
+## Deposit SPH to the provider's wallet
 
 1. Use the following command to SSH into your provider instance
 
@@ -81,62 +81,78 @@ cat /home/spheron/logs/installer/wallet.log | grep mnemonic
 ```
 </Callout>
 
+
+## Create Provider Configuration
+
+Here is the format for the provider configuration:
+
+```
+{
+  "pricing": {
+    "cpu": "3.00",
+    "memory": "1.00",
+    "ephemeral": "0.03",
+    "hdd": "0.02",
+    "ssd": "0.04",
+    "nvme": "0.05",
+    "endpoint": "0.06",
+    "ip": "6",
+    "gpu": "p4=50,rtx4090=80"
+  },
+  "payment_tokens": ["USDT", "USDC"],
+  "gpu": ["p4", "t1000", "a100"],
+  "cpu": ["hpc", "gp"],
+  "ram": ["ddr4"],
+  "storage": ["ssd"],
+  "region": "us-east",
+  "hostname": "provider.example.com",
+  "attribute": ["test=true"]
+}
+```
+
+You can edit the values to suit your requirements, but do not change the keys. These values will be recorded on-chain in our contracts. Let's walk through what each of these configuration parameters means:
+
+- **Pricing:** This section sets the pricing for your hardware. All prices are per unit in USD. For example, the CPU is priced at $3 per CPU or thread per month. For GPUs, list each model with its unit price per month, separated by commas.
+- **Payment Tokens:** Specify all the tokens you want to accept for payments. Refer to [Payment Token Support](/user-guide/supports#supported-payment-tokens) page for supported tokens.
+- **GPU:** List all the GPU models supported by your provider. Use the shorthand values from the [GPU support](/user-guide/supports#gpu-support--tiering) page. Ensure you include the pricing for each GPU model in the Pricing section.
+- **CPU:** List all the types of CPUs you support. Options include:
+  - **basic:** Older generation server hardware
+  - **gp:** General purpose server hardware
+  - **hpc:** High-performance compute server hardware
+- **RAM:** List all types of RAM you support. Options include: ddr2, ddr3, ddr4.
+- **Storage:** List all types of storage you support. Options include: hdd, ssd, nvme.
+- **Region:** Specify the region where your provider is located. Refer to the [Region Support](/user-guide/supports#supported-regions) page for supported regions.
+- **Hostname:** Provide the hostname matching the domain configured at the start of the setup. This will be exposed to users.
+- **Attribute:** Add any number of attributes for your provider in a key=value pair format.
+
+Once you have updated the configuration values, create a `config.json` file for your provider at `/home/spheron/.spheron/config.json`. To do this:
+
+1. Switch to the spheron user:
+```
+sudo su spheron
+```
+
+2. Open the configuration file in a text editor:
+```
+vi /home/spheron/.spheron/config.json
+```
+
+3. Paste the updated configuration into the config.json file and save it.
+
 ## Registering a Provider
 
 To register a provider, use the following command:
 
-<Callout type="info">
-- Update the region in the config to reflect where your provider is located. If you have servers in different locations, create multiple providers, each with its own region.
-- Update the payment tokens in the config to include all the tokens you want to accept for payments.
-- Lastly, update the hostname to match the domain you configured at the beginning of the setup, as this will be exposed to users.
-</Callout>
 
 ```
-spheron provider add --from ~/.spheron/wallet.json --key-secret testPassword --payment-token "0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292" --region [us-central-devnet] --domain [provider.devnetcsphn.com] --attributes ["region=us-central-devnet"]
+sphnctl provider add --from ~/.spheron/wallet.json --key-secret testPassword --config config.json 
 ```
-
-### Adding Multiple Payment Tokens
-
-You can add multiple tokens using the `--payment-token` flag as shown below:
-
-```
---payment-token "t1,t2"
-```
-
-### Provider Capabilities
-
-Each provider has certain properties defned by the attribute flag for example: GPU Model, Region, and Storage options.
-
-- Example of GPU capability: 
-
-```
-spheron.network/capabilities.gpu.vendor.nvidia.model.p4=true 
-```
-
-- Example of Storage capability: 
-
-```
-spheron.network/capabilities.storage.class.beta1=true
-```
-
-### Changing Provider Attributes
-
-To change the provider capabilities, modify the `--attributes` field like this:
 
 <Callout type="info">
-**Note:** For detailed information on GPU support and the corresponding labels, please refer to the [GPU support page](/spheron-protocol/gpu-tiering). The GPU capability attributes should be selected from the GPU support list and must match the GPU model of all the nodes. Providers can specify multiple GPU capabilities as comma-separated values.
-</Callout>
-
+Note: You can modify and change provider details using below command:
 ```
---attributes "region=us-east,capabilities/gpu/vendor/nvidia/model/p4=true" 
+provider update --from ~/.spheron/wallet.json --key-secret testPassword --config config.json
 ```
-The full command would look like this:
-
-```
-spheron provider add --from ~/.spheron/wallet.json --key-secret testPassword --payment-token "0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292" --region us-central-devnet --domain provider.devnetcsphn.com --attributes "region=us-east,capabilities/gpu/vendor/nvidia/model/p4=true"
-```
-<Callout type="info">
-Note: You can modify and change provider details using provider `add command`.
 </Callout>
 
 ## Setup Environment
@@ -292,68 +308,11 @@ kubectl logs nbody-gpu-benchmark
 kubectl delete pod nbody-gpu-benchmark
 ```
 
-We need to add some labels to the GPU nodes `spheron.network/capabilities.gpu.vendor.nvidia.model.gpumodel=true` to activate GPU.
 
-<Callout type="info">
-**Note:** For detailed information on GPU support and the corresponding labels, please refer to the [GPU support page]([GPU support](/spheron-protocol/gpu-tiering)). The capabilities should be selected from the table provided on that page.
-</Callout>
-
-
-4. Find the GPU model of the node using this command 
-
-```
-nvidia-smi --query-gpu=gpu_name --format=csv,noheader
-
-The output will look like below
-
-```
-TESLA P4
-```
-
-5. Fetch the node name using following command:
+4. Fetch the node name using the following command to check if your nodes are configured properly:
 
 ```
 kubectl get nodes
-```
-
-6. To apply the label use the following command.
-<Callout type="info">
-**Note:** Update the node name from the above command and gpu capability using the table provided in the [Supported GPU](/spheron-protocol/gpu-tiering)
-</Callout>
-
-```
-kubectl label node [node-name] [gpu-capability]
-```
-
-## Add Pricing
-
-The init scripts download both the pricing script and price config. Price config is available at `/home/spheron/price.json`. It is a JSON file with the following data.
-
-```sh
-{
-  "cpu": "3.00",
-  "memory": "1.00",
-  "ephemeral": "0.03",
-  "hdd": "0.02",
-  "ssd": "0.04",
-  "nvme": "0.05",
-  "endpoint": "0.06",
-  "ip": "6",
-  "gpu": "p4=50,rtx4090=80"
-}
-```
-<Callout type="info">
-**Note:** 
-1. That all the prices are per unit price in USD value. For example, the CPU is set to 3 USD per 1 CPU / Thread per Month and similarly, others are set like that. For GPU, if you have multiple of them, you need to pass it in comma separated and the value should be set to unit price of the 1 GPU for a month.
-2. Update this file using Vim or Nano with the values you want.
-</Callout>
-
-```
-vim /home/spheron/price.json
-```
-or 
-```
-nano /home/spheron/price.json
 ```
 
 ## Install Provider
@@ -398,6 +357,12 @@ Install the hostname and inventory operators
 ```
 helm upgrade --install spheron-hostname-operator ./spheron-hostname-operator -n spheron-services
 helm upgrade --install inventory-operator ./spheron-inventory-operator -n spheron-services
+```
+
+## Verify the node has GPU labels
+
+```
+kubectl describe node <node-name> | grep -A10 Labels
 ```
 
 ## Install Persistent Storage (Optional)
