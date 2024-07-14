@@ -32,23 +32,18 @@ Let's say you have **x** units of **GPU A**, which falls in **Medium Tier 1** wi
 
 Providers must maintain a specific uptime based on their current tier requirement to receive ERA liveness rewards. Failure to maintain the required uptime within an ERA will results in a 100% slashing of rewards for that ERA.
 
-Uptime in the Spheron network is calculated based on challenges performed by the Slark node (currently maintained by Spheron). Every hour, at a random time, the Slark node will challenge the provider to perform a Proof of Compute challenge. If the challenge is successful, it will be recorded, and after 24 hours, all challenges are evaluated. If the uptime is below than required, a slashing transaction will be made on-chain to slash the provider's reward.
+Uptime in the Spheron network is calculated based on challenges performed by the Slark node (currently maintained by Spheron). At a random time, the Slark node will challenge the provider to perform a Proof of Compute challenge. If the challenge is successful, it will be recorded, and after 24 hours, all challenges are evaluated. If the uptime is below than required, a slashing transaction will be made on-chain to slash the provider's reward.
 
 However, if the provider performs well for three consecutive Eras, they will be promoted to the next higher Tier, resulting in a higher booster on their liveness rewards. Conversely, if the provider underperforms for five consecutive Eras, they will be demoted to a lower Tier and receive a lower booster on their liveness rewards.
 
 Each Tier has an associated booster. The higher the Tier, the greater the booster on the rewards. For more information about the Tier Boosters, refer to the [Trust & Performance Tier](/providers/reward-details#trust--performance-tier) section.
 
-<Callout type="info">
-The reward for the provider is multiplied by the booster of their current Tier. **The last tier (Tier 7) does not receive any rewards, so providers need to achieve at least Tier 6 to start receiving liveness rewards.**
-</Callout>
-
-## Slashing
-
-As mentioned in the Trust & Performance Booster section, slashing occurs when a provider fails to maintain the required uptime metrics for their current Tier. The uptime requirements are detailed in the [Trust & Performance Tier](/providers/reward-details#trust--performance-tier) section.
 
 ## Trust & Performance Tier
 
 Provider Nodes are categorized into 7 tiers, with each tier representing a higher level of service quality and reliability. The Trust and Performance Tiers classify providers based on their reliability, performance, and trustworthiness. Higher tiers indicate greater trust and performance, leading to higher prioritization and rewards.
+
+The table below categorizes providers into different tiers based on their performance metrics. Each tier represents a level of trust and performance, with higher tiers earning greater rewards.
 
 | **Tier** | **Tier Name**               | **Uptime (%)** | **Slashing Requirement (%)** | **Rewards Multiplier** |
 |:--------:|:----------------------------|:--------------:|:----------------------------:|:----------------------:|
@@ -59,5 +54,45 @@ Provider Nodes are categorized into 7 tiers, with each tier representing a highe
 | 5        | Less Trusted Providers      | > 90           | < 65                         | 1.1                    |
 | 6        | Untrusted Providers         | > 85           | < 60                         | 1.0                    |
 | 7        | Most Untrusted Providers    | > 75           | -                            | 0.0                    |
+
+### Understanding Uptime
+
+**Uptime** is a critical metric used to evaluate a provider's performance. It measures the percentage of time a provider is operational and able to handle tasks within an ERA (24 hours). The uptime requirement varies by tier:
+
+- **Tier 1 (Most Trusted Providers)**: Requires more than 99% uptime.
+- **Tier 2 (Highly Trusted Providers)**: Requires more than 98% uptime.
+- **Tier 3 (Trusted Providers)**: Requires more than 97% uptime.
+- **Tier 4 (Somewhat Trusted Providers)**: Requires more than 95% uptime.
+- **Tier 5 (Less Trusted Providers)**: Requires more than 90% uptime.
+- **Tier 6 (Untrusted Providers)**: Requires more than 85% uptime.
+- **Tier 7 (Most Untrusted Providers)**: Requires more than 75% uptime.
+
+**Purpose of Uptime**: Uptime is used to determine if a provider is performing well. Providers that meet or exceed the uptime requirements for their tier can be promoted to a higher tier, resulting in increased rewards. Conversely, failing to meet the uptime requirements can lead to demotion to a lower tier.
+
+### Slashing Requirement
+
+The **Slashing Requirement** is the minimum performance threshold that providers must meet to avoid having their rewards slashed. If a provider's performance falls below this threshold, they will not receive any rewards for that ERA.
+
+- **Tier 1**: Rewards are slashed if uptime falls below 85%.
+- **Tier 2**: Rewards are slashed if uptime falls below 80%.
+- **Tier 3**: Rewards are slashed if uptime falls below 75%.
+- **Tier 4**: Rewards are slashed if uptime falls below 70%.
+- **Tier 5**: Rewards are slashed if uptime falls below 65%.
+- **Tier 6**: Rewards are slashed if uptime falls below 60%.
+- **Tier 7**: Does not have a slashing requirement because providers in this tier do not receive any rewards.
+
+### Tier 7 - Most Untrusted Providers
+
+Providers in **Tier 7** are considered the least trusted and do not accrue any rewards. To start earning rewards, they must improve their performance and move up to at least **Tier 6** by meeting the required uptime metrics.
+
+### How Metrics Are Calculated
+
+The metrics for uptime and slashing are calculated based on challenges performed by the Slark node. This node challenges providers at random times, requiring them to complete a Proof of Compute task. Successful completion of these tasks is recorded, and after 24 hours, the Slark node evaluates the provider's performance.
+
+- **Uptime Calculation**: The Slark node calculates uptime by counting the number of successful challenges out of the total challenges within an Era.
+- **Slashing Decision**: If a provider's uptime falls below the slashing requirement, the Slark node initiates a slashing transaction on-chain, causing the provider to lose their rewards for that Era.
+- **Promotion and Demotion**: The Slark node also determines if a provider should be promoted or demoted based on their performance over multiple Eras. Consistent good performance can lead to promotion to a higher tier, while consistent poor performance can lead to demotion to a lower tier.
+
+By understanding and meeting these metrics, providers can maximize their rewards and achieve higher tiers within the Spheron network.
 
 <Navigation name="Reward Details" />
