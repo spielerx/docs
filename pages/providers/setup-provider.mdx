@@ -31,20 +31,16 @@ ssh -i [ssh_key] root@[provider-ip]
 
 ![Provider Setup 2](assets/provider-setup-2.png)
 
-3. If you already have a wallet, provide the mnemonic. Otherwise, choose `n` to let the script create a new wallet for you.
-
-![Provider Setup 3](assets/provider-setup-3.png)
-
-4. Provide the domain you attached in the [playbook hostname](/providers/prepare-linux-instances#step-3-edit-playbook).
+3. Provide the domain you attached in the [playbook hostname](/providers/prepare-linux-instances#step-3-edit-playbook).
 
 ![Provider Setup 4](assets/provider-setup-4.png)
 
-5. After the successful script run, you would see a output like below.
+4. After the successful script run, you would see a output like below.
 
 ![Provider Setup 5](assets/provider-setup-5.png)
 
 
-## Deposit SPH to the provider's wallet
+## Deposit test Arbitrum sepolia ETH to the provider's wallet
 
 1. Use the following command to SSH into your provider instance
 
@@ -71,7 +67,7 @@ You will receive output similar to:
 {"address":"d5a824a1b4a7de20ef1fb697d13a7e4dc3147a28","crypto":{"ci...
 ```
 
-4. Go to the [**Faucet**](https://spheron-devnet.hub.caldera.xyz/) to obtain some test gas tokens for the address you got from the previous step. These tokens will allow you to perform on-chain transactions.
+4. Go to the [**Faucet**](https://www.alchemy.com/faucets/arbitrum-sepolia) to obtain some test gas tokens for the address you got from the previous step. These tokens will allow you to perform on-chain transactions.
 
 <Callout type="info">
 To retrieve the mnemonic, run the following command:
@@ -79,6 +75,8 @@ To retrieve the mnemonic, run the following command:
 ```
 cat /home/spheron/logs/installer/wallet.log | grep mnemonic
 ```
+
+Or you can directly copy the content in ` ~/.spheron/wallet.json` & save it in your local system with extension `wallet.json` and import it via metamask using this [Guide](https://support.metamask.io/managing-my-wallet/accounts-and-addresses/how-to-import-an-account/#importing-using-a-json-file).
 </Callout>
 
 
@@ -145,13 +143,13 @@ To register a provider, use the following command:
 
 
 ```
-sphnctl provider add --from ~/.spheron/wallet.json --key-secret testPassword --config config.json 
+sphnctl provider add --from ~/.spheron/wallet.json --key-secret testPassword --config /home/spheron/.spheron/config.json
 ```
 
 <Callout type="info">
 Note: You can modify and change provider details using below command:
 ```
-provider update --from ~/.spheron/wallet.json --key-secret testPassword --config config.json
+provider update --from ~/.spheron/wallet.json --key-secret testPassword --config /home/spheron/.spheron/config.json
 ```
 </Callout>
 
