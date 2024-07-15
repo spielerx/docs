@@ -173,7 +173,11 @@ useast:
 
 This defines a profile named `useast` with the required attributes `{region="us-east"}` and a maximum price of 8000000 (8 USDT with a precision of 6) per hour for the web compute profiles.
 
-Providers can only assign themselves to a predefined set of regions. If you specify an unlisted region, no provider will bid on your deployment, causing it to fail automatically. Please refer to the list mentioned in [this section].
+Providers can only assign themselves to a predefined set of regions. If you specify an unlisted region, no provider will bid on your deployment, causing it to fail automatically. Please refer to the list mentioned in the [Supported Regions](/user-guide/supports#supported-regions) section.
+
+<Callout type="info">
+**Note:** Precision is crucial for any deployment on Spheron. All token values passed in ICL or CLI must have the correct precision. For details on token precision, refer to the [Supported Payment Token](/user-guide/supports#supported-payment-tokens) section.
+</Callout>
 
 ## 5. Deployment Configuration
 

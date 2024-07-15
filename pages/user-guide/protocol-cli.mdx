@@ -28,7 +28,6 @@ curl -sL1 https://sphnctl.sh | bash
 ```sh
 # Verify the installation by using a simple command to check the Spheron version
 sphnctl -h
-
 ```
 
 ## Wallet Configurations
@@ -108,7 +107,12 @@ Here is an example of how the result will look:
 Successfully deposited [Amount] [Token Name]! Start deploying!!!
 Tx hash: https://arbiscan.io/tx/0xc33a13a0e5e07ca54fea6077f7d14052ac65cf36682983cc69eed16a162ab1f1
 ```
+
 The amount you pass need to be in full precision i.e if the USDT has 6 precision then the amount of 1 USDT will be 1000000.
+
+<Callout type="info">
+**Note:** Precision is crucial for any deployment on Spheron. All token values passed in ICL or CLI must have the correct precision. For details on token precision, refer to the [Supported Payment Token](/user-guide/supports#supported-payment-tokens) section.
+</Callout>
 
 <Callout type="info">
 **Note:** There is a restriction on minimum of 15$ deposited funds in your account of any token to start any deployment
@@ -133,6 +137,10 @@ sphnctl payment deposit --amount [Amount] --token [Token Name]
 ```
 
 The amount you pass need to be in full precision i.e if the USDT has 6 precision then the amount of 1 USDT will be 1000000.
+
+<Callout type="info">
+**Note:** Precision is crucial for any deployment on Spheron. All token values passed in ICL or CLI must have the correct precision. For details on token precision, refer to the [Supported Payment Token](/user-guide/supports#supported-payment-tokens) section.
+</Callout>
 
 
 ### Checking your Account Balance
@@ -373,12 +381,12 @@ There are some other options that you can use to stream events or change output 
 | `--service`                                     | No        | Name of service you want specifically query the logs from.                            |
 
 
-### Connect to Deployment Shell
+{/* ### Connect to Deployment Shell
 To connect to your deployment's shell access, you need to run this command to fetch it:
 
 ```sh
 sphnctl deployment shell --lid [Lease ID]
-```
+``` */}
 
 ### Update the Deployment
 Update the `deploy.yml` manifest file with the desired change.
