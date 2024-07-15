@@ -79,13 +79,14 @@ We support almost all Nvidia GPUs and are continuously adding support for new GP
 
 These are all the payment tokens that we currently support:
 
-| **Token Name** | **Token Address**                             | **Token Ticker** |
-|:--------------:|:---------------------------------------------:|:----------------:|
-| USDT           | `0xdac17f958d2ee523a2206206994597c13d831ec7`  | USDT             |
-| USDC           | `0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48`  | USDC             |
-| DAI            | `0x6b175474e89094c44da98b954eedeac495271d0f`  | DAI              |
-| WETH           | `0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2`  | WETH             |
-| ARB            | `0x912ce59144191c1204e64559fe8253a0e49e6548`  | ARB              |
+| **Token Name** | **Token Address**                             | **ICL Config Use** | **Precision** | **Minimum Deposit Amount** |
+|:--------------:|:---------------------------------------------:|:------------------:|:-------------:|:--------------------------:|
+| USDT           | `0xdac17f958d2ee523a2206206994597c13d831ec7`  | USDT               | 6             | 15 USDT                    |
+| USDC           | `0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48`  | USDC               | 6             | 15 USDC                    |
+| DAI            | `0x6b175474e89094c44da98b954eedeac495271d0f`  | DAI                | 18            | 15 DAI                     |
+| WETH           | `0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2`  | WETH               | 18            | 0.005 WETH                 |
+
+The precision is used in the ICL configuration when mentioning the max price for the deployment. You need to convert the amount to the precision value before passing it to the ICL deployment.
 
 
 ## Supported Regions
