@@ -123,7 +123,7 @@ You can edit the values to suit your requirements, but do not change the keys. T
 - **Hostname:** Provide the hostname matching the domain configured at the start of the setup. This will be exposed to users.
 - **Attribute:** Add any number of attributes for your provider in a key=value pair format.
 
-Once you have updated the configuration values, create a `config.json` file for your provider at `/home/spheron/.spheron/config.json`. To do this:
+Once you have updated the configuration values, create a `provider-config.json` file for your provider at `/home/spheron/.spheron/provider-config.json`. To do this:
 
 1. Switch to the spheron user:
 ```
@@ -132,10 +132,10 @@ sudo su spheron
 
 2. Open the configuration file in a text editor:
 ```
-vi /home/spheron/.spheron/config.json
+vi /home/spheron/.spheron/provider-config.json
 ```
 
-3. Paste the updated configuration into the config.json file and save it.
+3. Paste the updated configuration into the `provider-config.json` file and save it.
 
 ## Registering a Provider
 
@@ -143,13 +143,13 @@ To register a provider, use the following command:
 
 
 ```
-sphnctl provider add --from ~/.spheron/wallet.json --key-secret testPassword --config /home/spheron/.spheron/config.json
+sphnctl provider add --from ~/.spheron/wallet.json --key-secret testPassword --config /home/spheron/.spheron/provider-config.json
 ```
 
 <Callout type="info">
 Note: You can modify and change provider details using below command:
 ```
-provider update --from ~/.spheron/wallet.json --key-secret testPassword --config /home/spheron/.spheron/config.json
+provider update --from ~/.spheron/wallet.json --key-secret testPassword --config /home/spheron/.spheron/provider-config.json
 ```
 </Callout>
 
@@ -223,6 +223,10 @@ kubectl label ingressclass spheron-ingress-class spheron.network=true
 ```
 
 ## Only For the GPU Cluster
+
+<Callout type="warning">
+Note: Before you start the next step, please be aware that it applies exclusively to GPU servers.
+</Callout>
 
 1. Start with the below script to setup the helm chart for the GPU provider deployment.
 
@@ -325,6 +329,8 @@ Install the helm charts:
 
 ```
 sudo su spheron
+```
+```
 cd /home/spheron/provider-helm-charts/charts
 helm upgrade --install spheron-provider ./spheron-provider -n spheron-services \
         --set from=/spheron-key/wallet.json \
@@ -359,8 +365,15 @@ helm upgrade --install inventory-operator ./spheron-inventory-operator -n sphero
 
 ## Verify the node has GPU labels
 
+<Callout type="info">
+Note: To find the node name for this step, you need to execute the below step and take the first name in the list:
 ```
-kubectl describe node <node-name> | grep -A10 Labels
+kubectl get nodes
+```
+</Callout>
+
+```
+kubectl describe node [node-name] | grep -A10 Labels
 ```
 
 ## Install Persistent Storage (Optional)
