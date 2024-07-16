@@ -1,0 +1,306 @@
+import Navigation from "components/navigation";
+import {Callout} from "nextra-theme-docs";
+
+# Infrastructure Composition Language (ICL)
+
+Spheron Network uses a declarative system for resource allocation. Users specify their deployment requirements, 
+services, datacenters and pricing parameters through a **"manifest"** file called `deploy.yaml`, written in Infrastructure Composition Language (ICL).
+ICL is designed to be user-friendly and follows the YAML standard, making it similar to Docker Compose files.
+
+The `deploy.yaml` file, which can also use the `.yml` extension, serves as a request form for network resources. 
+
+It's structured into several key sections:
+
+1. [Network Configuration](/user-guide/icl#1-network-configuration) 
+2. [Version](/user-guidel/icl#2-version-configuration)
+3. [Services](/user-guide/icl#3-services-configuration)
+4. [Profiles](/user-guide/icl#4-profiles)
+5. [Deployment](/user-guide/icl#5-deployment-configuration)
+6. [GPU Support](/user-guide/icl#6-gpu-integration-support-in-compute-profiles)
+
+An example deployment configuration can be found here.
+
+## 1. Network Configuration
+The Infrastructure Composition Language (ICL) file allows you to define networking settings for your deployment. This determines how workloads can connect to each other and be accessed externally. By default, workloads within a deployment group are isolated, meaning no external connections are permitted. However, these restrictions can be adjusted as needed.
+
+## 2. `Version` Configuration
+The Spheron configuration file requires a version specification. At present, the only accepted value is "1.0".
+
+## 3. `Services` Configuration
+The `services` section at the top level of the configuration file defines the workloads for your Spheron deployment. 
+It's structured as a map where each key represents a unique service name, and the corresponding value is another map with the following possible fields:
+
+| Field Name | Required           | Description                                                                                                                                   |
+|----------- |--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| image      | Yes                | Specifies the Docker image for the container. Caution: Using `:latest` tags is not recommended due to extensive caching by Spheron Providers. |
+| command    | No                 | Defines a custom command to be executed when launching the container.                                                                         |
+| args       | No                 | Provides arguments for the custom command specified in the 'command' field.                                                                   |
+| env        | No                 | Sets environment variables for the running container. Refer to the [services.env](/user-guide/icl#3-services-configuration) section for more details.                                     |
+| expose     | No                 | Determines which entities are permitted to connect to the services. See the [services.expose](/user-guide/icl#port-exposure-in-servicesexpose) section for additional information.               |
+
+### Environment Variables for `services.env`
+
+The `env` field allows you to specify a list of environment variables that will be made available to the running container. These variables are defined in a key-value format. For example:
+
+```
+env:
+  - WALLET_ADDR=0xabcdedghijke
+  - VERSION=1.0
+```
+### Port Exposure in `services.expose`
+
+When configuring port exposure for your services, keep these points in mind:
+
+-   **HTTPS Support:** Spheron deployments can use HTTPS, but only with self-signed certificates.
+-   **Signed Certificates:** To implement properly signed certificates, you'll need to use a third-party solution like Cloudflare as a front-end.
+-   **Flexible Port Mapping:** You're not limited to just port 80 for HTTP/HTTPS ingress. You can expose other ports and map them to port 80 using the as: 80 directive, provided your application understands HTTP/HTTPS protocols. This is particularly useful for applications like React web apps.
+-   **Simplified Port Exposure:** In the ICL, it's only required to expose port 80 for web applications. However, this setup specifies that both ports 80 and 443 are exposed. 
+
+```
+- port: 3000
+  as: 80
+  to:
+    - global: true
+  accept:
+    - www.yoursite.com
+```
+
+The `expose` parameter is a list that defines the connections allowed to the service. 
+Each entry in this list is a map that can include one or more of the following fields:
+
+| Field          | Required           | Description                                                                                                             |
+|----------------|--------------------|-------------------------------------------------------------------------------------------------------------------------|
+| `port`         | Yes                | Specifies the container port that should be made accessible.                                                            |
+| `as`           | No                 | Defines an alternative port number to expose the container port as.                                                     |
+| `accept`       | No                 | Lists the hostnames for which connections should be accepted.                                                           |
+| `proto`        | No                 | Indicates the protocol type. Can be set to either `tcp` or `udp`.                                                       |
+| `to`           | No                 | Enumerates the entities permitted to connect to this port. Refer to the `services.expose.to` section for more details.  |
+
+Keep in mind, The `as` parameter determines the default `proto` value.
+
+<Callout type="info">
+    **NOTE:**
+    1. If `as` is not specified, it defaults to the value set by the mandatory port directive.
+    2. When `as` is set to 80 (HTTP), the Kubernetes ingress controller automatically makes the application accessible via HTTPS as well. However, this uses the default self-signed ingress certificates.
+  </Callout>
+
+
+| `port`          | `proto` default  |
+|---------------- |----------------  |
+| 80              | http & https     |
+| all others      | tcp & udp        |
+
+### Configuring `services.expose.to`
+
+The `expose.to` field defines a list of clients allowed to connect to a service. 
+Each item in this list is a map that can contain one or both of these entries:
+
+| parameter          | Type                          | Default      | Description                         |
+|--------------------|-------------------------------|--------------|-----------------------------------------------------------------------------------|
+| `service`          | A service in this deployment  | N/A          | Permit the specified service to establish a connection.                           |
+| `global`           | `true` or `false`             | `false`      | If set to true, allows connections from outside the datacenter                    |
+
+
+If no service is specified and `global` is set to true, any client can connect from any location (this is commonly desired for web servers).
+
+If a service name is specified and `global` is set to `false`, only services within the current datacenter can connect. If a service name is specified and `global` is set to `true`, services from other datacenters within the deployment can connect.
+
+When `global` is set to `false`, a service name must be provided.
+
+## 4. Profiles
+The profiles section is used to define named compute and placement profiles that can be referenced in the [deployment section](/user-guide/icl#5-deployment-configuration).
+
+### Compute Profiles
+Within `profiles.compute`, you can create a map of named compute profiles. 
+Each profile specifies the compute resources that will be allocated to service instances using that profile.
+
+**Example**
+
+This defines a profile named `api` with resource requirements of 2 vCPUs, 4 gigabytes of memory, and 20 gigabytes of storage.
+
+```
+api:
+  cpu: 2
+  memory: "4Gi"
+  storage: "20Gi"
+```
+
+`cpu` units indicate a vCPU share, which can be fractional. Without a suffix, the value denotes a fraction of a whole CPU share. 
+If an `m` suffix is used, the value specifies the number of milli-CPU shares, which equals 1/1000 of a CPU share.
+
+**Example**
+
+| Value           | CPU-Share        |
+|---------------- |----------------  |
+| `1`             | 1                |
+| `0.5`           | 1/2              |
+| `"100m"`        | 1/10             |
+| `"50m"`         | 1/20             |
+
+
+`memory` and `storage` units are expressed in terms of bytes, with specific suffixes utilized to simplify their representation as follows:
+
+| Suffix          | Value         |
+|---------------- |---------------|
+| k               | 1000          |
+| Ki              | 1024          |
+| M               | 1000^2        |
+| Mi              | 1024^2        |
+| G               | 1000^3        |
+| Gi              | 1024^3        |
+| T               | 1000^4        |
+| Ti              | 1024^4        |
+| P               | 1000^5        |
+| Pi              | 1024^5        |
+| E               | 1000^6        |
+| Ei              | 1024^6        |
+
+### Placement Profiles
+
+`profiles.placement` is a map of named datacenter profiles. Each profile outlines the necessary datacenter attributes and the pricing configuration for each compute profile that will be utilized within the datacenter.
+
+**Example**
+
+```
+useast:
+  attributes:
+    region: us-east
+  pricing:
+    web:
+      token: USDT
+      amount: 8000000
+```
+
+This defines a profile named `useast` with the required attributes `{region="us-east"}` and a maximum price of 8000000 (8 USDT with a precision of 6) per hour for the web compute profiles.
+
+Providers can only assign themselves to a predefined set of regions. If you specify an unlisted region, no provider will bid on your deployment, causing it to fail automatically. Please refer to the list mentioned in the [Supported Regions](/user-guide/supports#supported-regions) section.
+
+<Callout type="info">
+**Note:** Precision is crucial for any deployment on Spheron. All token values passed in ICL or CLI must have the correct precision. For details on token precision, refer to the [Supported Payment Token](/user-guide/supports#supported-payment-tokens) section.
+</Callout>
+
+## 5. Deployment Configuration
+
+The `deployment` section is where you define the specific deployment strategy for your services. It's structured as a map, with each service name corresponding to its deployment configuration.
+
+For each service you want to deploy, you create an entry in the `deployment` section. This entry combines datacenter profiles with compute profiles to specify the final resource configuration for the service.
+
+**Example**
+
+```
+api:
+  useast:
+    profile: api
+    count: 30
+```
+This specifies that 30 instances of the `api` service should be deployed to a datacenter that matches the `useast` datacenter profile. 
+Each instance will have access to the resources defined in the `api` compute profile.
+
+
+## 6. GPU Integration Support in Compute Profiles
+
+You can add GPUs to your workload by including them in the compute profile section. The placement of the GPU stanza is illustrated in the full compute profile example below.
+
+<Callout type="info">
+**Note:** When specifying the GPU model, such as h100 in this example, ensure that the model name matches the conventions listed in the provided reference.
+</Callout>
+
+```
+profiles:
+  compute:
+    gpudep:
+      resources:
+        cpu:
+          units: 8.0
+        memory:
+          size: 12Gi
+        gpu:
+          units: 1
+          attributes:
+            vendor:
+              nvidia:
+                - model: a100
+        storage:
+          size: 10Gi
+
+```
+
+## Additional GPU Use Notes
+
+### Complete GPU ICL Example
+For a comprehensive example of a GPU-enabled ICL, refer to this [example](https://github.com/spheronFdn/docs/tree/main/examples/protocol/icl-example.yaml) which includes the declaration of several GPU models.
+
+### Optional Model Specification
+Specifying a GPU model in the ICL is optional. If your deployment does not require a specific GPU model, you can leave the model declaration blank, as demonstrated in the following example.
+
+```
+gpu:
+  units: 1
+  attributes:
+    vendor:
+      nvidia:
+```
+
+### Declaring Multiple Models
+If your deployment is optimized to run on multiple GPU models, include the relevant list of models as shown in the example below. In this setup, any Spheron provider with a listed model will bid on the deployment.
+
+```
+gpu:
+  units: 1
+  attributes:
+    vendor:
+      nvidia:
+        - model: rtx4090
+        - model: t4
+```
+
+### Specifying GPU RAM
+Optionally, the ICL can include a GPU RAM/VRAM requirement, as illustrated in the example below.
+
+```
+gpu:
+  units: 1
+  attributes:
+    vendor:
+      nvidia:
+        - model: a100
+          ram: 80Gi
+```
+
+### Specifying GPU Interface
+Optionally, the ICL can include a GPU interface requirement, as shown in the example below.
+
+<Callout type="info">
+**Note:** Only the values `pcie` or `sxm` should be used in the Spheron ICL. There are several variants of the SXM interface, but only the simple sxm value should be used in the ICL.
+</Callout>
+
+```
+gpu:
+  units: 1
+  attributes:
+    vendor:
+      nvidia:
+        - model: h100
+          interface: sxm
+```
+
+### Specifying GPU with RAM and Interface
+Here is an example of specifying both RAM and interface in the ICL GPU section.
+
+```
+gpu:
+  units: 1
+  attributes:
+    vendor:
+      nvidia:
+        - model: h100
+          interface: pcie
+          ram: 90Gi
+```
+
+<Callout type="info">
+**Note:** For detailed information on GPU support and the corresponding model names, please refer to the [GPU support page](/user-guide/supports#gpu-support--tiering).
+</Callout>
+
+<Navigation name="Infrastructure Composition Language" />
+

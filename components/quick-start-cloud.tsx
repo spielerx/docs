@@ -3,15 +3,9 @@ import styles from "../styles/quick.module.css";
 
 const QUICK_START_LIST = [
   {
-    path: "/protocol/architecture",
-    emoji: "🛠️",
-    title: "Spheron Protocol",
-    body: "Everything about the Protocol.",
-  },
-  {
     path: "/compute",
     emoji: "✈️",
-    title: "Compute",
+    title: "Cloud Guide",
     body: "Deploy compute instances with one click.",
   },
   {
@@ -33,28 +27,16 @@ const QUICK_START_LIST = [
     body: "Deploy pre-installed apps and develope fast.",
   },
   {
-    path: "/organization",
-    emoji: "🗂️",
-    title: "Organization",
-    body: "Learn how to create multiple organizations.",
-  },
-  {
-    path: "/rest-api",
+    path: "/toolings/cloud-api",
     emoji: "🔌",
-    title: "Spheron API",
-    body: "Take a look at how the Spheron API works.",
+    title: "Cloud API",
+    body: "Take a look at how the Cloud API works.",
   },
   {
-    path: "/cli",
+    path: "/toolings/cloud-cli",
     emoji: "💬",
-    title: "Spheron CLI",
+    title: "Cloud CLI",
     body: "Create & deploy dapps right from your terminal.",
-  },
-  {
-    path: "/github-actions",
-    emoji: "🌀",
-    title: "Github Actions",
-    body: "Actions for working with Clusters.",
   },
 ];
 

@@ -1,0 +1,110 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+
+# Prepare Linux Instances for Provider Installation
+
+This guide will walk you through setting up and deploying a provider using Ansible. The steps cover installation on a local system, configuring a remote server, and managing deployments. This document provides best practices and recommendations for doing so.
+
+## Pre Requisites
+
+- A Linux server with Ubuntu 22.04.
+- Ansible installed on your local machine.
+- Basic knowledge of server administration, Ansible, and Kubernetes.
+
+To install Ansible on a Mac, you can use various methods such as Homebrew, pip, or by installing it from source. Here are the steps for each method:
+
+<Callout type="info">
+**Note:** The first 1, 2, & 3 sections need to be done within your local system, and then SSH to a remote server to set up everything for the provider.
+</Callout>
+
+
+## 1. Setup Ansible Using Homebrew
+
+### Install Homebrew 
+If you haven't installed Homebrew yet, open Terminal and run:
+
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+### Install Ansible
+Once Homebrew is installed, run:
+
+```
+brew install ansible
+```
+Alternatively, if you have Python installed, you can use:
+
+```
+pip install ansible
+```
+
+For other distributions, refer to the [Ansible Community Documentation](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html) for specific installation instructions.
+
+### Verify the Installation
+Check the version of Ansible to confirm it's installed:
+
+```
+ansible --version
+```
+
+## 2. Setup Domain for the Provider
+
+Create the following name entries on your domain provider.
+
+![Domain Provider](assets/domain-provider.png)
+
+This is the records you need to put for your domain - `example.com`
+
+| Type | Name           | Content            |
+|------|----------------|--------------------|
+| CNAME| `*.provider`   | node.example.com   |
+| CNAME| `*.ingress`    | node.example.com   |
+| A    | `node`         | 67.220.82.33       |
+| CNAME| `provider`     | node.example.com   |
+
+
+
+
+## 3. Prepare Linux Instance for Installation Using Ansible
+
+### Step 1: Clone the Repository
+Clone this repo onto your local system: GitHub - [spheronFdn/provider-deployment](https://github.com/spheronFdn/provider-deployment)
+
+```
+git clone https://github.com/spheronFdn/provider-deployment
+```
+Repo has the following file structure: 
+
+![Playbook Repo](assets/playbook-repo.png)
+
+### Step 2: Edit Inventory File 
+
+Now, edit the `playbook/inventory.ini` file with your server details, Example:
+
+```
+[instance-1] ansible_host=[23.158.40.38] ansible_user=root ansible_ssh_private_key_file=[~/.ssh/id_rsa]
+```
+
+<Callout type="info">
+Properly set up server IP, user_name, and the SSH key.
+</Callout>
+
+### Step 3: Edit Playbook
+Now edit the hostname in `playbook/playbook.yaml`
+
+```
+hostname: [provider.com]        ## this can be your registered domain name that will be used for the provider
+```
+
+### Step 4: Execute the Playbook
+Now execute the playbook 
+
+```
+cd playbook
+ansible-playbook -i inventory.ini playbook.yml
+```
+After the whole execution, the server will restart.
+
+
+<Navigation name="Prepare Linux Instances" />

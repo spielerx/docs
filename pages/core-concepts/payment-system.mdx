@@ -14,7 +14,7 @@ The foundation of this Payment System on blockchain technology ensures that all 
 
 ## User Payment Contributions
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/h81w77c5dufckvif594v.png)
+![User Payment](assets/user-payment.png)
 
 The workflow of user payment from the above Figure shows that for the user to start a deployment in the protocol, the user needs to first deposit their initial fund to our Escrow Smart Contract which will hold their balance (some in locked and some in unlocked). The user then can create an order to start a new deployment to the Order Smart Contract, which will fetch the user balance (which is unlocked) to verify the minimum balance of the user before starting the order matching process.
 
@@ -30,7 +30,7 @@ In short, the system delineates a clear and flexible mechanism for user payments
 
 ## Mechanisms for Provider Compensation
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0qxu99iezy4jle6dfsv3.png)
+![Provider Compensation](assets/provider-compensation.png)
 
 When a user's deployment order is successfully matched with a provider, a lease agreement is established. This lease automatically locks a portion of the user's funds, which is estimated to cover the fees for the agreed-upon duration (e.g., days or months). The locked funds are gradually transferred from the user to the provider as payment, starting from the moment the lease begins. The user cannot access these locked funds until the lease expires or is canceled by either party.
 However, providers can withdraw the funds that have accumulated in the escrow account associated with their deployments. 

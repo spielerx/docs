@@ -1,0 +1,7 @@
+{
+  "cloud-api": "Cloud API",
+  "cloud-cli": "Cloud CLI",
+  "cloud-sdk": "Cloud SDK",
+  "github-action": "Cloud Github Action",
+  "terraform": "Cloud Terraform"
+}
