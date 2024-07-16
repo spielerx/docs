@@ -109,6 +109,46 @@ When `global` is set to `false`, a service name must be provided.
 
 ## 4. Profiles
 The profiles section is used to define named compute and placement profiles that can be referenced in the [deployment section](/user-guide/icl#5-deployment-configuration).
+It's also define the name of the deployment, duration of the lease created & the provider tiers. Below is the table describing the parameters:
+
+| Field Name | Required           | Description                                                                                                                                                                                |
+|----------- |--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| name       | No                 | Specifies the name of the deployment. It's not unique but is useful for users to identify their deployments.                                                                               |
+| duration   | Yes                | Defines the duration of the lease. Configured in 1s, 1min, 1h, 1d, 1mon, & 1y. Refer to the [Lease Duration](/user-guide/icl#lease-duration) section for more details.                     |
+| tiers      | No                 | Specifies tiers of provider the deployment order need to be matched with. Can be multiple. Refer to the [Deployment Tier](/user-guide/icl#deployment-tier) section for more details.       |
+| compute    | Yes                | Specifies the compute resources that will be allocated to service instances. Refer to the [services.env](/user-guide/icl#compute-profiles) section for more details.                       |
+| placement  | Yes                | Outlines the necessary datacenter attributes and the pricing configuration. See the [services.expose](/user-guide/icl#placement-profile) section for additional information.               |
+
+### Lease Duration
+During the deployment you also pass duration to run the deployment which will be in 1s, 1min, 1h, 1d, 1mon, & 1y. 
+This will specify how much time the lease need to run and accordingly lock funds to continue to run the deployment. 
+When you close the deployment prematurely, then you will unlock the amount that has not been spent. 
+
+### Deployment Tier 
+During deployment, you have the option to specify the tiers on which you want your deployment to be placed, whether on a specific or generalized provider tier. This feature is beneficial for developers who need high reliability and are willing to pay a premium for high-tier providers. Conversely, users with less critical requirements can choose lower-tier providers at a reduced cost. During the testnet phase, there is no premium margin on deployment as we are still finalizing the idea.
+
+We have two general tiers: **Secured** and **Community**.
+
+- **Secured Tier:** This tier consists of high-tier providers who have consistently demonstrated high uptime in the network. It includes Provider Tiers 1 to 3.
+- **Community Tier:** This tier consists of lower-tier providers who have recently joined the network or have less reliable hardware. It includes Provider Tiers 4 to 7.
+
+To deploy your services on any tier, use the following values:
+
+| Tier          | Details                                                  |
+|---------------|----------------------------------------------------------|
+| secured       | Can be deployed on Provider Tiers 1 to 3.                |
+| community     | Can be deployed on Provider Tiers 4 to 7.                |
+| secured-1     | Specifically deployed on Provider Tier 1.                |
+| secured-2     | Specifically deployed on Provider Tier 2.                |
+| secured-3     | Specifically deployed on Provider Tier 3.                |
+| community-1   | Specifically deployed on Provider Tier 4.                |
+| community-2   | Specifically deployed on Provider Tier 5.                |
+| community-3   | Specifically deployed on Provider Tier 6.                |
+| community-4   | Specifically deployed on Provider Tier 7.                |
+
+<Callout type="info">
+**Note:** Users can specify multiple tiers during deployment, and the matchmaker will select the best possible provider based on the specified requirements and other parameters.
+</Callout>
 
 ### Compute Profiles
 Within `profiles.compute`, you can create a map of named compute profiles. 

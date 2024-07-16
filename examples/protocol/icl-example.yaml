@@ -1,4 +1,4 @@
-version: '1.0'
+version: "1.0"
 services:
   gpu-test:
     image: docker.io/thumperai/torchbench:v0.0.10-cuda-12.0-dev
@@ -12,6 +12,10 @@ services:
     env:
       - JUPYTER_TOKEN=passwd
 profiles:
+  name: hello-world
+  duration: 2min
+  tier:
+    - community
   compute:
     gpu-test:
       resources:

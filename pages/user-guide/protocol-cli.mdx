@@ -202,6 +202,10 @@ services:
       - TEST=test
 
 profiles:
+  name: hello-world
+  duration: 2min
+  tier:
+    - community
   compute:
     web:
       resources:
@@ -235,7 +239,7 @@ EOF
 To deploy on Spheron, run:
 
 ```sh
-sphnctl deployment create deploy.yml --duration [Duration of running]
+sphnctl deployment create deploy.yml
 ```
 
 Here is an example of how the result will look:
@@ -257,7 +261,7 @@ Deployment manifest sent, waiting for acknowledgment.
 Deployment is finished.
 ```
 
-The `lid` that we get from the deployment is called Lease ID. This is the identifier that you need to use to access your deployment’s logs, and status. During the deployment you also pass duration to run the deployment which will be in 1s, 1min, 1h, 1d, 1mon, & 1y. This will specify how much time the lease need to run and accordingly lock funds to continue to run the deployment. When you close the deployment prematurely, then you will unlock the amount that has not been spent.
+The `lid` that we get from the deployment is called Lease ID. This is the identifier that you need to use to access your deployment’s logs, and status.
 
 ### Fetch Deployment Details
 To fetch your deployment / lease details, you need to run this command to fetch it:

@@ -113,10 +113,7 @@ You can edit the values to suit your requirements, but do not change the keys. T
 - **Pricing:** This section sets the pricing for your hardware. All prices are per unit in USD. For example, the CPU is priced at $3 per CPU or thread per month. For GPUs, list each model with its unit price per month, separated by commas.
 - **Payment Tokens:** Specify all the tokens you want to accept for payments. Refer to [Payment Token Support](/user-guide/supports#supported-payment-tokens) page for supported tokens.
 - **GPU:** List all the GPU models supported by your provider. Use the shorthand values from the [GPU support](/user-guide/supports#gpu-support--tiering) page. Ensure you include the pricing for each GPU model in the Pricing section.
-- **CPU:** List all the types of CPUs you support. Options include:
-  - **basic:** Older generation server hardware
-  - **gp:** General purpose server hardware
-  - **hpc:** High-performance compute server hardware
+- **CPU:** List all the types of CPUs you support. We only have support for **gp** (General purpose) server hardware for now.
 - **RAM:** List all types of RAM you support. Options include: ddr2, ddr3, ddr4.
 - **Storage:** List all types of storage you support. Options include: hdd, ssd, nvme.
 - **Region:** Specify the region where your provider is located. Refer to the [Region Support](/user-guide/supports#supported-regions) page for supported regions.
@@ -364,6 +361,10 @@ helm upgrade --install inventory-operator ./spheron-inventory-operator -n sphero
 ```
 
 ## Verify the node has GPU labels
+
+<Callout type="warning">
+Note: Verify GPU label only if you have done GPU setup, otherwise check if the node has spheron labels.
+</Callout>
 
 <Callout type="info">
 Note: To find the node name for this step, you need to execute the below step and take the first name in the list:
