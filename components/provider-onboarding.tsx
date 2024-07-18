@@ -3,6 +3,12 @@ import styles from "../styles/quick.module.css";
 
 const PROVIDERS_TYPE_LIST = [
   {
+    path: "/providers/hardware-requirements",
+    emoji: "🗄️",
+    title: "Hardware Requirements",
+    body: "Software & Hardware Requirement.",
+  },
+  {
     path: "/providers/prepare-linux-instances",
     emoji: "🅰️",
     title: "Prepare Instances",
