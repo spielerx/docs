@@ -83,19 +83,19 @@ Repo has the following file structure:
 Now, edit the `playbook/inventory.ini` file with your server details, Example:
 
 ```
-[instance-1] 
-[region] ansible_host=[23.158.40.38] ansible_user=root ansible_ssh_private_key_file=[~/.ssh/id_rsa]
+[testnet] 
+region ansible_host=23.158.40.38 ansible_user=root ansible_ssh_private_key_file=~/.ssh/id_rsa
 ```
 
 <Callout type="info">
-Properly set up server IP, user_name, and the SSH key.
+Properly set up server IP, user_name, and the SSH key. Make sure the SSH key has access to the server you just filled.
 </Callout>
 
 ### Step 3: Edit Playbook
-Now edit the hostname in `playbook/playbook.yaml`
+Now edit the **hostname** in `playbook/playbook.yaml`
 
 ```
-hostname: [provider.com]        ## this can be your registered domain name that will be used for the provider
+hostname: provider.com        ## this can be your registered domain name that will be used for the provider
 ```
 
 ### Step 4: Execute the Playbook
