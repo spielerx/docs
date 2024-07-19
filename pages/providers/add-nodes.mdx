@@ -35,7 +35,8 @@ Ensure you set up the server IP, username, and SSH key correctly.
 </Callout>
 
 ```
-[new-instance] ansible_host=[23.158.40.38] ansible_user=root ansible_ssh_private_key_file=[~/.ssh/id_rsa]
+[testnet] 
+server-name ansible_host=23.158.40.38 ansible_user=root ansible_ssh_private_key_file=~/.ssh/id_rsa
 ```
 #### 4. Execute the Ansible Playbook
 
@@ -117,7 +118,8 @@ Ensure you set up the server IP, username, and SSH key correctly.
 </Callout>
 
 ```
-[new-instance-gpu] ansible_host=[23.158.40.38] ansible_user=root ansible_ssh_private_key_file=[~/.ssh/id_rsa]
+[testnet] 
+server-name ansible_host=23.158.40.38 ansible_user=root ansible_ssh_private_key_file=~/.ssh/id_rsa
 ```
 #### 4. Execute the Ansible Playbook
 
