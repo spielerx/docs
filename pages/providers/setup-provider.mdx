@@ -64,25 +64,33 @@ sphnctl wallet use --name wallet --key-secret testPassword
 4. Run the following command to get your wallet address. 
 
 ```
-cat ~/.spheron/wallet.json
+sphnctl wallet current
 ```
 You will receive output similar to: 
 ```
-{"address":"d5a824a1b4a7de20ef1fb697d13a7e4dc3147a28","crypto":{"ci...
+Currently using account wallet:
+ path: /home/spheron/.spheron/wallet.json
+ address: 0xff8B0b7ff6Db1E90dd3DcDfd337ae30E2a4149D1
+ passphrase: testPassword
 ```
 
 5. Go to the [**Faucet**](https://www.alchemy.com/faucets/arbitrum-sepolia) to obtain some test gas tokens for the address you got from the previous step. These tokens will allow you to perform on-chain transactions.
 
 <Callout type="info">
-To retrieve the mnemonic, run the following command:
+To retrieve the private key of your wallet, run the following command:
 
 ```
-cat /home/spheron/logs/installer/wallet.log | grep mnemonic
+sphnctl wallet private-key
 ```
 
-Or you can directly copy the content in ` ~/.spheron/wallet.json` & save it in your local system with extension `wallet.json` and import it via metamask using this [Guide](https://support.metamask.io/managing-my-wallet/accounts-and-addresses/how-to-import-an-account/#importing-using-a-json-file).
+And import it in your metamask or you can directly copy the content in ` ~/.spheron/wallet.json` & save it in your local system with extension `wallet.json` and import it via metamask using this [Guide](https://support.metamask.io/managing-my-wallet/accounts-and-addresses/how-to-import-an-account/#importing-using-a-json-file).
 </Callout>
 
+6. Run the following command to check the balance of your wallet:
+
+```
+sphnctl wallet balance
+```
 
 ## Create Provider Configuration
 
