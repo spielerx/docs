@@ -224,32 +224,6 @@ kubectl apply -f crd.yaml
 Run the below commean to setting up Ingress.
 
 ```
-cat > ingress-nginx-custom.yaml << EOF
-controller:
-  service:
-    type: ClusterIP
-  ingressClassResource:
-    name: "spheron-ingress-class"
-  kind: DaemonSet
-  hostPort:
-    enabled: true
-  admissionWebhooks:
-    port: 7443
-  config:
-    allow-snippet-annotations: false
-    compute-full-forwarded-for: true
-    proxy-buffer-size: "16k"
-  metrics:
-    enabled: true
-  extraArgs:
-    enable-ssl-passthrough: true
-tcp:
-  "8443": "spheron-services/spheron-provider:8443"
-  "8444": "spheron-services/spheron-provider:8444"
-EOF
-```
-
-```
 helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
     --namespace ingress-nginx --create-namespace \
     -f ingress-nginx-custom.yaml
@@ -383,6 +357,14 @@ helm upgrade --install spheron-provider ./spheron-provider -n spheron-services \
         --set resources.limits.memory="2Gi" \
         --set resources.requests.cpu="1" \
         --set resources.requests.memory="1Gi"
+
+helm upgrade --install spheron-gateway ./gw -n spheron-services \
+        --set from=/spheron-key/wallet.json \
+        --set keysecret=testPassword \
+        --set domain=$DOMAIN \
+        --set bidpricestrategy=shellScript \
+        --set bidpricescript="$(cat /home/spheron/bidscript.sh | openssl base64 -A)"
+
         
 kubectl patch configmap spheron-provider-scripts \
       --namespace spheron-services \
