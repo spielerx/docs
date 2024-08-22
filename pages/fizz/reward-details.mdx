@@ -20,7 +20,7 @@ Liveness rewards are determined based on the following factors:
 
 ### Resource Rewards
 
-Fizz earn rewards based on the GPU and compute resources they provide to the network. The higher the quality of the resource, the better the reward multiplier. Different resource categories will be introduced, each with different base rewards and multipliers based on tiering (e.g., CPU tiering). Currently, only GPU tiering with 10 tiers has been introduced.
+Fizz earns rewards based on the GPU and compute resources it provides to the network. The higher the quality of the resource, the better the reward multiplier. Different resource categories will be introduced, each with different base rewards and multipliers based on tiering (e.g., CPU tiering). Currently, only GPU tiering with 10 tiers has been introduced.
 
 **How are resource rewards calculated?**
 
@@ -42,7 +42,7 @@ Uptime for Fizz nodes is calculated using a simple hourly challenge system:
 
 - Every hour, at a random time, the network checks if the Fizz node is live and operational.
 - If the node responds successfully to the challenge, it passes the liveness check for that hour.
-- If the node fails to respond, it fails the liveness check for that hour.
+- If the node fails to respond, the liveness check for that hour fails.
 - There are 24 challenges in total for each ERA (24-hour period).
 - If a Fizz node fails 12 or more challenges in an ERA (50% or more), its rewards for that ERA will be slashed.
 
@@ -67,7 +67,7 @@ Where:
 
 ## Direct Earnings from Users
 
-In addition to the liveness rewards, Fizz node operators can earn directly from users who lease their compute resources. This provides an additional revenue stream for node operators.
+In addition to the liveness rewards, Fizz node operators can earn directly from users who lease their compute resources, providing an additional revenue stream for node operators.
 
 ### How Direct Earnings Work
 
@@ -81,7 +81,7 @@ In addition to the liveness rewards, Fizz node operators can earn directly from 
 
 While you receive the majority of the earnings from user leases, there are some fees associated with each transaction:
 
-- **Foundation Fee**: 5% of the earning goes to the Spheron Foundation
+- **Foundation Fee**: 5% of the earnings goes to the Spheron Foundation
 - **Provider Fee**: 5% of the earning goes to the provider
 
 This means that as a Fizz node operator, you receive 90% of the total amount paid by the user for leasing your compute resources.
@@ -93,6 +93,6 @@ This means that as a Fizz node operator, you receive 90% of the total amount pai
 - Provider receives: 5 USDT tokens
 </Callout>
 
-By offering competitive pricing and maintaining good resource availability, you can maximize your direct earnings from user leases in addition to the liveness rewards.
+By Offering competitive pricing and maintaining good resource availability can maximize your direct earnings from user leases and the liveness rewards.
 
 <Navigation name="Fizz Reward Details" />
