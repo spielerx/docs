@@ -1,5 +1,6 @@
 {
   "providers": "Providers",
+  "fizz": "Fizz Node",
   "deployment-lifecycle": "Deployment lifecycle",
   "payment-system": "Payment System"
 }

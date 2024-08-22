@@ -21,6 +21,18 @@ const QUICK_START_LIST = [
     body: "Learn about the provider rewards.",
   },
   {
+    path: "/fizz",
+    emoji: "💻",
+    title: "Fizz Node",
+    body: "Lend your excess GPU & Compute.",
+  },
+  {
+    path: "/fizz/reward-details",
+    emoji: "💰",
+    title: "Fizz Node Reward",
+    body: "Learn about the fizz node rewards.",
+  },
+  {
     path: "/user-guide/deploy-your-app",
     emoji: "🚀",
     title: "Deploy your app",
@@ -31,6 +43,12 @@ const QUICK_START_LIST = [
     emoji: "🏪",
     title: "Protocol CLI",
     body: "Lease GPU with Protocol Native CLI.",
+  },
+  {
+    path: "/user-guide/icl",
+    emoji: "⚡",
+    title: "ICL Configuration",
+    body: "Learn about the deployment config.",
   },
   {
     path: "/user-guide/supports#gpu-support--tiering",

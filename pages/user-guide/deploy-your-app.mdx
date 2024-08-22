@@ -7,7 +7,7 @@ This guide will walk you through the steps to deploy and access your app on Sphe
 
 ### Step 1: Install Spheron Protocol `sphnctl` CLI (Linux, MacOS)
 
-1. To install Spheron Protocol CLI using script, make sure you have [`curl`](https://curl.se/) installed on your system. To check, quickly:
+1. To install Spheron Protocol CLI using script, make sure you have [`curl`](https://curl.se/) installed on your system. To check, quickly:
 
 ```sh
 curl --version
@@ -106,11 +106,28 @@ sphnctl wallet balance --token USDT
 
 ### Step 4: Deploy an app
 
-Now let deploy an app to Spheron Protocol. Please follow the instructions below to proceed:
+Now let's deploy an app to Spheron Protocol. Please follow the instructions below to proceed:
 
-1. First create an ICL configuration that you will need to pass to the CLI for the deployment. This is a manifest yaml that will help you pass all the requirement for the app deployment.
+**Important: Choosing Your Deployment Mode**
 
-You may use the sample deployment file as-is or modify it for your own needs as described in our [ICL documentation](/user-guide/icl). A typical modification would be to reference your own image instead of our image.
+Spheron offers two deployment modes:
+
+- **Provider Mode**: For stable, production-grade deployments with larger compute resources.
+- **Fizz Mode**: For cost-effective, distributed deployments suitable for testing or less resource-intensive applications.
+
+You can specify the mode in your ICL configuration under the `profiles` section. For example:
+
+```yaml
+profiles:
+  name: hello-world
+  duration: 2min
+  mode: provider  # or 'fizz' for Fizz Mode
+  tier:
+    - community
+  // ... other profile configurations ...
+```
+
+For this guide, we'll use Provider Mode. You may use the sample deployment file as-is or modify it for your own needs as described in our [ICL documentation](/user-guide/icl). A typical modification would be to reference your own image instead of our image.
 
 ```sh
 cat > gpu.yml <<EOF
@@ -131,6 +148,7 @@ services:
 profiles:
   name: hello-world
   duration: 2min
+  mode: provider # or 'fizz' for Fizz Mode
   tier:
     - community
   compute:
@@ -186,7 +204,7 @@ Deployment manifest sent, waiting for acknowledgment.
 Deployment is finished.
 ```
 
-The `lid` that we get from the deployment is called **Lease ID**. This is the identifier that you need to use to access your deployment’s logs, and status.
+The `lid` that we get from the deployment is called **Lease ID**. This is the identifier that you need to use to access your deployment's logs, and status.
 
 ### Step 5: Access Your Deployment
 To access your deployment / lease details, you need to run this command to fetch it:

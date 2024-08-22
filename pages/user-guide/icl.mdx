@@ -117,10 +117,30 @@ It's also define the name of the deployment, duration of the lease created & the
 | Field Name | Required           | Description                                                                                                                                                                                |
 |----------- |--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | name       | No                 | Specifies the name of the deployment. It's not unique but is useful for users to identify their deployments.                                                                               |
+| mode       | Yes                | Defines where you want to deploy your app on. Spheron has 2 mode: **provider** & **fizz**. Refer to the [Deployment Mode](/user-guide/icl#deployment-mode) section for more details.       |
 | duration   | Yes                | Defines the duration of the lease. Configured in 1s, 1min, 1h, 1d, 1mon, & 1y. Refer to the [Lease Duration](/user-guide/icl#lease-duration) section for more details.                     |
 | tiers      | No                 | Specifies tiers of provider the deployment order need to be matched with. Can be multiple. Refer to the [Deployment Tier](/user-guide/icl#deployment-tier) section for more details.       |
 | compute    | Yes                | Specifies the compute resources that will be allocated to service instances. Refer to the [services.env](/user-guide/icl#compute-profiles) section for more details.                       |
 | placement  | Yes                | Outlines the necessary datacenter attributes and the pricing configuration. See the [services.expose](/user-guide/icl#placement-profile) section for additional information.               |
+
+### Deployment Mode
+Spheron offers two deployment modes:
+
+1. **Provider Mode**: Deploys directly to data center-grade providers. This mode offers:
+   - Higher stability
+   - Larger compute resources
+   - Better bandwidth connections
+   - Suitable for production-grade applications
+   - To deploy in this mode, just write `provider`.
+
+2. **Fizz Mode**: Deploys to a network of smaller, consumer-grade devices. This mode offers:
+   - Lower costs
+   - Distributed deployment across many nodes
+   - Less stability compared to Provider Mode
+   - Suitable for testing or less resource-intensive applications
+   - To deploy in this mode, just write `fizz`.
+
+Choose the mode that best fits your application's requirements and budget.
 
 ### Lease Duration
 During the deployment you also pass duration to run the deployment which will be in 1s, 1min, 1h, 1d, 1mon, & 1y. 

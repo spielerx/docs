@@ -1,0 +1,78 @@
+import Navigation from "components/navigation";
+import {Callout} from "nextra-theme-docs";
+
+# Fizz Nodes: The Community Compute Backbone
+
+## Overview
+
+Fizz Nodes represent a lightweight version of Provider Nodes, designed to operate on smaller devices like personal computers and laptops. This innovative approach enhances the network's flexibility and accessibility, allowing community members to contribute their underutilized compute or GPU resources to the Spheron network. Fizz Nodes can collaborate to form subnets within the network, consisting of a Provider Node and multiple Fizz Nodes, creating their own economies and governance systems.
+
+<Callout type="warning">
+**NOTE:** While Fizz Nodes offer unprecedented scalability and decentralization, users should be aware that workloads should not contain sensitive data or secrets. We are continuously developing methods to enhance privacy and restrict unauthorized access to private information.
+</Callout>
+
+## Architectural Overview
+
+Fizz Nodes utilize a Docker-based system where each node operates in a new Docker container per user request. This approach minimizes computational overhead on small devices compared to more resource-intensive systems like Kubernetes. The architecture addresses challenges such as connectivity issues, isolation, security, and maintenance while ensuring decentralization.
+
+![Fizz Node Architecture](assets/fizz-node-architecture.png)
+
+The main components of the Fizz Node system are:
+
+1. **Fizz Client:** Run by individuals on small devices to provide underutilized compute resources to the network for monetary rewards.
+2. **Gateway Service:** Managed by providers, it facilitates user interactions with Fizz Clients and handles most communication.
+
+## Fizz Client Components
+
+The Fizz Client comprises three key components:
+
+1. **Pricing Configuration:** Users provide a pricing script or configuration at startup, determining the cost of offered resources.
+2. **Orchestrator:** Manages the deployment process, spinning up Docker containers and coordinating with the service tunnel.
+3. **Service Tunnel:** Establishes a connection between the gateway server and the Fizz Client, enabling the forwarding of requests to the internal server.
+
+## Gateway Service
+
+The Gateway Service acts as the interface for all Fizz Clients connected to a provider:
+
+1. **User Interaction:** Manages user requests for deploying and accessing services running inside Fizz Clients.
+2. **Pricing and Capacity Monitoring:** Continuously checks the current pricing and capacity of connected Fizz Clients.
+3. **Proof of Capacity:** Coordinates with Fizz Clients to aggregate proofs of compute capacity when challenged.
+
+## Fizz Node Attributes
+
+Similar to Provider Nodes, Fizz Nodes can specify various attributes to assist in the matchmaking process:
+
+### Compute Tier
+
+Fizz Nodes follow the same CPU tiering system as Provider Nodes, with the primary distinction being the base point for each tier. This tiering system helps categorize the CPU capabilities of Fizz Nodes, ensuring appropriate matching with user requirements. The tiers include General Purpose, High Performance Compute (HPC), and others, accommodating various computational needs.
+
+For a comprehensive overview of the CPU tiers and their specifications, please refer to the [CPU Tiering](/user-guide/supports#cpu-support--tiering) section in our user guide. This resource provides detailed information on the performance characteristics and typical use cases for each tier, helping users make informed decisions when selecting Fizz Nodes for their CPU-intensive tasks.
+
+### GPU Tiers
+
+Fizz Nodes follow the same GPU tiering system as Provider Nodes, with the primary distinction being the base point for each tier. This tiering system helps categorize the GPU capabilities of Fizz Nodes, ensuring appropriate matching with user requirements. The tiers range from Entry to Ultra High, accommodating various computational needs.
+
+For a comprehensive overview of the GPU tiers and their specifications, please refer to the [GPU Tiering](/user-guide/supports#gpu-support--tiering) section in our user guide. This resource provides detailed information on the performance characteristics and typical use cases for each tier, helping users make informed decisions when selecting Fizz Nodes for their GPU-intensive tasks.
+
+## Registration Fees
+
+Fizz Nodes doesn't need to stake yet since the token is not live yet, but to register to the network, a small fee of 0.005 ETH would be required.
+
+## Reward System for Fizz Nodes
+
+Fizz Nodes receive compensation based on the utilization of their computational resources, with rewards proportional to their contributions. The system also provides liveness incentives during periods of low utilization to ensure Fizz Nodes remain active within the network.
+
+## Slashing Mechanism
+
+Fizz Nodes are subject to penalties for misconduct, similar to Provider Nodes. However, the slashing mechanism may be adjusted to account for the smaller scale of resources provided by Fizz Nodes.
+
+## Operational Dynamics
+
+The operational life cycle of a Fizz Node includes:
+
+- **Registration and Bidding:** Fizz Nodes register their compute specs and can compete for deployments through the Gateway Service.
+- **Deployment and Management:** Fizz Nodes manage deployments, including initiation, updates, and termination of services, with actions recorded on the blockchain.
+
+Fizz Nodes play a crucial role in expanding the Spheron network's reach and accessibility, allowing community members to contribute to the decentralized compute ecosystem. As the network evolves, the continuous refinement of Fizz Node operations and governance mechanisms will be essential in sustaining the growth and vitality of this community-driven aspect of the decentralized computing landscape.
+
+<Navigation name="Fizz Nodes" />
