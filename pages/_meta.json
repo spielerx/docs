@@ -12,6 +12,7 @@
   "core-concepts": "Protocol Core Concepts",
   "user-guide": "User Guide",
   "providers": "Provider Onboarding",
+  "fizz": "Fizz Node",
   "------": {
     "type": "separator"
   },

@@ -1,0 +1,71 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+
+# Setup Fizz Node
+
+Setting up a Fizz node allows you to participate in the Spheron network and earn rewards by providing computational resources. This guide will walk you through the process of registering and setting up your Fizz node.
+
+## Registration Process
+
+To begin, you'll need to register your Fizz node on the Spheron network. Follow these steps:
+
+1. Navigate to [fizz.spheron.network](https://fizz.spheron.network) in your web browser.
+2. Look for and click on the "Register a Fizz Node" button to start the registration process.
+3. You'll be presented with a registration form. Fill it out carefully with the following information:
+
+   - **Node Name**: Choose a unique and identifiable name for your Fizz node.
+   - **Operating System**: Select your node's OS from the options provided (MacOS, Linux, or Windows - coming soon).
+   - **Node Type**: Specify whether you're setting up a GPU node or a CPU node. This determines the type of computational resources you'll be providing.
+   - **GPU Model** (if applicable): If you selected GPU node, choose the specific GPU model you're using.
+   - **Resource Details**: Provide accurate information about the resources you're willing to lend, including:
+     - GPU specifications
+     - CPU cores
+     - RAM capacity
+     - Available storage
+   - **Pricing**: Set competitive rates for your resources to attract users.
+   - **Region**: Select the geographical location where your node is situated. This helps users choose nodes based on their proximity requirements.
+   - **Payment Tokens**: Choose the cryptocurrencies or tokens you're willing to accept as payment for your services.
+   - **Provider Selection**: This is a crucial step. Choose a provider carefully, considering factors such as:
+     - Uptime track record: A provider with high uptime increases your chances of getting deployments.
+     - Provider tier: Higher-tier providers may offer better opportunities.
+     - Overall reputation in the network
+
+4. Once you've filled out all the necessary information, you'll be asked to pay a small registration fee. This fee helps maintain the network and prevent spam registrations.
+5. After completing the payment, your node will be officially registered in the Spheron network.
+
+## Running the Fizz Node Client
+
+After successfully registering your node, you need to set up and run the Fizz node client on your machine. This client software connects your node to the Spheron network and manages resource allocation. Follow these steps:
+
+1. Access the setup page for your registered node. You should find a link to download the `fizzup.sh` script.
+2. Download the `fizzup.sh` script to your machine. Make sure to save it in a location you can easily access via a terminal or command prompt.
+3. Open your terminal or command prompt and navigate to the directory where you saved the script.
+4. Run the script by entering the following command:
+   ```bash
+   sh fizzup.sh
+   ```
+   This command executes the script and starts the Fizz node client on your machine.
+5. Once the script is running, return to the setup page on the Spheron website.
+6. You should see a status indicator for your node. The system will now perform checks to validate if your node is active and correctly configured.
+
+<Callout type="info">
+  The validation process may take a few minutes. During this time, the system is verifies your node's connectivity, resource availability, and configuration.
+</Callout>
+
+## Accessing Your Dashboard
+
+Once your node has been successfully validated and marked as active, you'll gain access to the main Fizz node dashboard. This dashboard is your control center for managing your node and tracking your earnings. Here's what you can expect:
+
+- **Node Status**: Real-time information about your node's activity and health.
+- **Resource Utilization**: Graphs and statistics show how your node's resources are used.
+- **Earnings Tracker**: A detailed breakdown of your rewards and earnings from providing resources to the network.
+- **Performance Metrics**: Data on your node's successful leases and other key performance indicators.
+- **Settings and Configuration**: Options to adjust your node's settings, update pricing, or modify available resources.
+
+Check your dashboard regularly to ensure your node is performing optimally and to stay informed about your earnings in the Spheron network.
+
+<Callout type="warning">
+Remember to keep your node running and maintain a stable internet connection to maximize your deployment opportunities and earnings.
+</Callout>
+
+<Navigation name="Setup Fizz Node" />

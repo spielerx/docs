@@ -11,6 +11,7 @@ services:
       - TEST=test
 profiles:
   name: hello-world
+  mode: provider
   duration: 2min
   tier:
     - community
