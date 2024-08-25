@@ -20,6 +20,7 @@ export const Pages = [
   ["Fizz Node", "/fizz"],
   ["Fizz Hardware Requirements", "/fizz/hardware-requirements"],
   ["Setup Fizz Node", "/fizz/setup-fizz"],
+  ["Fizz Node FAQ", "/fizz/fizz-faq"],
   ["Fizz Reward Details", "/fizz/reward-details"],
   ["Spheron Compute", "/compute"],
   ["Compute Cluster", "/compute/cluster/compute"],

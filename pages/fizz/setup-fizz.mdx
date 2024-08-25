@@ -10,6 +10,13 @@ Setting up a Fizz node allows you to participate in the Spheron network and earn
 To begin, you'll need to register your Fizz node on the Spheron network. Follow these steps:
 
 1. Navigate to [fizz.spheron.network](https://fizz.spheron.network) in your web browser.
+
+<Callout type="info">
+  **Available only on Testnet:** 
+  - Claim some ETH token tokens from our [Testnet Faucet](https://faucet.spheron.network).
+  - Bridging the token from Arbitrum Sepolia to Spheron Testnet from our [Spheron Bridge](https://spheron-devnet-eth.bridge.caldera.xyz/)
+</Callout>
+
 2. Look for and click on the "Register a Fizz Node" button to start the registration process.
 3. You'll be presented with a registration form. Fill it out carefully with the following information:
 
@@ -22,6 +29,9 @@ To begin, you'll need to register your Fizz node on the Spheron network. Follow 
      - CPU cores
      - RAM capacity
      - Available storage
+      <Callout type="info">
+        Learn more about how to check your system specs and resources in this [Section](/fizz/setup-fizz#learn-about-your-system-specs--resources).
+      </Callout>
    - **Pricing**: Set competitive rates for your resources to attract users.
    - **Region**: Select the geographical location where your node is situated. This helps users choose nodes based on their proximity requirements.
    - **Payment Tokens**: Choose the cryptocurrencies or tokens you're willing to accept as payment for your services.
@@ -32,6 +42,47 @@ To begin, you'll need to register your Fizz node on the Spheron network. Follow 
 
 4. Once you've filled out all the necessary information, you'll be asked to pay a small registration fee. This fee helps maintain the network and prevent spam registrations.
 5. After completing the payment, your node will be officially registered in the Spheron network.
+
+## Learn About Your System Specs / Resources
+
+### Mac Users: How to Check Your System Configuration
+
+- **Check Storage Type:**
+   ```
+   system_profiler SPStorageDataType
+   ```
+
+- **Check Hardware Specifications:**
+   ```
+   system_profiler SPHardwareDataType
+   ```
+
+- **Check GPU Type:**
+   ```
+   system_profiler SPDisplaysDataType
+   ```
+
+### Linux Users: How to Check Your System Configuration
+
+- **Check Storage Information:**
+   ```
+   df -h
+   ```
+
+- **Get Detailed Hardware Information:**
+   ```
+   sudo lshw
+   ```
+
+- **List CPU Information:**
+   ```
+   sudo lshw -class processor
+   ```
+
+- **List Memory Details:**
+   ```
+   sudo lshw -class memory
+   ```
 
 ## Running the Fizz Node Client
 
