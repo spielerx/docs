@@ -7,9 +7,16 @@ Setting up a Fizz node allows you to participate in the Spheron network and earn
 
 ## Registration Process
 
-To begin, you'll need to register your Fizz node on the Spheron network. Follow these steps:
+To begin, you must register your Fizz node on the Spheron network. Follow these steps:
 
 1. Navigate to [fizz.spheron.network](https://fizz.spheron.network) in your web browser.
+
+<Callout type="info">
+  **Available only on Testnet:** 
+  - Claim some ETH token tokens from our [Testnet Faucet](https://faucet.spheron.network).
+  - Bridging the token from Arbitrum Sepolia to Spheron Testnet from our [Spheron Bridge](https://spheron-devnet-eth.bridge.caldera.xyz/)
+</Callout>
+
 2. Look for and click on the "Register a Fizz Node" button to start the registration process.
 3. You'll be presented with a registration form. Fill it out carefully with the following information:
 
@@ -22,9 +29,12 @@ To begin, you'll need to register your Fizz node on the Spheron network. Follow 
      - CPU cores
      - RAM capacity
      - Available storage
+      <Callout type="info">
+        Learn more about how to check your system specs and resources in this [Section](/fizz/setup-fizz#learn-about-your-system-specs--resources).
+      </Callout>
    - **Pricing**: Set competitive rates for your resources to attract users.
    - **Region**: Select the geographical location where your node is situated. This helps users choose nodes based on their proximity requirements.
-   - **Payment Tokens**: Choose the cryptocurrencies or tokens you're willing to accept as payment for your services.
+   - **Payment Tokens**: Choose the cryptocurrencies or tokens you will accept as payment for your services.
    - **Provider Selection**: This is a crucial step. Choose a provider carefully, considering factors such as:
      - Uptime track record: A provider with high uptime increases your chances of getting deployments.
      - Provider tier: Higher-tier providers may offer better opportunities.
@@ -33,11 +43,52 @@ To begin, you'll need to register your Fizz node on the Spheron network. Follow 
 4. Once you've filled out all the necessary information, you'll be asked to pay a small registration fee. This fee helps maintain the network and prevent spam registrations.
 5. After completing the payment, your node will be officially registered in the Spheron network.
 
+## Learn About Your System Specs / Resources
+
+### Mac Users: How to Check Your System Configuration
+
+- **Check Storage Type:**
+   ```
+   system_profiler SPStorageDataType
+   ```
+
+- **Check Hardware Specifications:**
+   ```
+   system_profiler SPHardwareDataType
+   ```
+
+- **Check GPU Type:**
+   ```
+   system_profiler SPDisplaysDataType
+   ```
+
+### Linux Users: How to Check Your System Configuration
+
+- **Check Storage Information:**
+   ```
+   df -h
+   ```
+
+- **Get Detailed Hardware Information:**
+   ```
+   sudo lshw
+   ```
+
+- **List CPU Information:**
+   ```
+   sudo lshw -class processor
+   ```
+
+- **List Memory Details:**
+   ```
+   sudo lshw -class memory
+   ```
+
 ## Running the Fizz Node Client
 
 After successfully registering your node, you need to set up and run the Fizz node client on your machine. This client software connects your node to the Spheron network and manages resource allocation. Follow these steps:
 
-1. Access the setup page for your registered node. You should find a link to download the `fizzup.sh` script.
+1. Access the setup page for your registered node. There, You should find a link to download the `fizzup.sh` script.
 2. Download the `fizzup.sh` script to your machine. Make sure to save it in a location you can easily access via a terminal or command prompt.
 3. Open your terminal or command prompt and navigate to the directory where you saved the script.
 4. Run the script by entering the following command:
@@ -49,7 +100,7 @@ After successfully registering your node, you need to set up and run the Fizz no
 6. You should see a status indicator for your node. The system will now perform checks to validate if your node is active and correctly configured.
 
 <Callout type="info">
-  The validation process may take a few minutes. During this time, the system is verifies your node's connectivity, resource availability, and configuration.
+  The validation process may take a few minutes. During this time, the system verifies your node's connectivity, resource availability, and configuration.
 </Callout>
 
 ## Accessing Your Dashboard
@@ -62,7 +113,7 @@ Once your node has been successfully validated and marked as active, you'll gain
 - **Performance Metrics**: Data on your node's successful leases and other key performance indicators.
 - **Settings and Configuration**: Options to adjust your node's settings, update pricing, or modify available resources.
 
-Check your dashboard regularly to ensure your node is performing optimally and to stay informed about your earnings in the Spheron network.
+Check your dashboard regularly to ensure your node performs optimally and stay informed about your earnings in the Spheron network.
 
 <Callout type="warning">
 Remember to keep your node running and maintain a stable internet connection to maximize your deployment opportunities and earnings.
