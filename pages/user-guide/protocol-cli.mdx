@@ -229,7 +229,6 @@ services:
           - global: true
     env:
       - TEST=test
-
 profiles:
   name: hello-world
   mode: provider
@@ -251,15 +250,13 @@ profiles:
         region: us-east
       pricing:
         web:
-          token: USDT
+          denom: USDT
           amount: 500000
-
 deployment:
   web:
     westcoast:
       profile: web
       count: 1
-      
 EOF
 ```
 
