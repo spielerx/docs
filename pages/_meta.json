@@ -13,6 +13,7 @@
   "user-guide": "User Guide",
   "providers": "Provider Onboarding",
   "fizz": "Fizz Node",
+  "chain-details": "Chain Details",
   "------": {
     "type": "separator"
   },
