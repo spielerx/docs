@@ -9,7 +9,7 @@ Explore detailed steps and options of the Spheron Protocol CLI. In this guide we
 
 ### Prerequisites
 
-To install Spheron Protocol CLI using script, make sure you have [`curl`](https://curl.se/) installed on your system. To check, quickly:
+To install Spheron Protocol CLI using script, make sure you have [`curl`](https://curl.se/) installed on your system. To check, quickly:
 
 ```sh
 curl --version
@@ -38,6 +38,12 @@ To create a new wallet, start by configuring the name of your key. Run the comma
 
 ```sh
 sphnctl wallet create --name [Wallet Name]
+```
+
+**Example:**
+
+```sh
+sphnctl wallet create --name wallet
 ```
 
 Here is an example of how the result will look:
@@ -94,6 +100,12 @@ If you need to switch to a different wallet, use the command below, providing th
 sphnctl wallet use --name [Wallet Name] --key-secret [Key Secret]
 ```
 
+**Example:**
+
+```sh
+sphnctl wallet use --name wallet --key-secret xxxxxxxxxx
+```
+
 Here is an example of how the result will look:
 
 ```sh
@@ -130,18 +142,19 @@ You need to deposit some minimum balance of any token to your account before doi
 ```sh
 sphnctl payment deposit --amount [Amount] --token [Token Name]
 ```
+
+**Example:**
+
+```sh
+sphnctl payment deposit --amount 50 --token USDT
+```
+
 Here is an example of how the result will look:
 
 ```sh
 Successfully deposited [Amount] [Token Name]! Start deploying!!!
 Tx hash: https://arbiscan.io/tx/0xc33a13a0e5e07ca54fea6077f7d14052ac65cf36682983cc69eed16a162ab1f1
 ```
-
-The amount you pass need to be in full precision i.e if the USDT has 6 precision then the amount of 1 USDT will be 1000000.
-
-<Callout type="info">
-**Note:** Precision is crucial for any deployment on Spheron. All token values passed in ICL or CLI must have the correct precision. For details on token precision, refer to the [Supported Payment Token](/user-guide/supports#supported-payment-tokens) section.
-</Callout>
 
 <Callout type="info">
 **Note:** There is a restriction on minimum amount of deposited funds in your account of any token to start any deployment. Refer [Supported Payment Tokens](/user-guide/supports#supported-payment-tokens) to see the minimum token requirement for deposit.
@@ -155,6 +168,12 @@ To withdraw a specific token, you need to run this command:
 sphnctl payment withdraw --amount [Amount] --token [Token Name]
 ```
 
+**Example:**
+
+```sh
+sphnctl payment withdraw --amount 50 --token USDT
+```
+
 Here is an example of how the result will look:
 
 ```bash
@@ -165,18 +184,17 @@ If you want to deposit some other token, Please do this:
 sphnctl payment deposit --amount [Amount] --token [Token Name]
 ```
 
-The amount you pass need to be in full precision i.e if the USDT has 6 precision then the amount of 1 USDT will be 1000000.
-
-<Callout type="info">
-**Note:** Precision is crucial for any deployment on Spheron. All token values passed in ICL or CLI must have the correct precision. For details on token precision, refer to the [Supported Payment Token](/user-guide/supports#supported-payment-tokens) section.
-</Callout>
-
-
 ### Checking your Escrow Balance
 Check your account has sufficient balance by running:
 
 ```sh
 sphnctl wallet balance --token [Token Name]
+```
+
+**Example:**
+
+```sh
+sphnctl wallet balance --token USDT
 ```
 
 Here is an example of how the result will look:
@@ -210,7 +228,7 @@ Token: USDT, Precision: 6, TokenAddress: 0x24A05B480235Ccb450bf7Ce7e9F65072Ed732
 Create a deployment configuration **gpu.yaml** to deploy the `jupyter/minimal-notebook` for Jupyter Notebook container using ICL.
 
 
-You may use the sample deployment file as-is or modify it for your own needs as described in our ICL **(Infrastructure Composition Language)** documentation. A typical modification would be to reference your own image instead of our image.
+You may use the sample deployment file as-is or modify it for your own needs as described in our ICL **(Infrastructure Composition Language)** documentation. A typical modification would be to reference your own image instead of our image.
 
 EXAMPLE CONFIGURATION:
 
@@ -289,7 +307,7 @@ Deployment manifest sent, waiting for acknowledgment.
 Deployment is finished.
 ```
 
-The `lid` that we get from the deployment is called Lease ID. This is the identifier that you need to use to access your deployment’s logs, and status.
+The `lid` that we get from the deployment is called Lease ID. This is the identifier that you need to use to access your deployment's logs, and status.
 
 ### Fetch Deployment Details
 To fetch your deployment / lease details, you need to run this command to fetch it:
@@ -298,6 +316,12 @@ This will contain URL to access the deployment server, all the assigned ports an
 
 ```sh
 sphnctl deployment get --lid [Lease ID] 
+```
+
+**Example:**
+
+```sh
+sphnctl deployment get --lid 44
 ```
 
 Here is an example of how the result will look:
@@ -326,6 +350,12 @@ To fetch your deployment's logs, you need to run this command to fetch it:
 
 ```sh
 sphnctl deployment logs --lid [Lease ID]
+```
+
+**Example:**
+
+```sh
+sphnctl deployment logs --lid 44 --follow
 ```
 
 Here is an example of how the result will look:
@@ -362,6 +392,13 @@ To fetch your deployment's events, you need to run this command to fetch it:
 ```sh
 sphnctl deployment events --lid [Lease ID]
 ```
+
+**Example:**
+
+```sh
+sphnctl deployment events --lid 44 --follow
+```
+
 Here is an example of how the result will look:
 
 ```sh
@@ -426,6 +463,12 @@ To connect to your deployment's shell access, you need to run this command to fe
 sphnctl deployment shell [Service_Name] [Command] --lid [Lease ID] --stdin --tty
 ```
 
+**Example:**
+
+```sh
+sphnctl deployment shell web /bin/sh --lid 44 --stdin --tty
+```
+
 This will create a shell access to the service running on the instance. The service name can be found in the ICL yaml under services parameter.
 
 ### Arguments:
@@ -455,6 +498,12 @@ Update the `deploy.yml` manifest file with the desired change.
 
 ```sh
 sphnctl deployment update --lid [Lease ID] gpu.yml
+```
+
+**Example:**
+
+```sh
+sphnctl deployment update --lid 44 gpu.yml
 ```
 
 Here is an example of how the result will look:
@@ -492,6 +541,13 @@ Should you need to close the deployment follow this step.
 ```sh
 sphnctl deployment close --lid [Lease ID]
 ```
+
+**Example:**
+
+```sh
+sphnctl deployment close --lid 44
+```
+
 Here is an example of how the result will look:
 
 ```sh
@@ -502,8 +558,15 @@ Close request sent to provider: [Tx Hash]
 If you want to fetch all the leases you deployed till now using your current wallet.
 
 ```sh
-sphnctl deployment list
+sphnctl deployment list 
 ```
+
+To filter the leases by active ones, you can use `-a` flag.
+
+```sh
+sphnctl deployment list -a
+```
+
 Here is an example of how the result will look:
 
 ```sh
