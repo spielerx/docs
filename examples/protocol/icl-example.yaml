@@ -51,8 +51,8 @@ profiles:
         region: us-central
       pricing:
         gpu-test:
-          denom: USDT
-          amount: 50000000
+          token: USDT
+          amount: 50
 deployment:
   gpu-test:
     westcoast:

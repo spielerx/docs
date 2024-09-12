@@ -118,20 +118,20 @@ profiles:
         region: us-central
       pricing:
         botpress:
-          denom: USDT
-          amount: 5000000
+          token: USDT
+          amount: 50
         duckling:
-          denom: USDT
-          amount: 5000000
+          token: USDT
+          amount: 50
         lang:
-          denom: USDT
+          token: USDT
           amount: 5000000
         postgres:
-          denom: USDT
-          amount: 5000000
+          token: USDT
+          amount: 50
         redis:
-          denom: USDT
-          amount: 5000000
+          token: USDT
+          amount: 50
 deployment:
   botpress:
     westcost:
