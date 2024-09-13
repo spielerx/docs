@@ -165,8 +165,8 @@ profiles:
         region: us-east
       pricing:
         web:
-          denom: USDT
-          amount: 500000
+          token: USDT
+          amount: 50
 deployment:
   web:
     westcoast:
@@ -201,7 +201,7 @@ Deployment manifest sent, waiting for acknowledgment.
 Deployment is finished.
 ```
 
-The `lid` that we get from the deployment is called **Lease ID**. This is the identifier that you need to use to access your deployment's logs, and status.
+The `lid` that we get from the deployment is called **Lease ID** & 44 is the Lease ID in this example. This is the identifier that you need to use to access your deployment's logs and status.
 
 ### Step 5: Access Your Deployment
 To access your deployment / lease details, you need to run this command to fetch it:
@@ -209,13 +209,13 @@ To access your deployment / lease details, you need to run this command to fetch
 This will contain URL to access the deployment server, all the assigned ports and the URI to access it. With this you can check your deployment status.
 
 ```sh
-sphnctl deployment get --lid [Lease ID] 
+sphnctl deployment get --lid 44
 ```
 
 Here is an example of how the result will look:
 
 ```sh
-Status of the deployment ID: [Lease ID]
+Status of the deployment ID: 44
 Deployment details:
  Status:  Matched
  Provider:  avaaaa
@@ -232,6 +232,46 @@ Services running:
     Region: us-east
     IPs: []
 ```
+
+### Step 6: Fetching Deployment Logs
+
+To fetch your deployment logs, you need to use the Lease ID.
+
+```sh
+sphnctl deployment logs --lid 44
+```
+
+Here is an example of how the result will look:
+
+```sh
+Here is the logs for the Lease ID: 44
+
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] Entered start.sh with args: jupyter lab
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] Running hooks in: /usr/local/bin/start-notebook.d as uid: 1000 gid: 100
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] Done running hooks in: /usr/local/bin/start-notebook.d
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] Running hooks in: /usr/local/bin/before-notebook.d as uid: 1000 gid: 100
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] Done running hooks in: /usr/local/bin/before-notebook.d
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] Executing the command: jupyter lab
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:39.753 ServerApp] Package jupyterlab took 0.0000s to import
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:39.776 ServerApp] Package jupyter_lsp took 0.0222s to import
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [W 2024-07-02 15:19:39.776 ServerApp] A _jupyter_server_extension_points function was not found in jupyter_lsp. Instead, a _jupyter_server_extension_paths function was found and will be used for now. This function name will be deprecated in future releases of Jupyter Server.
+...
+```
+
+### Step 7: Connect to the deployment shell
+
+To connect to the deployment shell, you need to run this command:
+
+```sh
+sphnctl deployment shell web /bin/sh --lid 44 --stdin --tty 
+```
+
+Once you run this command, you will be connected to the shell of the deployment.
+
+<Callout type="info">
+**NOTE:** If the service name or command you need to pass contains spaces, enclose the entire string in quotes. This ensures it is treated as a single argument.
+</Callout>
+
 
 You can retrieve various information from the deployment or interact with your deployment you just made, such as:
 - [Fetching the deployment logs](/user-guide/protocol-cli#fetch-deployment-logs)
