@@ -201,7 +201,7 @@ Deployment manifest sent, waiting for acknowledgment.
 Deployment is finished.
 ```
 
-The `lid` that we get from the deployment is called **Lease ID** & 44 is the Lease ID in this example. This is the identifier that you need to use to access your deployment's logs, and status.
+The `lid` that we get from the deployment is called **Lease ID** & 44 is the Lease ID in this example. This is the identifier that you need to use to access your deployment's logs and status.
 
 ### Step 5: Access Your Deployment
 To access your deployment / lease details, you need to run this command to fetch it:
@@ -235,7 +235,7 @@ Services running:
 
 ### Step 6: Fetching Deployment Logs
 
-To fetch the logs of your deployment, you need to use the Lease ID.
+To fetch your deployment logs, you need to use the Lease ID.
 
 ```sh
 sphnctl deployment logs --lid 44
