@@ -51,7 +51,7 @@ const QUICK_START_LIST = [
     body: "Learn about the deployment config.",
   },
   {
-    path: "/user-guide/supports#gpu-support--tiering",
+    path: "/user-guide/supports#gpu-support",
     emoji: "🌀",
     title: "GPU Supports",
     body: "Know all the GPU support and it's tiering.",

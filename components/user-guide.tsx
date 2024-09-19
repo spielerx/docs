@@ -21,7 +21,7 @@ const GUIDE_TYPE_LIST = [
     body: "Lease GPU with Protocol Native CLI.",
   },
   {
-    path: "/user-guide/supports#gpu-support--tiering",
+    path: "/user-guide/supports#gpu-support",
     emoji: "📟",
     title: "GPU Supports",
     body: "Know all the GPU support and it's tiering.",
