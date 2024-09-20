@@ -33,7 +33,7 @@ Let's say you have **x** units of **GPU A**, which falls in **Medium Tier 1** wi
 
 Fizz Node can earn rewards based on the GPU resources they contribute to the network. Different GPU models are categorized into tiers, each with its own multiplier. The higher the tier and multiplier, the greater the rewards for that GPU. Below is a table showing all supported GPU models, their tiers, and corresponding multipliers:
 
-| GPU Model                | GPU Name    | Tier     | Multi plier | SP  | Price / hr | Price / mo | CPU / mo | RAM / GB/mo | Stor / GB/mo     |
+| GPU Model                | GPU Name    | Tier     | Multi plier | SP  | GPU / hr   | GPU / mo   | CPU / mo | RAM / GB/mo | Stor / GB/mo     |
 |:------------------------:|:-----------:|:--------:|:-----------:|:---:|:----------:|:----------:|:--------:|:-----------:|:----------------:|
 | NVIDIA T1000             | t1000       | Entry 1  |    0.1      | 0.2 |   $0.125   |    $90     |  $0.75   |    $0.1     |      $0.01       |
 | NVIDIA Tesla p4          | p4          | Entry 1  |    0.1      | 0.2 |   $0.13    |    $94     |  $0.75   |    $0.1     |      $0.01       |
@@ -77,8 +77,8 @@ We support almost all Nvidia GPUs and are continuously adding support for new GP
 - **Tier:** This helps providers understand which resource tier and associated multiplier they are eligible for. This is important for receiving rewards as part of the provider network.
 - **Multiplier:** This is the multiplier for the tier. This is important for receiving rewards as part of the provider network.
 - **SP:** This is the base reward for the all GPUs in the tier in Spheron Points.
-- **Price / hr:** This is the price for the tier in USD per hour. This is the price you will be paid for leasing your GPU. The price is calculated based on the GPU model and the tier taken from the market price of multiple GPU marketplaces.
-- **Price / mo:** This is the price for the tier in USD per month. This is the price you will be paid for leasing your GPU. The price is calculated based on the GPU model and the tier taken from the market price of multiple GPU marketplaces.
+- **GPU / hr:** This is the price for the GPU leasing in USD per hour. The price is calculated based on the GPU model and the tier taken from the market price of multiple GPU marketplaces.
+- **GPU / mo:** This is the price for the GPU leasing in USD per month. The price is calculated based on the GPU model and the tier taken from the market price of multiple GPU marketplaces.
 - **CPU / mo:** This is the price for the CPU in USD per month. The price is fixed at $0.75 per month for all GPU types.
 - **RAM / GB/mo:** This is the price for RAM in USD per GB per month. The price is fixed at $0.1 per GB per month for all GPU types.
 - **Storage / GB/mo:** This is the price for storage in USD per GB per month. The price is fixed at $0.01 per GB per month for all GPU types.
@@ -89,7 +89,7 @@ We support almost all Nvidia GPUs and are continuously adding support for new GP
 
 The CPU Support & Tiering list categorizes various CPU types based on their performance and capabilities. Each tier has a specific multiplier within the Spheron protocol. Here's the detailed table below:
 
-| CPU Type         | CPU Name | Tier     | Multiplier | SP   | Price / hr | Price / mo | RAM / GB/mo | Storage / GB/mo |
+| CPU Type         | CPU Name | Tier     | Multiplier | SP   | CPU / hr   | CPU / mo   | RAM / GB/mo | Storage / GB/mo |
 |:----------------:|:--------:|:--------:|:----------:|:----:|:----------:|:----------:|:-----------:|:---------------:|
 | General Purpose  | gp       | Medium 1 | 1          | 0.01 | $0.001     | $0.75      | $0.1        | $0.01           |
 | APPLE M2 Pro     | m2-pro   | Low 2    | 0.75       | 0.01 | $0.161     | $117.53    | $0.1        | $0.01           |
@@ -111,8 +111,8 @@ We support almost all CPU types and are continuously adding support for new CPUs
 - **Tier:** This helps providers understand which resource tier and associated multiplier they are eligible for. This is important for receiving rewards as part of the provider network.
 - **Multiplier:** This is the multiplier for the tier. This is important for receiving rewards as part of the provider network.
 - **SP:** This is the base reward for the all CPUs in the tier in Spheron Points.
-- **Price / hr:** This is the price for the tier in USD per hour. This is the price you will be paid for leasing your GPU. The price is calculated based on the CPU model and the tier taken from the market price of multiple CPU marketplaces.
-- **Price / mo:** This is the price for the tier in USD per month. This is the price you will be paid for leasing your GPU. The price is calculated based on the CPU model and the tier taken from the market price of multiple CPU marketplaces.
+- **CPU / hr:** This is the price for the CPU leasing in USD per hour. The price is calculated based on the CPU model and the tier taken from the market price of multiple CPU marketplaces.
+- **CPU / mo:** This is the price for the CPU leasing in USD per month. The price is calculated based on the CPU model and the tier taken from the market price of multiple CPU marketplaces.
 - **RAM / GB/mo:** This is the price for RAM in USD per GB per month. The price is fixed at $0.1 per GB per month for all CPU types.
 - **Storage / GB/mo:** This is the price for storage in USD per GB per month. The price is fixed at $0.01 per GB per month for all CPU types.
 
