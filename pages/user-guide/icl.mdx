@@ -72,6 +72,17 @@ When configuring port exposure for your services, keep these points in mind:
     - www.yoursite.com
 ```
 
+<Callout type="warning">
+**Note:** For fizz node deployments, the exposed port cannot be 80, as fizz nodes don't have an ingress to create subdomain-based deployment links for users. It should be any other port.
+
+```
+- port: 3000
+  as: 80
+  to:
+    - global: true
+```
+</Callout>
+
 The `expose` parameter is a list that defines the connections allowed to the service. 
 Each entry in this list is a map that can include one or more of the following fields:
 
@@ -371,7 +382,7 @@ gpu:
 ```
 
 <Callout type="info">
-**Note:** For detailed information on GPU support and the corresponding model names, please refer to the [GPU support page](/user-guide/supports#gpu-support--tiering).
+**Note:** For detailed information on GPU support and the corresponding model names, please refer to the [GPU support page](/user-guide/supports#gpu-support).
 </Callout>
 
 <Navigation name="Infrastructure Composition Language" />

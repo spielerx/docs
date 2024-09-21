@@ -3,77 +3,71 @@ import Navigation from "components/navigation";
 
 # Supported Configurations
 
-## GPU Support & Tiering
+## GPU Support
 
-The GPU Support & Tiering list categorizes various GPU models into different tiers based on their performance and capabilities. Each tier has a specific multiplier within the Spheron protocol. Here's the detailed table below:
+The GPU Support lists all the supported GPU models in the network. Here's the detailed table below:
 
-| **GPU Model**                | **GPU Short Name** | **Tier**     | **Multiplier**         |
-|------------------------------|--------------------|--------------|------------------------|
-| NVIDIA T1000                 | t1000              | Entry 1      | 0.1                    |
-| NVIDIA Tesla p4              | p4                 | Entry 1      | 0.1                    |
-| NVIDIA GTX 1050              | gtx1050            | Entry 1      | 0.1                    |
-| NVIDIA GTX 1050 Ti           | gtx1050ti          | Entry 1      | 0.1                    |
-| NVIDIA GTX 1060              | gtx1060            | Entry 1      | 0.1                    |
-| NVIDIA GTX 1070              | gtx1070            | Entry 1      | 0.1                    |
-| NVIDIA GTX 1070 Ti           | gtx1070ti          | Entry 1      | 0.1                    |
-| NVIDIA GTX 1080              | gtx1080            | Entry 1      | 0.1                    |
-| NVIDIA GTX 1080 Ti           | gtx1080ti          | Entry 1      | 0.1                    |
-| NVIDIA RTX 2060              | rtx2060            | Entry 1      | 0.1                    |
-| NVIDIA RTX 2060 Super        | rtx2060super       | Entry 1      | 0.1                    |
-| NVIDIA RTX 2070              | rtx2070            | Entry 1      | 0.1                    |
-| NVIDIA RTX 2080              | rtx2080            | Entry 2      | 0.25                   |
-| NVIDIA RTX 2080 Super        | rtx2080super       | Entry 2      | 0.25                   |
-| NVIDIA RTX 3050              | rtx3050            | Entry 2      | 0.25                   |
-| NVIDIA RTX 3060              | rtx3060            | Entry 2      | 0.25                   |
-| NVIDIA RTX 3060 Ti           | rtx3060ti          | Entry 2      | 0.25                   |
-| NVIDIA RTX 3070              | rtx3070            | Entry 2      | 0.25                   |
-| NVIDIA RTX 3070 Ti           | rtx3070ti          | Entry 2      | 0.25                   |
-| NVIDIA RTX 4060              | rtx4060            | Entry 2      | 0.25                   |
-| NVIDIA RTX 4060 Ti           | rtx4060ti          | Entry 2      | 0.25                   |
-| NVIDIA RTX 4070              | rtx4070            | Entry 2      | 0.25                   |
-| NVIDIA Tesla P100 PCIe       | p100               | Entry 2      | 0.25                   |
-| NVIDIA RTX A4000             | rtxa4000           | Entry 2      | 0.25                   |
-| NVIDIA RTX 2080 Ti           | rtx2080ti          | Low 1        | 0.5                    |
-| NVIDIA RTX 3080              | rtx3080            | Low 1        | 0.5                    |
-| NVIDIA RTX 3080 Ti           | rtx3080ti          | Low 1        | 0.5                    |
-| NVIDIA RTX 4070 Ti           | rtx4070ti          | Low 1        | 0.5                    |
-| NVIDIA RTX 4000              | rtx4000            | Low 1        | 0.5                    |
-| NVIDIA P40                   | p40                | Low 1        | 0.5                    |
-| NVIDIA Tesla T4              | t4                 | Low 1        | 0.5                    |
-| NVIDIA RTX 4080              | rtx4080            | Low 2        | 0.75                   |
-| NVIDIA Titan RTX             | titanrtx           | Low 2        | 0.75                   |
-| NVIDIA RTX 3090              | rtx3090            | Low 2        | 0.75                   |
-| NVIDIA RTX 3090 Ti           | rtx3090ti          | Low 2        | 0.75                   |
-| NVIDIA RTX 4090              | rtx4090            | Medium 1     | 1                      |
-| NVIDIA RTX A5000             | rtxa5000           | Medium 1     | 1                      |
-| NVIDIA A10                   | a10                | Medium 1     | 1                      |
-| NVIDIA A10G                  | a10g               | Medium 1     | 1                      |
-| NVIDIA L4                    | l4                 | Medium 1     | 1                      |
-| NVIDIA Tesla V100            | v100               | Medium 1     | 1                      |
-| NVIDIA A40                   | a40                | Medium 1     | 1                      |
-| NVIDIA L40                   | l40                | Medium 2     | 1.5                    |
-| NVIDIA RTX 8000              | rtx8000            | Medium 2     | 1.5                    |
-| NVIDIA RTX A6000             | rtxa6000           | Medium 2     | 1.5                    |
-| NVIDIA L40s                  | l40s               | High 1       | 2                      |
-| NVIDIA RTX 6000 Ada          | rtx6000-ada        | High 1       | 2                      |
-| NVIDIA A100 PCIE 40GB        | a100-pcie-40g      | High 2       | 3                      |
-| NVIDIA A100 SXM4 40GB        | a100-sxm-40g       | High 2       | 3                      |
-| NVIDIA A100 80GB             | a100-80g           | Ultra High 1 | 6                      |
-| NVIDIA H100 80G              | h100               | Ultra High 2 | 12                     |
+| **GPU Model**                | **GPU Short Name** |
+|------------------------------|--------------------|
+| NVIDIA T1000                 | t1000              |
+| NVIDIA Tesla p4              | p4                 |
+| NVIDIA GTX 1050              | gtx1050            |
+| NVIDIA GTX 1050 Ti           | gtx1050ti          |
+| NVIDIA GTX 1060              | gtx1060            |
+| NVIDIA GTX 1070              | gtx1070            |
+| NVIDIA GTX 1070 Ti           | gtx1070ti          |
+| NVIDIA GTX 1080              | gtx1080            |
+| NVIDIA GTX 1080 Ti           | gtx1080ti          |
+| NVIDIA RTX 2060              | rtx2060            |
+| NVIDIA RTX 2060 Super        | rtx2060super       |
+| NVIDIA RTX 2070              | rtx2070            |
+| NVIDIA RTX 2080              | rtx2080            |
+| NVIDIA RTX 2080 Super        | rtx2080super       |
+| NVIDIA RTX 3050              | rtx3050            |
+| NVIDIA RTX 3060              | rtx3060            |
+| NVIDIA RTX 3060 Ti           | rtx3060ti          |
+| NVIDIA RTX 3070              | rtx3070            |
+| NVIDIA RTX 3070 Ti           | rtx3070ti          |
+| NVIDIA RTX 4060              | rtx4060            |
+| NVIDIA RTX 4060 Ti           | rtx4060ti          |
+| NVIDIA RTX 4070              | rtx4070            |
+| NVIDIA Tesla P100 PCIe       | p100               |
+| NVIDIA RTX A4000             | rtxa4000           |
+| NVIDIA RTX 2080 Ti           | rtx2080ti          |
+| NVIDIA RTX 3080              | rtx3080            |
+| NVIDIA RTX 3080 Ti           | rtx3080ti          |
+| NVIDIA RTX 4070 Ti           | rtx4070ti          |
+| NVIDIA RTX 4000              | rtx4000            |
+| NVIDIA P40                   | p40                |
+| NVIDIA Tesla T4              | t4                 |
+| NVIDIA RTX 4080              | rtx4080            |
+| NVIDIA Titan RTX             | titanrtx           |
+| NVIDIA RTX 3090              | rtx3090            |
+| NVIDIA RTX 3090 Ti           | rtx3090ti          |
+| NVIDIA RTX 4090              | rtx4090            |
+| NVIDIA RTX A5000             | rtxa5000           |
+| NVIDIA A10                   | a10                |
+| NVIDIA A10G                  | a10g               |
+| NVIDIA L4                    | l4                 |
+| NVIDIA Tesla V100            | v100               |
+| NVIDIA A40                   | a40                |
+| NVIDIA L40                   | l40                |
+| NVIDIA RTX 8000              | rtx8000            |
+| NVIDIA RTX A6000             | rtxa6000           |
+| NVIDIA L40s                  | l40s               |
+| NVIDIA RTX 6000 Ada          | rtx6000-ada        |
+| NVIDIA A100 PCIE 40GB        | a100-pcie-40g      |
+| NVIDIA A100 SXM4 40GB        | a100-sxm-40g       |
+| NVIDIA A100 80GB             | a100-80g           |
+| NVIDIA H100 80G              | h100               |
 
+## CPU Support
 
-We support almost all Nvidia GPUs and are continuously adding support for new GPUs, including AMD GPUs. This table is useful if you want to lease a GPU for deployment or become a provider and lend your GPU. Here is the definition of the columns:
+The CPU Supports list categorizes various CPU types based on their performance and capabilities. Here's the detailed table below:
 
-- **GPU Short Name:** This is useful for users who want to lease a GPU. When specifying the GPU you want to lease, you need to provide the GPU short name instead of the full name. Otherwise, the network won't recognize the GPU type, and the deployment will fail.
-- **Tier:** This helps providers understand which resource tier and associated multiplier they are eligible for. This is important for receiving rewards as part of the provider network.
-
-## CPU Support & Tiering
-
-The CPU Support & Tiering list categorizes various CPU types based on their performance and capabilities. Each tier has a specific multiplier within the Spheron protocol. Here's the detailed table below:
-
-| **CPU Type**                | **CPU Short Name** | **Tier**     | **Multiplier**         |
-|-----------------------------|--------------------|--------------|------------------------|
-| General Purpose             | gp                 | Medium       | 1                      |
+| **CPU Type**                | **CPU Short Name** |
+|-----------------------------|--------------------|
+| General Purpose             | gp                 |
 
 ## Supported Payment Tokens
 
