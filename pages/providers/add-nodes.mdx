@@ -348,6 +348,107 @@ kubectl get nodes
 kubectl describe node [Node Name] | grep -A10 Labels
 ```
 
+## Adding Nodes with Private IP
+
+### Prerequisites
+
+1. The **Master node should have a public IP** and be accessible to the user.
+2. The Master node must be able to **SSH into the private nodes**.
+
+### Adding a Node
+
+Since both the Master and Child nodes are connected through the private network, we will leverage that for the setup.
+
+#### Step 1: Install GPU Drivers (If the node has a GPU)
+If the private node has a GPU, follow these steps to install the necessary drivers:
+
+1. SSH into the private node:
+   ```bash
+   ssh <User>@<PrivateNodeIP>
+   ```
+
+2. Install the GPU drivers:
+   ```bash
+   sudo bash
+   distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+   curl -s -L https://nvidia.github.io/libnvidia-container/gpgkey | apt-key add -
+   curl -s -L https://nvidia.github.io/libnvidia-container/$distribution/libnvidia-container.list | tee /etc/apt/sources.list.d/libnvidia-container.list
+   apt-get -o Acquire::ForceIPv4=true update
+   apt install ubuntu-drivers-common
+   apt-get install -y nvidia-cuda-toolkit nvidia-container-toolkit nvidia-container-runtime 
+   ubuntu-drivers autoinstall
+   ```
+
+3. Configure NVIDIA runtime for containerd:
+   ```bash
+   mkdir -p /etc/rancher/k3/
+   cat > /etc/rancher/k3/config.yaml <<'EOF'
+   containerd_additional_runtimes:
+     - name: nvidia
+       type: "io.containerd.runc.v2"
+       engine: ""
+       root: ""
+       options:
+         BinaryName: '/usr/bin/nvidia-container-runtime'
+   EOF
+   ```
+
+4. Reboot the instance:
+   ```bash
+   sudo reboot
+   ```
+
+#### Step 2: Install `k3sup` on the Master Node
+
+1. SSH into the Master node.
+
+2. Download and Install `k3sup`:
+
+   - Download the `k3sup` binary:
+     ```bash
+     curl -sLS https://get.k3sup.dev | sh
+     ```
+
+   - Move the binary to `/usr/local/bin`:
+     ```bash
+     sudo install k3sup /usr/local/bin/
+     ```
+
+   - Verify the installation:
+     ```bash
+     k3sup version
+     ```
+
+#### Step 3: Add the Child Node to the Cluster
+
+1. Switch to a User with Access to the Private Node:
+
+   If the user `ubuntu` can SSH into the private node (`ssh ubuntu@private-ip`), switch to that user on the Master node:
+   ```bash
+   sudo su ubuntu
+   ```
+
+2. Join the Child Node to the Cluster:
+
+   Use the `k3sup join` command to add the private node to the cluster:
+   ```bash
+   k3sup join --ip <ChildPrivateIP> --server-ip <MasterNodePrivateIP> --user <Ubuntu>
+   ```
+
+   If SSH access is set up correctly, the child node will be added to the cluster.
+
+#### Step 4: Verify the Node is Added Successfully
+
+1. Switch back to the `spheron` user:
+   ```bash
+   sudo su spheron
+   ```
+
+2. Run the following command to verify that the node has been successfully added:
+   ```bash
+   kubectl get nodes
+   ```
+
 Now your provider should have GPU or new CPU hardware working 🚀🚀🚀
 
 <Navigation name="Adding Nodes to a Spheron Cluster" />
