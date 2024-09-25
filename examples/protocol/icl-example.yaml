@@ -32,11 +32,11 @@ profiles:
                 - model: rtx4090
                 - model: rtx3090
                 - model: h100
-                - model: rtx6000
+                - model: rtx6000-ada
   placement:
     westcoast:
       attributes:
-        region: us-central
+        region: us-west
       pricing:
         gpu-test:
           token: USDT
