@@ -29,26 +29,14 @@ profiles:
           attributes:
             vendor:
               nvidia:
-                - model: a40
-                - model: a10
                 - model: rtx4090
-                - model: rtx3090Ti
-                - model: rtx4080
                 - model: rtx3090
                 - model: h100
-                - model: a100
-                - model: v100
-                - model: rtx3060
-                - model: p100
-                - model: rtx4000
-                - model: rtxa4000
-                - model: rtx2070
-                - model: gtx1080
-                - model: 1080Ti
+                - model: rtx6000-ada
   placement:
     westcoast:
       attributes:
-        region: us-central
+        region: us-west
       pricing:
         gpu-test:
           token: USDT
