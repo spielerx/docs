@@ -60,14 +60,14 @@ Create the following name entries on your domain provider.
 
 ![Domain Provider](assets/domain-provider.png)
 
-This is the records you need to put for your domain - `example.com`
+This is the records you need to put for your domain - `yourdomain.com`
 
-| Type | Name           | Content            |
-|------|----------------|--------------------|
-| CNAME| `*.provider`   | node.example.com   |
-| CNAME| `*.ingress`    | node.example.com   |
-| A    | `node`         | 67.220.82.33       |
-| CNAME| `provider`     | node.example.com   |
+| Type | Name           | Content               |
+|------|----------------|-----------------------|
+| CNAME| `*.provider`   | node.yourdomain.com   |
+| CNAME| `*.ingress`    | node.yourdomain.com   |
+| A    | `node`         | `<Your Public IP>`    |
+| CNAME| `provider`     | node.yourdomain.com   |
 
 ## 3. Firewall & Port Policy for Master node
 
