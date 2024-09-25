@@ -9,11 +9,11 @@ To understand the rewarding system for Fizz nodes, let's first understand how re
 
 Fizz nodes are incentivized with liveness rewards based on the resources they contribute to the network. This approach encourages participation and helps cover operational expenses (OpEx).
 
-- The liveness rewards are currently issued in Spheron Points until the launch of the $SPHN token. These points are non-transferable.
+- The liveness rewards are currently issued in FN (Fizz Node) Points until the launch of the $SPHN token. These points are non-transferable.
 - The liveness reward is issued every **ERA** (which is 24 hours) and will be accumulated in the Fizz node's wallet. 
 
 <Callout type="info">
-**Note:** Fizz node operators are advised to securely save their wallet to avoid losing the rewards.
+**Note:** Fizz node operators are advised to securely save their wallet address to avoid losing the rewards.
 </Callout>
 
 Liveness rewards are determined based on the following factors:
@@ -33,50 +33,50 @@ Let's say you have **x** units of **GPU A**, which falls in **Medium Tier 1** wi
 
 Fizz Node can earn rewards based on the GPU resources they contribute to the network. Different GPU models are categorized into tiers, each with its own multiplier. The higher the tier and multiplier, the greater the rewards for that GPU. Below is a table showing all supported GPU models, their tiers, and corresponding multipliers:
 
-| GPU Model                | GPU Name    | Tier     | Multi plier | SP  | GPU / hr   | GPU / mo   | CPU / mo | RAM / GB/mo | Stor / GB/mo     |
+| GPU Model                | GPU Name    | Tier     | Multi plier | FN  | GPU / hr   | GPU / mo   | CPU / mo | RAM / GB/mo | Stor / GB/mo     |
 |:------------------------:|:-----------:|:--------:|:-----------:|:---:|:----------:|:----------:|:--------:|:-----------:|:----------------:|
-| NVIDIA T1000             | t1000       | Entry 1  |    0.1      | 0.2 |   $0.125   |    $90     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA Tesla p4          | p4          | Entry 1  |    0.1      | 0.2 |   $0.13    |    $94     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA GTX 1050          | gtx1050     | Entry 1  |    0.1      | 0.2 |   $0.015   |    $11     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA GTX 1050 Ti       | gtx1050ti   | Entry 1  |    0.1      | 0.2 |   $0.20    |    $144    |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA GTX 1060          | gtx1060     | Entry 1  |    0.1      | 0.2 |   $0.05    |    $36     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA GTX 1070          | gtx1070     | Entry 1  |    0.1      | 0.2 |   $0.04    |    $29     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA GTX 1070 Ti       | gtx1070ti   | Entry 1  |    0.1      | 0.2 |   $0.30    |    $216    |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA GTX 1080          | gtx1080     | Entry 1  |    0.1      | 0.2 |   $0.15    |    $108    |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA GTX 1080 Ti       | gtx1080ti   | Entry 1  |    0.1      | 0.2 |   $0.04    |    $29     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 2060          | rtx2060     | Entry 1  |    0.1      | 0.2 |   $0.05    |    $36     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 2060 Super    | rtx2060super| Entry 1  |    0.1      | 0.2 |   $0.14    |    $101    |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 2070          | rtx2070     | Entry 1  |    0.1      | 0.2 |   $0.06    |    $43     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 2080          | rtx2080     | Entry 2  |    0.25     | 0.2 |   $0.10    |    $72     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 2080 Super    | rtx2080super| Entry 2  |    0.25     | 0.2 |   $0.15    |    $108    |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 3050          | rtx3050     | Entry 2  |    0.25     | 0.2 |   $0.045   |    $32     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 3060          | rtx3060     | Entry 2  |    0.25     | 0.2 |   $0.08    |    $58     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 3060 Ti       | rtx3060ti   | Entry 2  |    0.25     | 0.2 |   $0.09    |    $65     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 3070          | rtx3070     | Entry 2  |    0.25     | 0.2 |   $0.105   |    $76     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 3070 Ti       | rtx3070ti   | Entry 2  |    0.25     | 0.2 |   $0.11    |    $79     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 4060          | rtx4060     | Entry 2  |    0.25     | 0.2 |   $0.10    |    $72     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 4060 Ti       | rtx4060ti   | Entry 2  |    0.25     | 0.2 |   $0.112   |    $81     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 4070          | rtx4070     | Entry 2  |    0.25     | 0.2 |   $0.1318  |    $95     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA Tesla P100 PCIe   | p100        | Entry 2  |    0.25     | 0.2 |   $0.11    |    $79     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX A4000         | rtxa4000    | Entry 2  |    0.25     | 0.2 |   $0.23    |    $166    |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 2080 Ti       | rtx2080ti   | Low 1    |    0.5      | 0.2 |   $0.20    |    $144    |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 3080          | rtx3080     | Low 1    |    0.5      | 0.2 |   $0.20    |    $144    |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 3080 Ti       | rtx3080ti   | Low 1    |    0.5      | 0.2 |   $0.33    |    $238    |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 4070 Ti       | rtx4070ti   | Low 1    |    0.5      | 0.2 |   $0.18    |    $130    |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 4000          | rtx4000     | Low 1    |    0.5      | 0.2 |   $0.17    |    $122    |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA P40               | p40         | Low 1    |    0.5      | 0.2 |   $0.30    |    $216    |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA Tesla T4          | t4          | Low 1    |    0.5      | 0.2 |   $0.10    |    $72     |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 4080          | rtx4080     | Low 2    |    0.75     | 0.2 |   $0.30    |    $216    |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA Titan RTX         | titanrtx    | Low 2    |    0.75     | 0.2 |   $0.80    |    $576    |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 3090          | rtx3090     | Low 2    |    0.75     | 0.2 |   $0.36    |    $259    |  $0.75   |    $0.1     |      $0.01       |
-| NVIDIA RTX 3090 Ti       | rtx3090ti   | Low 2    |    0.75     | 0.2 |   $0.48    |    $346    |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA T1000             | t1000       | Entry 1  |    0.1      | 500 |   $0.125   |    $90     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA Tesla p4          | p4          | Entry 1  |    0.1      | 500 |   $0.13    |    $94     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1050          | gtx1050     | Entry 1  |    0.1      | 500 |   $0.015   |    $11     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1050 Ti       | gtx1050ti   | Entry 1  |    0.1      | 500 |   $0.20    |    $144    |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1060          | gtx1060     | Entry 1  |    0.1      | 500 |   $0.05    |    $36     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1070          | gtx1070     | Entry 1  |    0.1      | 500 |   $0.04    |    $29     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1070 Ti       | gtx1070ti   | Entry 1  |    0.1      | 500 |   $0.30    |    $216    |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1080          | gtx1080     | Entry 1  |    0.1      | 500 |   $0.15    |    $108    |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1080 Ti       | gtx1080ti   | Entry 1  |    0.1      | 500 |   $0.04    |    $29     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 2060          | rtx2060     | Entry 1  |    0.1      | 500 |   $0.05    |    $36     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 2060 Super    | rtx2060super| Entry 1  |    0.1      | 500 |   $0.14    |    $101    |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 2070          | rtx2070     | Entry 1  |    0.1      | 500 |   $0.06    |    $43     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 2080          | rtx2080     | Entry 2  |    0.25     | 500 |   $0.10    |    $72     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 2080 Super    | rtx2080super| Entry 2  |    0.25     | 500 |   $0.15    |    $108    |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3050          | rtx3050     | Entry 2  |    0.25     | 500 |   $0.045   |    $32     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3060          | rtx3060     | Entry 2  |    0.25     | 500 |   $0.08    |    $58     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3060 Ti       | rtx3060ti   | Entry 2  |    0.25     | 500 |   $0.09    |    $65     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3070          | rtx3070     | Entry 2  |    0.25     | 500 |   $0.105   |    $76     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3070 Ti       | rtx3070ti   | Entry 2  |    0.25     | 500 |   $0.11    |    $79     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4060          | rtx4060     | Entry 2  |    0.25     | 500 |   $0.10    |    $72     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4060 Ti       | rtx4060ti   | Entry 2  |    0.25     | 500 |   $0.112   |    $81     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4070          | rtx4070     | Entry 2  |    0.25     | 500 |   $0.1318  |    $95     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA Tesla P100 PCIe   | p100        | Entry 2  |    0.25     | 500 |   $0.11    |    $79     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX A4000         | rtxa4000    | Entry 2  |    0.25     | 500 |   $0.23    |    $166    |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 2080 Ti       | rtx2080ti   | Low 1    |    0.5      | 500 |   $0.20    |    $144    |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3080          | rtx3080     | Low 1    |    0.5      | 500 |   $0.20    |    $144    |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3080 Ti       | rtx3080ti   | Low 1    |    0.5      | 500 |   $0.33    |    $238    |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4070 Ti       | rtx4070ti   | Low 1    |    0.5      | 500 |   $0.18    |    $130    |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4000          | rtx4000     | Low 1    |    0.5      | 500 |   $0.17    |    $122    |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA P40               | p40         | Low 1    |    0.5      | 500 |   $0.30    |    $216    |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA Tesla T4          | t4          | Low 1    |    0.5      | 500 |   $0.10    |    $72     |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4080          | rtx4080     | Low 2    |    0.75     | 500 |   $0.30    |    $216    |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA Titan RTX         | titanrtx    | Low 2    |    0.75     | 500 |   $0.80    |    $576    |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3090          | rtx3090     | Low 2    |    0.75     | 500 |   $0.36    |    $259    |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3090 Ti       | rtx3090ti   | Low 2    |    0.75     | 500 |   $0.48    |    $346    |  $0.75   |    $0.1     |      $0.01       |
 
 We support almost all Nvidia GPUs and are continuously adding support for new GPUs, including AMD GPUs. This table is useful if you want to lease a GPU for deployment or become a provider and lend your GPU. Here is the definition of the columns:
 
 - **GPU Name:** This is useful for users who want to lease a GPU. When specifying the GPU you want to lease, you need to provide the GPU's short name instead of the full name. Otherwise, the network won't recognize the GPU type, and the deployment will fail.
 - **Tier:** This helps providers understand which resource tier and associated multiplier they are eligible for. This is important for receiving rewards as part of the provider network.
 - **Multiplier:** This is the multiplier for the tier. This is important for receiving rewards as part of the provider network.
-- **SP:** This is the base reward for all GPUs in the tier in Spheron Points.
+- **FN (Fizz Node Points):** This is the base reward for all GPUs in the tier in Spheron Points.
 - **GPU / hr:** This is the price for the GPU leasing in USD per hour. The price is calculated based on the GPU model and the tier taken from the market price of multiple GPU marketplaces.
 - **GPU / mo:** This is the price for the GPU leasing in USD per month. The price is calculated based on the GPU model and the tier taken from the market price of multiple GPU marketplaces.
 - **CPU / mo:** This is the price for the CPU in USD per month. The price is fixed at $0.75 per month for all GPU types.
@@ -89,20 +89,20 @@ We support almost all Nvidia GPUs and are continuously adding support for new GP
 
 The CPU Support & Tiering list categorizes various CPU types based on their performance and capabilities. Each tier has a specific multiplier within the Spheron protocol. Here's the detailed table below:
 
-| CPU Type         | CPU Name | Tier     | Multiplier | SP   | CPU / hr   | CPU / mo   | RAM / GB/mo | Storage / GB/mo |
+| CPU Type         | CPU Name | Tier     | Multiplier | FN   | CPU / hr   | CPU / mo   | RAM / GB/mo | Storage / GB/mo |
 |:----------------:|:--------:|:--------:|:----------:|:----:|:----------:|:----------:|:-----------:|:---------------:|
-| General Purpose  | gp       | Medium 1 | 1          | 0.01 | $0.001     | $0.75      | $0.1        | $0.01           |
-| APPLE M2 Pro     | m2-pro   | Low 2    | 0.75       | 0.01 | $0.161     | $117.53    | $0.1        | $0.01           |
-| APPLE M2 Max     | m2-max   | Medium 1 | 1          | 0.01 | $0.20      | $146.00    | $0.1        | $0.01           |
-| APPLE M3 Max     | m3-max   | Medium 1 | 1          | 0.01 | $0.20      | $146.00    | $0.1        | $0.01           |
-| APPLE M3 Pro     | m3-pro   | Low 2    | 0.75       | 0.01 | $0.161     | $117.53    | $0.1        | $0.01           |
-| APPLE M3         | m3       | Low 1    | 0.5        | 0.01 | $0.13      | $94.90     | $0.1        | $0.01           |
-| APPLE M2         | m2       | Low 1    | 0.5        | 0.01 | $0.11      | $80.30     | $0.1        | $0.01           |
-| APPLE M2 Ultra   | m2-ultra | Medium 2 | 1.5        | 0.01 | $1.45      | $1,058.50  | $0.1        | $0.01           |
-| APPLE M1         | m1       | Low 1    | 0.5        | 0.01 | $0.10      | $73.00     | $0.1        | $0.01           |
-| APPLE M1 Max     | m1-max   | Low 2    | 0.75       | 0.01 | $0.14      | $102.20    | $0.1        | $0.01           |
-| APPLE M1 Pro     | m1-pro   | Low 1    | 0.5        | 0.01 | $0.125     | $91.25     | $0.1        | $0.01           |
-| APPLE M1 Ultra   | m1-ultra | Low 2    | 0.75       | 0.01 | $1.25      | $912.50    | $0.1        | $0.01           |
+| General Purpose  | gp       | Medium 1 | 1          | 25   | $0.001     | $0.75      | $0.1        | $0.01           |
+| APPLE M2 Pro     | m2-pro   | Low 2    | 0.75       | 25   | $0.161     | $117.53    | $0.1        | $0.01           |
+| APPLE M2 Max     | m2-max   | Medium 1 | 1          | 25   | $0.20      | $146.00    | $0.1        | $0.01           |
+| APPLE M3 Max     | m3-max   | Medium 1 | 1          | 25   | $0.20      | $146.00    | $0.1        | $0.01           |
+| APPLE M3 Pro     | m3-pro   | Low 2    | 0.75       | 25   | $0.161     | $117.53    | $0.1        | $0.01           |
+| APPLE M3         | m3       | Low 1    | 0.5        | 25   | $0.13      | $94.90     | $0.1        | $0.01           |
+| APPLE M2         | m2       | Low 1    | 0.5        | 25   | $0.11      | $80.30     | $0.1        | $0.01           |
+| APPLE M2 Ultra   | m2-ultra | Medium 2 | 1.5        | 25   | $1.45      | $1,058.50  | $0.1        | $0.01           |
+| APPLE M1         | m1       | Low 1    | 0.5        | 25   | $0.10      | $73.00     | $0.1        | $0.01           |
+| APPLE M1 Max     | m1-max   | Low 2    | 0.75       | 25   | $0.14      | $102.20    | $0.1        | $0.01           |
+| APPLE M1 Pro     | m1-pro   | Low 1    | 0.5        | 25   | $0.125     | $91.25     | $0.1        | $0.01           |
+| APPLE M1 Ultra   | m1-ultra | Low 2    | 0.75       | 25   | $1.25      | $912.50    | $0.1        | $0.01           |
 
 We support almost all CPU types and are continuously adding support for new CPUs. This table is useful if you want to lease a CPU for deployment or become a provider and lend your CPU. Here is the definition of the columns:
 
@@ -110,7 +110,7 @@ We support almost all CPU types and are continuously adding support for new CPUs
 - **CPU Name:** This is useful for users who want to lease a CPU. When specifying the CPU you want to lease, you need to provide the CPU's short name instead of the full name. Otherwise, the network won't recognize the CPU type, and the deployment will fail.
 - **Tier:** This helps providers understand which resource tier and associated multiplier they are eligible for. This is important for receiving rewards as part of the provider network.
 - **Multiplier:** This is the multiplier for the tier. This is important for receiving rewards as part of the provider network.
-- **SP:** This is the base reward for all CPUs in the tier in Spheron Points.
+- **FN (Fizz Node Points):** This is the base reward for all CPUs in the tier in Spheron Points.
 - **CPU / hr:** This is the price for the CPU leasing in USD per hour. The price is calculated based on the CPU model and the tier taken from the market price of multiple CPU marketplaces.
 - **CPU / mo:** This is the price for the CPU leasing in USD per month. The price is calculated based on the CPU model and the tier taken from the market price of multiple CPU marketplaces.
 - **RAM / GB/mo:** This is the price for RAM in USD per GB per month. The price is fixed at $0.1 per GB per month for all CPU types.
@@ -122,8 +122,8 @@ We support almost all CPU types and are continuously adding support for new CPUs
 
 Unlike provider nodes, Fizz nodes do not have a trust tiering system. The network assumes Fizz nodes are less reliable and suitable for specific use cases that don't require highly stable systems. However, there is still a minimum uptime requirement to receive rewards:
 
-- Fizz nodes must maintain at least 50% uptime within an ERA to receive rewards.
-- If a Fizz node's uptime falls below 50% in an ERA, their rewards for that ERA will be slashed (i.e., they will receive no rewards).
+- Fizz nodes must maintain at least 50% uptime within an ERA to receive points.
+- If a Fizz node's uptime falls below 50% in an ERA, their points for that ERA will be slashed (i.e., they will receive no points).
 
 ### How Uptime is Calculated
 
@@ -147,7 +147,7 @@ The reward for Fizz nodes is calculated based on two main factors:
 The final reward for an ERA is calculated as follows:
 
 ```
-ERA Reward = Resource Reward * Uptime Factor
+ERA Reward = Resource Reward Points * Uptime Factor
 
 Where:
 - Resource Reward is calculated based on the contributed resources
