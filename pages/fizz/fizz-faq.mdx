@@ -15,9 +15,9 @@ Spheron aims to maximize your earnings by creating a resource pool of idle resou
 #### 4. Can I run a Fizz Node on a Windows device?
 Support for Windows is currently unavailable, but you can run it on Windows Subsystem for Linux (WSL).
 
-#### 5. I'm receiving an "Incompatible CPU Detected" error on my M1/M2/M3 Mac when installing Docker. What should I do?
+#### 5. When installing Docker, I'm receiving an "Incompatible CPU Detected" error on my M1/M2/M3 Mac. What should I do?
 
-This error occurs because Homebrew installs the `amd64` (Intel) version of Docker, which isn't compatible with Apple Silicon (`arm64`) chips like M1, M2, and M3. To resolve this issue, you need to manually install the Docker version designed for Apple Silicon:
+This error occurs because Homebrew installs the `amd64` (Intel) version of Docker, which isn't compatible with Apple Silicon (`arm64`) chips like M1, M2, and M3. To resolve this issue, you need to install the Docker version designed for Apple Silicon manually:
 
 1. **Download the Correct Docker Version**:
    - Visit the [Docker Desktop for Mac (Apple Silicon)](https://www.docker.com/products/docker-desktop/) page.
@@ -30,8 +30,8 @@ This error occurs because Homebrew installs the `amd64` (Intel) version of Docke
 
 3. **Verify the Installation**:
    - Open a terminal window.
-   - Run `docker --version` to ensure Docker is correctly installed and the error is resolved.
+   - Run `docker --version` to ensure Docker is installed correctly and the error is resolved.
 
-By installing Docker directly from the official website, you ensure compatibility with your Apple Silicon device and eliminate the “Incompatible CPU Detected” error. After you've installed Docker on your Mac and verified it's working, re-run the Fizz Node installation script. This time, it should work for you without any hiccups.
+Installing Docker directly from the official website ensures compatibility with your Apple Silicon device and eliminates the "Incompatible CPU Detected" error. After you've installed Docker on your Mac and verified it's working, re-run the Fizz Node installation script. This time, it should work for you without any hiccups.
 
 <Navigation name="Fizz Node FAQ" />
