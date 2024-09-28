@@ -34,4 +34,36 @@ This error occurs because Homebrew installs the `amd64` (Intel) version of Docke
 
 Installing Docker directly from the official website ensures compatibility with your Apple Silicon device and eliminates the "Incompatible CPU Detected" error. After you've installed Docker on your Mac and verified it's working, re-run the Fizz Node installation script. This time, it should work for you without any hiccups.
 
+#### 6. What happens if a GPU owner turns off their device while I'm training a model? Will I lose my progress?
+
+Yes, if the GPU owner shuts down their device during your training session, you will lose the progress made during that time. Fizz Nodes are intended for short-running tasks rather than long-term processes. Currently, there's no mechanism to prevent this interruption. For long-running services or tasks involving sensitive data, we recommend using our **Provider** mode, which utilizes data center-grade GPUs designed for continuous operation.
+
+#### 7. Is my data secure when using someone else's GPU through a Fizz Node?
+
+When you use a Fizz Node, your data is processed on another user's GPU system. At present, there is no way to prevent a technically savvy GPU owner from accessing your data. We advise against using private or sensitive data on Fizz Nodes. If you need to work with sensitive information, consider using the **Provider** mode to deploy on data center-grade GPUs that offer enhanced security measures.
+
+Alternatively, you can implement a system where a proxy server handles your data manipulation and storage. You can send data to the service running on the Fizz Node at runtime using secure connections or encryption for tasks like training or fine-tuning. After processing, the results can be sent back to your proxy server for further handling and secure storage. This approach makes it more difficult for the Fizz Node runner to access your data during runtime.
+
+#### 8. How do I check the status of my Fizz Node?
+
+To check the status of your Fizz Node, follow these steps:
+
+1. **Access the Fizz Node Dashboard**:
+   - Go to the Fizz Node dashboard by navigating to the URL provided in the setup process.
+   - If you're using the Spheron Fizz App, click on the "Check Status" button.
+   - Alternatively, you can use the command `docker compose -f ~/.spheron/fizz/docker-compose.yml ps` or `docker-compose -f ~/.spheron/fizz/docker-compose.yml ps` to check the status of your Fizz Node.
+
+2. **Review the Status Information**:
+   - The status information will be displayed in the output.
+   - Look for the container status, which should indicate if the container is running (`Up`) or not (`Exited`).
+
+3. **Check the Logs**:
+   - If the container is not running, you can check the logs for any errors or issues by using the command `docker compose -f ~/.spheron/fizz/docker-compose.yml logs` or `docker-compose -f ~/.spheron/fizz/docker-compose.yml logs`.
+
+4. **Verify the Node Status**:
+   - If the container is running, your Fizz Node is active.
+   - If the container is not running, you can start it again by using the command `<your-fizz-node-directory>/fizzup.sh`.
+
+By following these steps, you can verify the status of your Fizz Node and troubleshoot any issues if the container is not running.
+
 <Navigation name="Fizz Node FAQ" />
