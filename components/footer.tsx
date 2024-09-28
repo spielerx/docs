@@ -1,6 +1,6 @@
 // import { useEffect, useState } from "react";
 import Image from "next/image";
-import Spheron from "../assets/spheron.svg";
+import Spheron from "../assets/spheron-icon";
 import styles from "../styles/footer.module.css";
 
 // interface IStatus {
@@ -61,7 +61,7 @@ const Footer = () => {
           className={styles.website}
         >
           <span className="nx-mx-2">
-            <Image src={Spheron} alt="Logo" width={20} height={20} />
+            {Spheron}
           </span>
           Spheron
         </a>{" "}
