@@ -34,17 +34,52 @@ This error occurs because Homebrew installs the `amd64` (Intel) version of Docke
 
 Installing Docker directly from the official website ensures compatibility with your Apple Silicon device and eliminates the "Incompatible CPU Detected" error. After you've installed Docker on your Mac and verified it's working, re-run the Fizz Node installation script. This time, it should work for you without any hiccups.
 
-#### 6. What happens if a GPU owner turns off their device while I'm training a model? Will I lose my progress?
+#### 6. Can I run multiple Fizz Nodes on a single device?
 
-Yes, if the GPU owner shuts down their device during your training session, you will lose the progress made. Fizz Nodes are intended for short-running tasks rather than long-term processes. Currently, there's no mechanism to prevent this interruption. For long-running services or tasks involving sensitive data, we recommend using our **Provider mode**, which utilizes data center-grade GPUs designed for continuous operation.
+No, you can only run one Fizz Node per device. Each Fizz Node is designed to operate independently on a single machine. Additionally, each Fizz Node is mapped to a single wallet address, and you cannot use the same address for multiple Fizz Nodes. This limitation is in place for several reasons:
 
-#### 7. Is my data secure using someone else's GPU through a Fizz Node?
+1. **Resource Management**: Running multiple nodes on a single device could lead to resource conflicts and performance issues.
+2. **Fairness**: Limiting to one node per device helps maintain a fair distribution of nodes across the network.
+3. **Security**: Mapping each node to a unique wallet address enhances the security and accountability of the network.
+
+If you want to run additional Fizz Nodes, you'll need to use separate devices, each with its own unique wallet address.
+
+#### 7. I have two or more GPUs in my device. Can I run the node to add them all?
+
+This limitation is due to the Fizz Node Software's current design, which is optimized for single-GPU setups. However, the Spheron team is actively working on enhancing this capability.
+
+Future updates aim to allow Fizz Nodes to utilize multiple GPUs simultaneously, which will enable users with multi-GPU setups to contribute more computational power to the network. This improvement will maximize the potential of high-performance systems and provide more flexibility for node operators.
+
+Stay tuned for announcements from the Spheron team regarding updates that will enable multi-GPU support in Fizz Nodes.
+
+#### 8. I'm getting a permission denied error when running the fizzup.sh script. How do I fix this?
+
+If you encounter a "permission denied" error when running the `fizzup.sh` script, it's likely because the script is trying to access `/root/.spheron`, which your current user doesn't have permission to access. This error might look something like this:
+
+![Permission Denied Error](assets/permission-denied-error.png)
+
+To resolve this issue, you need to switch to the root user before executing the script. Follow these steps:
+
+1. Switch to the root user:
+   ```bash
+   sudo bash
+   ```
+
+2. Once you're in the root shell, run the fizzup.sh script:
+   ```bash
+   ./fizzup.sh
+   ```
+
+This should allow the script to access the necessary directories and complete the installation process. Remember to exercise caution when operating as the root user, as it has unrestricted access to your system.
+
+
+#### 9. Is my data secure using someone else's GPU through a Fizz Node?
 
 When you use a Fizz Node, your data is processed on another user's GPU system. At present, there is no way to prevent a technically savvy GPU owner from accessing your data. We advise against using private or sensitive data on Fizz Nodes. If you need to work with sensitive information, consider using the **Provider** mode to deploy on data center-grade GPUs with enhanced security measures.
 
 Alternatively, you can implement a system where a proxy server handles your data manipulation and storage. You can send data to the service running on the Fizz Node at runtime using secure connections or encryption for tasks like training or fine-tuning. After processing, the results can be retunred to your proxy server for further handling and secure storage. This approach makes accessing your data more difficult for the Fizz Node runner during runtime.
 
-#### 8. How do I check the status of my Fizz Node?
+#### 10. How do I check the status of my Fizz Node?
 
 To check the status of your Fizz Node, follow these steps:
 
@@ -65,5 +100,64 @@ To check the status of your Fizz Node, follow these steps:
    - If the container is not running, you can start it again using the command `<your-fizz-node-directory>/fizzup.sh`.
 
 By following these steps, you can verify the status of your Fizz Node and troubleshoot any issues if the container is not running.
+
+#### 11. How do I check the reward details of my Fizz Node?
+
+To check the reward details of your Fizz Node, follow these steps:
+
+1. **Access the Fizz Node Dashboard**:
+   - Go to the Fizz Node dashboard by navigating to the URL provided in the setup process.
+
+2. **Review the Reward Details**:
+   - The Fizz Node dashboard will display the reward details in FN points.
+
+By following these steps, you can check the reward details of your Fizz Node.
+
+#### 12. When I ran the Fizz Node script, I got an error saying "brew command not found". How do I fix this?
+
+If you encounter an error stating that the "brew command not found" when running the Fizz Node script, it means that Homebrew is not installed on your system or is not properly configured in your PATH. Homebrew is a package management system for macOS on which the Fizz Node script relies. To resolve this issue, follow these steps:
+
+1. **Install Homebrew**:
+   Open your terminal and run the following command to install Homebrew:
+
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+
+   This command downloads and runs the Homebrew installation script.
+
+2. **Set up the PATH to Homebrew**:
+   After installation, you need to ensure that Homebrew is in your system's PATH. Run this command to add Homebrew to your PATH:
+
+   ```bash
+   echo 'PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
+   ```
+
+   This command appends the Homebrew binary path to your bash profile.
+
+3. **Reload your bash profile**:
+   To apply the changes immediately, run:
+
+   ```bash
+   source ~/.bash_profile
+   ```
+
+4. **Verify Homebrew installation**:
+   Test if Homebrew is working correctly by running:
+
+   ```bash
+   brew help
+   ```
+
+   If Homebrew is properly installed and configured, you should see the help output for Homebrew commands.
+
+5. **Run the Fizz Node script again**:
+   If the brew command is now working properly, you can run the Fizz Node script again:
+
+   ```bash
+   ./fizzup.sh
+   ```
+
+By following these steps, you should be able to resolve the "brew command not found" error and successfully run the Fizz Node script. If you continue to experience issues, ensure that your system meets all the prerequisites for running a Fizz Node and consider reaching out to the Spheron support community for further assistance.
 
 <Navigation name="Fizz Node FAQ" />
