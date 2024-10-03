@@ -50,30 +50,29 @@ Once created, the wallet will be saved locally at `~/.spheron`. You can access t
 The newly created wallet will automatically be set as the current wallet. If needed, you can change the wallet by following the instructions in the [Changing Your Wallet](/user-guide/protocol-cli#changing-your-wallet) section.
 You can also export the private key of your newly generated wallet. Please follow the instructions given in [Export the Private Key of Wallet](/user-guide/protocol-cli#export-the-private-key-of-wallet).
 
-### Step 3: Get Some test token from the Faucet and ETH from the Faucet
+### Step 3: Get Some test tokens from the Faucet and ETH from the Faucet
 
 1. Visit the [Spheron Faucet](https://faucet.spheron.network/). 
 
 ![Spheron Faucet](assets/spheron-faucet.png)
 
-2. First, get some ETH gas token on the Spheron chain:
+2. First, get some ETH gas tokens on the Spheron chain:
    - Select ETH from the list in the faucet.
    - Enter the wallet address of the wallet you generated in the previous section.
    - Click the "Send Token" button to start the transaction.
 
-3. Next, get some USDT token for testing deployment:
+3. Next, get some USDT tokens for testing deployment:
    - Select USDT from the token options.
    - Enter the same wallet address you used for ETH.
    - Click on the "Send Token" button.
 
 4. Wait for both transactions to be confirmed.
 
-5. Check if you got the test ETH and USDT tokens on your wallet:
+5. Check if you got the test ETH and USDT tokens in your wallet:
 ```
 sphnctl wallet balance --token USDT
 ```
-This will show both USDT and ETH balance in your wallet.
-
+This will show both USDT and ETH balances in your wallet.
 
 <Callout type="info">
 **Note:** If you have chosen a different token from the faucet, to check its balance you need to pass the name of that token in all caps.
@@ -81,7 +80,7 @@ This will show both USDT and ETH balance in your wallet.
 
 ### Step 4: Get Some Arbitrum Sepolia ETH and Bridge to Spheron Chain (Optional)
 <Callout type="info">
-**Note:** This step is only necessary if you were unable to get ETH from the Spheron faucet in Step 3. If you successfully obtained ETH from the Spheron faucet, you can skip this step.
+**Note:** This step is only necessary if you could not get ETH from the Spheron faucet in Step 3. You can skip this step if you successfully obtained ETH from the Spheron faucet.
 </Callout>
 
 In case you need an alternative source of ETH, you can obtain some on the Arbitrum Sepolia chain from the following faucets:
@@ -110,7 +109,7 @@ sphnctl payment deposit --amount 10 --token USDT
 ```
 Here, the amount must be in the full precision of the token. To determine the precision of the token you are depositing, please refer to the [Supported Payment Tokens](/user-guide/supports#supported-payment-tokens) section.
 
-2. Now check if you have balance in unlocked state in your wallet:
+2. Now check if you have a balance in an unlocked state in your wallet:
 
 ```
 sphnctl wallet balance --token USDT
