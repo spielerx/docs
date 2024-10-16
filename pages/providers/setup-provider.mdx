@@ -96,7 +96,7 @@ sphnctl wallet balance
 
 Here is the format for the provider configuration:
 
-```
+```json
 {
   "name": "spheron-provider-1",
   "region": "us-east",
@@ -126,7 +126,11 @@ Here is the format for the provider configuration:
     "memory": "1.00",
     "ephemeral": "0.03",
     "gpu": "p4=30,t1000=25"
-  }
+  },
+  "attribute": [
+    "capabilities/storage/3/class=ram",
+    "capabilities/storage/3/persistent=false"
+  ]
 }
 ```
 
@@ -140,7 +144,14 @@ You can edit the values to suit your requirements, but do not change the keys. T
 {/* - **RAM:** List all types of RAM you support. Options include: ddr2, ddr3, ddr4.- **Storage:** List all types of storage you support. Options include: hdd, ssd, nvme. */}
 - **Payment Tokens:** Specify all the tokens you want to accept for payments. Refer to [Payment Token Support](/user-guide/supports#supported-payment-tokens) page for supported tokens.
 - **Pricing:** This section sets the pricing for your hardware. All prices are per unit in USD. For example, the CPU is priced at $3 per CPU or thread per month. For GPUs, list each model with its unit price per month, separated by commas.
-{/* - **Attribute:** Add any number of attributes for your provider in a key=value pair format. */}
+- **Attribute:** Add any number of attributes for your provider in a key=value pair format. For example:
+  ```json
+  "attribute": [
+    "capabilities/storage/3/class=ram",
+    "capabilities/storage/3/persistent=false"
+  ]
+  ```
+  These specific attributes are required only if you want to enable the shared memory (shm) feature on your provider. While not mandatory, it is recommended to enable shared memory on your provider to allow users to deploy AI workloads with shared memory enabled. Adding these attributes will not cause any issues even if you don't use the feature.
 
 Once you have updated the configuration values, create a `provider-config.json` file for your provider at `/home/spheron/.spheron/provider-config.json`. To do this:
 
