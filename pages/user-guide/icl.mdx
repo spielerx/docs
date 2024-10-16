@@ -47,8 +47,8 @@ It's structured as a map where each key represents a unique service name, and th
 | command    | No                 | Defines a custom command to be executed when launching the container.                                                                         |
 | args       | No                 | Provides arguments for the custom command specified in the 'command' field.                                                                   |
 | env        | No                 | Sets environment variables for the running container. Refer to the [Environment Variables](/user-guide/icl#environment-variablesn) section for more details.                            |
-| expose     | No                 | Determines which entities are permitted to connect to the services. See the [Port Exposure](/user-guide/icl#port-exposure) & [Port Range](/user-guide/icl#port-range) section for additional information.                          |
-| pull_policy| No                 | Specifies the image pull policy for the container. See the [Pull Policy](/user-guide/icl#pull-policy) section for more details.               |
+| expose     | No                 | Determines which entities are permitted to connect to the services. For additional information, see the [Port Exposure](/user-guide/icl#port-exposure) and [Port Range](/user-guide/icl#port-range) sections.                          |
+| pull_policy| No                 | Specifies the image pull policy for the container. For more details, see the [Pull Policy](/user-guide/icl#pull-policy) section.              |
 
 ### Environment Variables
 
@@ -80,7 +80,7 @@ When configuring port exposure for your services, keep these points in mind:
 ### Port Range
 
 <Callout type="warning">
-**Note:** Port range is only applicable for fizz node deployments when the mode is set to `fizz`. For fizz node deployments, the exposed port cannot be 80 or 443, as fizz nodes don't have an ingress to create subdomain-based deployment links for users.
+**Note:** The port range is only applicable for fizz node deployments when the mode is set to `fizz.` For fizz node deployments, the exposed port cannot be 80 or 443, as fizz nodes don't have an ingress to create subdomain-based deployment links for users.
 </Callout>
 
 When deploying to fizz nodes, you can specify a port range using the `port_range` and `port_range_as` fields. Here's an example:
@@ -92,7 +92,7 @@ When deploying to fizz nodes, you can specify a port range using the `port_range
     - global: true
 ```
 
-You can specify either `port` or `port_range` or both, but make sure to specify at least one of them.
+You can specify either `port`, `port_range`, or both, but make sure to specify at least one of them.
 
 <Callout type="info">
 **Important:** For fizz node deployments (mode set to `fizz`), ports 80 and 443 are not available. You must use other port numbers for your services.
@@ -146,7 +146,7 @@ The `pull_policy` field allows you to specify how the container runtime should h
 
 There are three possible values for `pull_policy`:
 
-- `Always`: The image is pulled every time the pod is started or restarted.
+- `Always`: The image is pulled whenever the pod is started or restarted.
 - `IfNotPresent`: The image is pulled only if it's not already present on the node.
 - `Never`: The image is never pulled, and the deployment will fail if the image isn't already present on the node.
 
@@ -428,7 +428,7 @@ gpu:
 
 ## 7. Private Container Registry Integration
 
-Spheron Network now offers support for private container registries, allowing you to securely use images from your private repositories in your deployments. This feature enhances security and flexibility for users who need to work with proprietary or sensitive container images.
+Spheron Network now supports private container registries, allowing you to use images from your private repositories securely in your deployments. This feature enhances security and flexibility for users who need to work with proprietary or sensitive container images.
 
 ### Configuring Private Registry Access
 
@@ -474,7 +474,7 @@ Remember to keep your authentication credentials secure and never commit them di
 ## 8. Port Range
 
 <Callout type="warning">
-**Note:** Port range is only applicable for fizz node deployments when the mode is set to `fizz`. For fizz node deployments, the exposed port cannot be 80 or 443, as fizz nodes don't have an ingress to create subdomain-based deployment links for users.
+**Note:** Port range only applies to fizz node deployments when the mode is set to `fizz`. The exposed port cannot be 80 or 443 for fizz node deployments, as fizz nodes don't have an ingress to create subdomain-based deployment links for users.
 </Callout>
 
 When deploying to fizz nodes, you can specify a port range using the `port_range` and `port_range_as` fields. This feature allows you to expose multiple consecutive ports for your service. Here's an example:
@@ -492,7 +492,7 @@ Key points about using port range:
 1. You can specify either `port` or `port_range` or both, but make sure to specify at least one of them.
 2. The `port_range` field defines the range of ports to be exposed from the container.
 3. The `port_range_as` field defines how these ports should be mapped externally.
-4. The range is inclusive, so in the example above, ports 8443, 8444, and 8445 would be exposed.
+4. The range is inclusive, so ports 8443, 8444, and 8445 would be exposed in the example above.
 
 <Callout type="info">
 **Important:** For fizz node deployments (mode set to `fizz`), ports 80 and 443 are not available. You must use other port numbers for your services.
@@ -521,7 +521,7 @@ services:
 **Note:** If you're using the `:latest` tag for your image, it's recommended to set `pull_policy: Always` to ensure you're always running the most recent version of your image.
 </Callout>
 
-Using the pull policy feature allows you to have more control over how and when your container images are updated, which can be crucial for maintaining consistency across deployments or ensuring you're always running the latest version of your application.
+Using the pull policy feature give you more control over how and when your container images are updated, which can be crucial for maintaining consistency across deployments or ensuring you're always running the latest version of your application.
 
 ## 10. Shared Memory (SHM) Support
 
@@ -589,7 +589,7 @@ In this service definition:
 
 ### Benefits of Using SHM
 
-1. **High-speed Inter-process Communication**: SHM allows for rapid data sharing between processes in the same container.
+1. **High-speed Inter-process Communication**: SHM allows rapid data sharing between processes in the same container.
 2. **Temporary File Storage**: It provides a fast storage option for temporary files that don't need to persist beyond the container's lifecycle.
 3. **Resource Efficiency**: By using memory for storage, you can reduce I/O operations and improve overall application performance.
 
