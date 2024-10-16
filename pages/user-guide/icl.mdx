@@ -54,7 +54,7 @@ It's structured as a map where each key represents a unique service name, and th
 
 The `env` field allows you to specify a list of environment variables that will be made available to the running container. These variables are defined in a key-value format. For example:
 
-```
+```yaml
 env:
   - WALLET_ADDR=0xabcdedghijke
   - VERSION=1.0
@@ -68,7 +68,7 @@ When configuring port exposure for your services, keep these points in mind:
 -   **Flexible Port Mapping:** You're not limited to just port 80 for HTTP/HTTPS ingress. You can expose other ports and map them to port 80 using the as: 80 directive, provided your application understands HTTP/HTTPS protocols. This is particularly useful for applications like React web apps.
 -   **Simplified Port Exposure:** In the ICL, it's only required to expose port 80 for web applications. However, this setup specifies that both ports 80 and 443 are exposed. 
 
-```
+```yaml
 - port: 3000
   as: 80
   to:
@@ -85,7 +85,7 @@ When configuring port exposure for your services, keep these points in mind:
 
 When deploying to fizz nodes, you can specify a port range using the `port_range` and `port_range_as` fields. Here's an example:
 
-```
+```yaml
 - port_range: 8443-8445
   port_range_as: 8443-8445
   to:
@@ -235,7 +235,7 @@ Each profile specifies the compute resources that will be allocated to service i
 
 This defines a profile named `api` with resource requirements of 2 vCPUs, 4 gigabytes of memory, and 20 gigabytes of storage.
 
-```
+```yaml
 api:
   cpu: 2
   memory: "4Gi"
@@ -286,7 +286,7 @@ If you're using an older version, please upgrade to the latest version using the
 
 **Example**
 
-```
+```yaml
 useast:
   attributes:
     region: us-east
@@ -310,7 +310,7 @@ For each service you want to deploy, you create an entry in the `deployment` sec
 
 **Example**
 
-```
+```yaml
 api:
   useast:
     profile: api
@@ -328,7 +328,7 @@ You can add GPUs to your workload by including them in the compute profile secti
 **Note:** When specifying the GPU model, such as h100 in this example, ensure that the model name matches the conventions listed in the provided reference.
 </Callout>
 
-```
+```yaml
 profiles:
   compute:
     gpudep:
@@ -355,7 +355,7 @@ For a comprehensive example of a GPU-enabled ICL, refer to this [example](https:
 #### Optional Model Specification
 Specifying a GPU model in the ICL is optional. If your deployment does not require a specific GPU model, you can leave the model declaration blank, as demonstrated in the following example.
 
-```
+```yaml
 gpu:
   units: 1
   attributes:
@@ -366,7 +366,7 @@ gpu:
 #### Declaring Multiple Models
 If your deployment is optimized to run on multiple GPU models, include the relevant list of models as shown in the example below. In this setup, any Spheron provider with a listed model will bid on the deployment.
 
-```
+```yaml
 gpu:
   units: 1
   attributes:
@@ -379,7 +379,7 @@ gpu:
 #### Specifying GPU RAM
 Optionally, the ICL can include a GPU RAM/VRAM requirement, as illustrated in the example below.
 
-```
+```yaml
 gpu:
   units: 1
   attributes:
@@ -396,7 +396,7 @@ Optionally, the ICL can include a GPU interface requirement, as shown in the exa
 **Note:** Only the values `pcie` or `sxm` should be used in the Spheron ICL. There are several variants of the SXM interface, but only the simple sxm value should be used in the ICL.
 </Callout>
 
-```
+```yaml
 gpu:
   units: 1
   attributes:
@@ -409,7 +409,7 @@ gpu:
 #### Specifying GPU with RAM and Interface
 Here is an example of specifying both RAM and interface in the ICL GPU section.
 
-```
+```yaml
 gpu:
   units: 1
   attributes:
