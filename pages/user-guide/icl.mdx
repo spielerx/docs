@@ -1,5 +1,5 @@
 import Navigation from "components/navigation";
-import {Callout} from "nextra-theme-docs";
+import { Callout } from "nextra-theme-docs";
 
 # Infrastructure Composition Language (ICL)
 
@@ -17,6 +17,10 @@ It's structured into several key sections:
 4. [Profiles](/user-guide/icl#4-profiles)
 5. [Deployment](/user-guide/icl#5-deployment-configuration)
 6. [GPU Support](/user-guide/icl#6-gpu-integration-support-in-compute-profiles)
+7. [Private Container Registry Integration](/user-guide/icl#7-private-container-registry-integration)
+8. [Port Range](/user-guide/icl#8-port-range)
+9. [Pull Policy](/user-guide/icl#9-pull-policy)
+10. [Shared Memory (SHM) Support](/user-guide/icl#10-shared-memory-shm-support)
 
 <Callout type="info">
   **NOTE:** For examples of deployment configurations:
@@ -43,13 +47,14 @@ It's structured as a map where each key represents a unique service name, and th
 | command    | No                 | Defines a custom command to be executed when launching the container.                                                                         |
 | args       | No                 | Provides arguments for the custom command specified in the 'command' field.                                                                   |
 | env        | No                 | Sets environment variables for the running container. Refer to the [Environment Variables](/user-guide/icl#environment-variablesn) section for more details.                            |
-| expose     | No                 | Determines which entities are permitted to connect to the services. See the [Port Exposure](/user-guide/icl#port-exposure) section for additional information.                          |
+| expose     | No                 | Determines which entities are permitted to connect to the services. For additional information, see the [Port Exposure](/user-guide/icl#port-exposure) and [Port Range](/user-guide/icl#port-range) sections.                          |
+| pull_policy| No                 | Specifies the image pull policy for the container. For more details, see the [Pull Policy](/user-guide/icl#pull-policy) section.              |
 
 ### Environment Variables
 
 The `env` field allows you to specify a list of environment variables that will be made available to the running container. These variables are defined in a key-value format. For example:
 
-```
+```yaml
 env:
   - WALLET_ADDR=0xabcdedghijke
   - VERSION=1.0
@@ -63,7 +68,7 @@ When configuring port exposure for your services, keep these points in mind:
 -   **Flexible Port Mapping:** You're not limited to just port 80 for HTTP/HTTPS ingress. You can expose other ports and map them to port 80 using the as: 80 directive, provided your application understands HTTP/HTTPS protocols. This is particularly useful for applications like React web apps.
 -   **Simplified Port Exposure:** In the ICL, it's only required to expose port 80 for web applications. However, this setup specifies that both ports 80 and 443 are exposed. 
 
-```
+```yaml
 - port: 3000
   as: 80
   to:
@@ -72,15 +77,25 @@ When configuring port exposure for your services, keep these points in mind:
     - www.yoursite.com
 ```
 
-<Callout type="warning">
-**Note:** For fizz node deployments, the exposed port cannot be 80, as fizz nodes don't have an ingress to create subdomain-based deployment links for users. It should be any other port.
+### Port Range
 
-```
-- port: 3000
-  as: 80
+<Callout type="warning">
+**Note:** The port range is only applicable for fizz node deployments when the mode is set to `fizz.` For fizz node deployments, the exposed port cannot be 80 or 443, as fizz nodes don't have an ingress to create subdomain-based deployment links for users.
+</Callout>
+
+When deploying to fizz nodes, you can specify a port range using the `port_range` and `port_range_as` fields. Here's an example:
+
+```yaml
+- port_range: 8443-8445
+  port_range_as: 8443-8445
   to:
     - global: true
 ```
+
+You can specify either `port`, `port_range`, or both, but make sure to specify at least one of them.
+
+<Callout type="info">
+**Important:** For fizz node deployments (mode set to `fizz`), ports 80 and 443 are not available. You must use other port numbers for your services.
 </Callout>
 
 The `expose` parameter is a list that defines the connections allowed to the service. 
@@ -124,6 +139,30 @@ If no service is specified and `global` is set to true, any client can connect f
 If a service name is specified and `global` is set to `false`, only services within the current datacenter can connect. If a service name is specified and `global` is set to `true`, services from other datacenters within the deployment can connect.
 
 When `global` is set to `false`, a service name must be provided.
+
+### Pull Policy
+
+The `pull_policy` field allows you to specify how the container runtime should handle pulling the image for your service. This can be particularly useful when working with frequently updated images or when you want to ensure you're always using the latest version.
+
+There are three possible values for `pull_policy`:
+
+- `Always`: The image is pulled whenever the pod is started or restarted.
+- `IfNotPresent`: The image is pulled only if it's not already present on the node.
+- `Never`: The image is never pulled, and the deployment will fail if the image isn't already present on the node.
+
+Example usage:
+
+```yaml
+services:
+  myapp:
+    image: myregistry.com/myuser/myapp:latest
+    pull_policy: Always
+```
+
+<Callout type="info">
+**Note:** If you're using the `:latest` tag for your image, it's recommended to set `pull_policy: Always` to ensure you're always running the most recent version of your image.
+</Callout>
+
 
 ## 4. Profiles
 The profiles section is used to define named compute and placement profiles that can be referenced in the [deployment section](/user-guide/icl#5-deployment-configuration).
@@ -196,7 +235,7 @@ Each profile specifies the compute resources that will be allocated to service i
 
 This defines a profile named `api` with resource requirements of 2 vCPUs, 4 gigabytes of memory, and 20 gigabytes of storage.
 
-```
+```yaml
 api:
   cpu: 2
   memory: "4Gi"
@@ -247,7 +286,7 @@ If you're using an older version, please upgrade to the latest version using the
 
 **Example**
 
-```
+```yaml
 useast:
   attributes:
     region: us-east
@@ -271,7 +310,7 @@ For each service you want to deploy, you create an entry in the `deployment` sec
 
 **Example**
 
-```
+```yaml
 api:
   useast:
     profile: api
@@ -289,7 +328,7 @@ You can add GPUs to your workload by including them in the compute profile secti
 **Note:** When specifying the GPU model, such as h100 in this example, ensure that the model name matches the conventions listed in the provided reference.
 </Callout>
 
-```
+```yaml
 profiles:
   compute:
     gpudep:
@@ -308,15 +347,15 @@ profiles:
                 - model: a100
 ```
 
-## Additional GPU Use Notes
+### Additional GPU Use Notes
 
-### Complete GPU ICL Example
+#### Complete GPU ICL Example
 For a comprehensive example of a GPU-enabled ICL, refer to this [example](https://github.com/spheronFdn/docs/tree/main/examples/protocol/icl-example.yaml) which includes the declaration of several GPU models.
 
-### Optional Model Specification
+#### Optional Model Specification
 Specifying a GPU model in the ICL is optional. If your deployment does not require a specific GPU model, you can leave the model declaration blank, as demonstrated in the following example.
 
-```
+```yaml
 gpu:
   units: 1
   attributes:
@@ -324,10 +363,10 @@ gpu:
       nvidia:
 ```
 
-### Declaring Multiple Models
+#### Declaring Multiple Models
 If your deployment is optimized to run on multiple GPU models, include the relevant list of models as shown in the example below. In this setup, any Spheron provider with a listed model will bid on the deployment.
 
-```
+```yaml
 gpu:
   units: 1
   attributes:
@@ -337,10 +376,10 @@ gpu:
         - model: t4
 ```
 
-### Specifying GPU RAM
+#### Specifying GPU RAM
 Optionally, the ICL can include a GPU RAM/VRAM requirement, as illustrated in the example below.
 
-```
+```yaml
 gpu:
   units: 1
   attributes:
@@ -350,14 +389,14 @@ gpu:
           ram: 80Gi
 ```
 
-### Specifying GPU Interface
+#### Specifying GPU Interface
 Optionally, the ICL can include a GPU interface requirement, as shown in the example below.
 
 <Callout type="info">
 **Note:** Only the values `pcie` or `sxm` should be used in the Spheron ICL. There are several variants of the SXM interface, but only the simple sxm value should be used in the ICL.
 </Callout>
 
-```
+```yaml
 gpu:
   units: 1
   attributes:
@@ -367,10 +406,10 @@ gpu:
           interface: sxm
 ```
 
-### Specifying GPU with RAM and Interface
+#### Specifying GPU with RAM and Interface
 Here is an example of specifying both RAM and interface in the ICL GPU section.
 
-```
+```yaml
 gpu:
   units: 1
   attributes:
@@ -385,5 +424,181 @@ gpu:
 **Note:** For detailed information on GPU support and the corresponding model names, please refer to the [GPU support page](/user-guide/supports#gpu-support).
 </Callout>
 
-<Navigation name="Infrastructure Composition Language" />
 
+
+## 7. Private Container Registry Integration
+
+Spheron Network now supports private container registries, allowing you to use images from your private repositories securely in your deployments. This feature enhances security and flexibility for users who need to work with proprietary or sensitive container images.
+
+### Configuring Private Registry Access
+
+To use images from a private registry, you'll need to provide authentication details in your `deploy.yaml` file. Here's an example of how to structure this information:
+
+```yaml
+services:
+  myapp:
+    image: myregistry.com/myuser/myapp:latest
+    credentials:
+      registry: myregistry.com
+      username: myusername
+      password: "mysecretpassword"
+    expose:
+      - port: 3000
+        as: 80
+        to:
+          - global: true
+```
+
+### Important Notes:
+
+1. **Registry Specification**: 
+   - For Docker Hub, use `docker.io`
+   - For GitHub Container Registry, use `ghcr.io`
+   - For Gitlab Container Registry, use `registry.gitlab.com`
+   - For AWS ECR, use `public.ecr.aws`
+   - For Azure Container Registry, use `myregistry.azurecr.io`
+
+2. **Authentication**:
+   - Docker Hub: Use your account password in the `password` field
+   - GitHub Container Registry: Use a Personal Access Token with appropriate permissions in the `password` field
+
+3. **Compatibility**: This feature has been tested with Docker Hub and GitHub Container Registry. Other registries may work but are not officially supported.
+
+By leveraging private registry support, you can maintain tighter control over your container images while benefiting from Spheron's robust deployment infrastructure.
+
+<Callout type="info">
+Remember to keep your authentication credentials secure and never commit them directly to your version control system.
+</Callout>
+
+
+## 8. Port Range
+
+<Callout type="warning">
+**Note:** Port range only applies to fizz node deployments when the mode is set to `fizz`. The exposed port cannot be 80 or 443 for fizz node deployments, as fizz nodes don't have an ingress to create subdomain-based deployment links for users.
+</Callout>
+
+When deploying to fizz nodes, you can specify a port range using the `port_range` and `port_range_as` fields. This feature allows you to expose multiple consecutive ports for your service. Here's an example:
+
+```yaml
+expose:
+  - port_range: 8443-8445
+    port_range_as: 8443-8445
+    to:
+      - global: true
+```
+
+Key points about using port range:
+
+1. You can specify either `port` or `port_range` or both, but make sure to specify at least one of them.
+2. The `port_range` field defines the range of ports to be exposed from the container.
+3. The `port_range_as` field defines how these ports should be mapped externally.
+4. The range is inclusive, so ports 8443, 8444, and 8445 would be exposed in the example above.
+
+<Callout type="info">
+**Important:** For fizz node deployments (mode set to `fizz`), ports 80 and 443 are not available. You must use other port numbers for your services.
+</Callout>
+
+## 9. Pull Policy
+
+The `pull_policy` field allows you to specify how the container runtime should handle pulling the image for your service. This can be particularly useful when working with frequently updated images or when you want to ensure you're always using the latest version.
+
+There are three possible values for `pull_policy`:
+
+- `Always`: The image is pulled every time the pod is started or restarted.
+- `IfNotPresent`: The image is pulled only if it's not already present on the node.
+- `Never`: The image is never pulled, and the deployment will fail if the image isn't already present on the node.
+
+Example usage:
+
+```yaml
+services:
+  myapp:
+    image: myregistry.com/myuser/myapp:latest
+    pull_policy: Always
+```
+
+<Callout type="info">
+**Note:** If you're using the `:latest` tag for your image, it's recommended to set `pull_policy: Always` to ensure you're always running the most recent version of your image.
+</Callout>
+
+Using the pull policy feature give you more control over how and when your container images are updated, which can be crucial for maintaining consistency across deployments or ensuring you're always running the latest version of your application.
+
+## 10. Shared Memory (SHM) Support
+
+Spheron's Infrastructure Composition Language (ICL) now supports the configuration of Shared Memory (SHM) for services that require inter-process communication or temporary file storage with high-speed access. This feature is particularly useful for applications that need to share data quickly between multiple processes within the same container.
+
+### Configuring SHM in Compute Profiles
+
+To enable SHM, you can add a new storage class named `ram` in your compute profile definition. Here's an example of how to include SHM in your ICL:
+
+```yaml
+profiles:
+  compute:
+    myapp:
+      resources:
+        cpu:
+          units: 2
+        memory:
+          size: 2Gi
+        storage:
+          - size: 1Gi
+          - name: persistent_data
+            size: 5Gi
+            attributes:
+              persistent: true
+              class: ssd
+          - name: shared_mem
+            size: 2Gi
+            attributes:
+              persistent: false
+              class: ram
+```
+
+In this example, we've defined a compute profile named `datavis` that includes:
+- Standard storage of 1Gi
+- A persistent storage named `persistent_data` of 5Gi using SSD
+- A shared memory storage named `shared_mem` of 2Gi using the `ram` class
+
+### Important Notes:
+
+1. SHM must be non-persistent. The ICL validation will raise an error if SHM is defined as persistent.
+2. The `class: ram` attribute is used to specify that this storage should be treated as shared memory.
+
+### Using SHM in Services
+
+Once you've defined the SHM in your compute profile, you can use it in your service definition:
+
+```yaml
+services:
+  visualization:
+    image: myregistry.com/datavis:latest
+    expose:
+      - port: 8080
+        as: 80
+        to:
+          - global: true
+    params:
+      storage:
+        shared_mem:
+          mount: /dev/shm
+```
+
+In this service definition:
+- We're using the `visualization` service with a specified Docker image.
+- The `params.storage.shared_mem.mount` field is used to mount the shared memory to `/dev/shm` in the container.
+
+### Benefits of Using SHM
+
+1. **High-speed Inter-process Communication**: SHM allows rapid data sharing between processes in the same container.
+2. **Temporary File Storage**: It provides a fast storage option for temporary files that don't need to persist beyond the container's lifecycle.
+3. **Resource Efficiency**: By using memory for storage, you can reduce I/O operations and improve overall application performance.
+
+<Callout type="info">
+**Note:** When using SHM, be mindful of your memory usage. Excessive use of shared memory can impact the overall performance of your application and other services running on the same node.
+</Callout>
+
+By leveraging Shared Memory in your Spheron deployments, you can optimize performance for applications that require fast, temporary storage or efficient inter-process communication.
+
+
+
+<Navigation name="Infrastructure Composition Language" />
