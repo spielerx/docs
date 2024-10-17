@@ -375,15 +375,50 @@ Here is the logs for the Lease ID: 101
 ...
 ```
 
+### Startup Logs from Fizz Node
+
+To view startup logs specifically from the fizz node, which can be crucial for troubleshooting deployment issues, use the following command:
+
+```sh
+sphnctl deployment logs --lid [Lease ID] --startup
+```
+
+**Example:**
+
+```sh
+sphnctl deployment logs --lid 44 --startup
+```
+
+This command will display logs from the initial startup of your deployment on the fizz node. These logs are particularly useful for identifying any issues that occur during the deployment process. Here's an example of what the output might look like:
+
+```
+Startup logs for Lease ID: 44
+
+[Fizz Node] Initializing deployment...
+[Fizz Node] Pulling container image: jupyter/minimal-notebook:latest
+[Fizz Node] Image pulled successfully
+[Fizz Node] Creating container...
+[Fizz Node] Container created successfully
+[Fizz Node] Starting container...
+[Fizz Node] Container started
+[Fizz Node] Applying network configurations...
+[Fizz Node] Network configurations applied
+[Fizz Node] Deployment startup complete
+```
+
+These startup logs can help developers quickly identify and resolve issues related to image pulling, container creation, network configuration, or any other startup-related problems.
+
 There are some other options that you can use to stream logs or change output format, etc. 
 
 ### Other Options:
 | Option                                            | Default   | Description                                                                           |
 |---------------------------------------------------|-----------|---------------------------------------------------------------------------------------|
-| `-f, --follow`                                    |           | Follow log output                                                                     |
+| `-f, --follow`                                    |           | Follow log output (does not work with mode set to `fizz`)                             |
 | `-o, --output`      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'text'    | Output format `text | json`. Defaults to text (default "text")                        |
 | `-t, --tail`                                      | `all`     | The number of lines from the end of the logs to show. Defaults to `all`.              |
 | `--service`                                       | No        | Name of service you want specifically query the logs from.                            |
+| `--startup`                                       |           | Fetch log output from startup of the service container (only work with mode set to `fizz`) |
+
 
 
 ### Fetch Deployment Events
