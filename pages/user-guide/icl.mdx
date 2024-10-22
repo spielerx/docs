@@ -541,13 +541,8 @@ profiles:
         memory:
           size: 2Gi
         storage:
-          - size: 1Gi
-          - name: persistent_data
-            size: 5Gi
-            attributes:
-              persistent: true
-              class: ssd
-          - name: shared_mem
+          - size: 10Gi
+          - name: sharedmem
             size: 2Gi
             attributes:
               persistent: false
@@ -555,14 +550,14 @@ profiles:
 ```
 
 In this example, we've defined a compute profile named `datavis` that includes:
-- Standard storage of 1Gi
-- A persistent storage named `persistent_data` of 5Gi using SSD
-- A shared memory storage named `shared_mem` of 2Gi using the `ram` class
+- Standard storage of 10Gi
+- A shared memory storage named `sharedmem` of 2Gi using the `ram` class
 
 ### Important Notes:
 
 1. SHM must be non-persistent. The ICL validation will raise an error if SHM is defined as persistent.
 2. The `class: ram` attribute is used to specify that this storage should be treated as shared memory.
+3. The name of the shared memory storage (e.g., `sharedmem`) can only contain alphanumeric characters and hyphens (-). Underscores (_) are not allowed.
 
 ### Using SHM in Services
 
@@ -579,7 +574,7 @@ services:
           - global: true
     params:
       storage:
-        shared_mem:
+        sharedmem:
           mount: /dev/shm
 ```
 
@@ -602,3 +597,4 @@ By leveraging Shared Memory in your Spheron deployments, you can optimize perfor
 
 
 <Navigation name="Infrastructure Composition Language" />
+
