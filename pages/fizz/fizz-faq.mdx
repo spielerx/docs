@@ -160,4 +160,86 @@ If you encounter an error stating that the "brew command not found" when running
 
 By following these steps, you should be able to resolve the "brew command not found" error and successfully run the Fizz Node script. If you continue to experience issues, ensure that your system meets all the prerequisites for running a Fizz Node and consider reaching out to the Spheron support community for further assistance.
 
+#### 13. How can I change my provider if my current one is down?
+
+We've introduced a new feature that allows you to change your provider if your current one is experiencing downtime. This is particularly useful when a provider faces extended periods of unavailability. Here's how you can change your provider:
+
+1. **Edit Provider**:
+   - Click on the edit ✏️ icon next to your current provider.
+
+2. **Select a New Provider**:
+   - Choose a new provider from the list provided.
+   - The list is sorted based on proximity, so it's recommended that you select a provider nearest to you for optimal performance.
+
+3. **Update and Confirm**:
+   - Click the "Update Provider" button.
+   - Confirm the transaction in MetaMask.
+
+After changing your provider, follow these steps:
+
+1. **Download the New Script**: 
+   - Go to the setup screen and download the updated script.
+
+2. **Follow the Setup Guide**: 
+   - Execute the steps in the setup guide in a way that is similar to your initial setup process.
+
+3. **Check Your Status**: 
+   - Verify your node's status to ensure everything is running smoothly.
+
+By following these steps, you can switch to a new provider and get your Fizz Node back up and running quickly. If you encounter any issues during this process, don't hesitate to reach out to our Discord community for assistance.
+
+#### 14. I'm encountering a "GPU ID not found" issue. How can I help troubleshoot?
+
+If you're experiencing a "GPU ID not found" issue, we need your help to troubleshoot and resolve this problem. Please follow these steps:
+
+1. **Run the diagnostic command**:
+   Open your terminal and run the following command:
+
+   ```bash
+   nvidia-smi --query-gpu=pci.device_id --format=csv,noheader | head -n1 | cut -c3-6 | tr '[:upper:]' '[:lower:]'
+   ```
+
+2. **Note the output**:
+   The command will return a short string. Make sure to copy this output.
+
+3. **Identify your GPU model**:
+   We need to know your GPU model name along with the command output.
+
+4. **Report the information**:
+   Share both the command output and your GPU model name with our team through our Discord channel.
+
+This information is crucial for our development team to understand the scope of the issue and develop a fix. Your cooperation in this matter is greatly appreciated and will help us resolve the problem more quickly.
+
+#### 15. How can I update my Fizz Node resources?
+
+We've introduced a new feature that allows you to update your Fizz Node resources. This is particularly useful if you mistakenly registered your node with incorrect GPU or CPU units or if you didn't confirm the transaction during registration. Here's how you can update your node resources:
+
+1. **Access the Dashboard**:
+   - Go to your Fizz Node dashboard.
+
+2. **Initiate the Update**:
+   - Click on the "Update Node Resources" button.
+
+3. **Select New Resources**:
+   - Choose the GPU or CPU unit you want to assign to your node.
+
+4. **Confirm the Update**:
+   - Click "Update" and confirm the transactions that appear.
+   - Note: There will be multiple transactions. Make sure to confirm all of them.
+
+5. **Wait for Reload**:
+   - Let the screen reload once all transactions are confirmed.
+
+6. **Download New Script**:
+   - Click the "Download" button to get the new script.
+
+7. **Run the New Script**:
+   - Follow the steps outlined on the setup screen to run your new script with the updated resources.
+
+Important Notes:
+- Simply changing the script will not update your Fizz Node resources. You must first update them through the dashboard.
+- If you updated your script prior to this release, make sure to follow this "Update Node Resources" guide and run your node script again with the updated resources.
+
+After completing these steps, your Fizz Node will run with the new resource configuration. This update ensures that your node is correctly registered and can fully participate in the Fizz network.
+
 <Navigation name="Fizz Node FAQ" />
