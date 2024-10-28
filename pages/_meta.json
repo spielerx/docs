@@ -13,22 +13,24 @@
   "user-guide": "User Guide",
   "providers": "Provider Onboarding",
   "fizz": "Fizz Node",
+  "protocol-sdk": {
+    "title": "Protocol SDK ↗",
+    "href": "https://github.com/spheronFdn/protocol-sdk",
+    "newWindow": true
+  },
   "chain-details": "Chain Details",
-  "------": {
-    "type": "separator"
-  },
-  "---": {
-    "type": "separator",
-    "title": "CLOUD DOCS"
-  },
-  "compute": "Compute",
-  "billing": "Billing",
-  "organization": "Organization",
-  "toolings": "Dev Toolings",
-  "server-guide": "Server Guide",
-  "marketplace-guide": "Marketplace Guide",
   "-------": {
     "type": "separator"
+  },
+  "awesome-spheron": {
+    "title": "Awesome Spheron ↗",
+    "href": "https://github.com/spheronFdn/awesome-spheron",
+    "newWindow": true
+  },
+  "sos-ai-bounty": {
+    "title": "Spheron AI Bounty ↗",
+    "href": "https://github.com/spheronFdn/sos-ai-bounty",
+    "newWindow": true
   },
   "general-info": "General Information",
   "signup": {
