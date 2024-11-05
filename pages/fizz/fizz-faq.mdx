@@ -267,4 +267,32 @@ If you encounter the error "Error creating container: Error response from daemon
 
 After upgrading both Docker and NVIDIA drivers, try running the `fizzup.sh` script again.
 
+#### 17. I'm getting an OS mismatch error while running the script. How do I fix this?
+
+If you encounter an OS mismatch error while running the script, you'll need to update your OS setting in the Fizz dashboard. Here's how to resolve it:
+
+1. **Access the Fizz Dashboard**:
+   - Go to your Fizz Node dashboard
+
+![Edit OS Button](assets/edit-os-button.png)
+
+2. **Update OS Setting**:
+   - Look for the edit (✏️) button next to your current OS
+   - Click it to modify your OS setting
+
+3. **Select Correct OS**:
+   - If the error message says "OS_ID is set to linux": Change your OS to Linux
+   - If the error message says "OS_ID is set to wsl": Change your OS to Windows
+
+4. **Confirm the Change**:
+   - Confirm the transaction in your wallet when prompted
+
+5. **Download New Script**:
+   - After the OS change is confirmed, download the script again
+   - This new script will be configured for your updated OS setting
+
+6. **Run the New Script**:
+   - Execute the newly downloaded script
+   - The OS mismatch error should now be resolved
+
 <Navigation name="Fizz Node FAQ" />
