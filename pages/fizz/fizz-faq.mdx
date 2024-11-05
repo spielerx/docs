@@ -242,4 +242,29 @@ Important Notes:
 
 After completing these steps, your Fizz Node will run with the new resource configuration. This update ensures that your node is correctly registered and can fully participate in the Fizz network.
 
+#### 16. I'm getting "Error response from daemon: unknown or invalid runtime name: nvidia" when running fizzup.sh. How do I fix this?
+
+If you encounter the error "Error creating container: Error response from daemon: unknown or invalid runtime name: nvidia" when running the `fizzup.sh` script or upgrading your node, this typically indicates that you're running outdated versions of Docker and NVIDIA drivers. To resolve this, you'll need to upgrade both to their latest versions.
+
+**For Windows Users:**
+1. **Upgrade Docker Desktop**:
+   - Visit [Docker Desktop Installation Guide](https://docs.docker.com/desktop/)
+   - Download and install the latest version
+   - Note: Docker Desktop will also show an update banner when updates are available
+
+2. **Upgrade NVIDIA Drivers**:
+   - Visit [NVIDIA Driver Downloads](https://www.nvidia.com/en-us/drivers/)
+   - Download and install the latest driver for your GPU and follow the instructions to upgrade it
+
+**For Linux Users:**
+1. **Upgrade Docker**:
+   - Follow the official [Linux installation guide](https://docs.docker.com/desktop/install/linux/)
+   - Make sure to follow distribution-specific instructions
+
+2. **Upgrade NVIDIA Drivers**:
+   - For Ubuntu users: Follow the [Ubuntu NVIDIA drivers installation guide](https://ubuntu.com/server/docs/nvidia-drivers-installation)
+   - For other distributions, consult your distribution's documentation
+
+After upgrading both Docker and NVIDIA drivers, try running the `fizzup.sh` script again.
+
 <Navigation name="Fizz Node FAQ" />
