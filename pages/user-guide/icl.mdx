@@ -300,7 +300,9 @@ This defines a profile named `useast` with the required attributes `{region="us-
 
 Providers can only assign themselves to a predefined set of regions. If you specify an unlisted region, no provider will bid on your deployment, causing it to fail automatically. Please refer to the list mentioned in the [Supported Regions](/user-guide/supports#supported-regions) section.
 
-
+<Callout type="info">
+  To learn more about advanced placement attributes and fine-grained control over your deployments, check out the [Advanced Placement Attributes](/user-guide/icl#11-advanced-placement-attributes) section at the end of this guide.
+</Callout>
 
 ## 5. Deployment Configuration
 
@@ -594,7 +596,83 @@ In this service definition:
 
 By leveraging Shared Memory in your Spheron deployments, you can optimize performance for applications that require fast, temporary storage or efficient inter-process communication.
 
+## 11. Advanced Placement Attributes
 
+Spheron allows you to precisely control where your applications are deployed using advanced placement attributes. These settings help you target specific regions, providers, or nodes for your deployments.
+
+### Available Attributes
+
+#### 1. Region Selection
+Use the `region` attribute to specify which geographic region your application should be deployed in:
+
+```yaml
+attributes:
+  region: us-east
+```
+
+This is particularly useful when you need to:
+- Minimize latency for users in specific geographic areas
+- Ensure your application runs in a specific region
+
+<Callout type="info">
+The region must match one of Spheron's [supported region codes](/user-guide/supports#supported-regions). If not specified, your application can be deployed in any available region.
+</Callout>
+
+#### 2. Provider Selection
+The `desired_provider` attribute lets you specify a particular provider using their blockchain address:
+
+```yaml
+attributes:
+  desired_provider: "0x1234...5678"  # Replace with actual provider address
+```
+
+This is helpful when you:
+- Have had good experiences with a specific provider
+- Want to maintain consistency across deployments
+- Need specific hardware or capabilities that a provider offers
+
+<Callout type="info">
+This works in both `provider` and `fizz` modes. In `fizz` mode, it will select fizz nodes that are connected to your chosen provider.
+</Callout>
+
+#### 3. Fizz Node Selection
+For deployments using `fizz` mode, you can target a specific fizz node:
+
+```yaml
+attributes:
+  desired_fizz: "0xabcd...ef12"  # Replace with actual fizz node address
+```
+
+This is useful when you:
+- Want to deploy to a specific node you trust
+- Need to maintain application state on a particular node
+- Are testing node-specific functionality
+
+### Combining Attributes
+
+You can use multiple attributes together for precise control. Here's a comprehensive example:
+
+```yaml
+profiles:
+  placement:
+    useast:
+      attributes:
+        region: us-east                              # Geographic region
+        desired_provider: "0x1234...5678"            # Specific provider
+        desired_fizz: "0xabcd...ef12"                # Specific fizz node
+      pricing:
+        web:
+          token: USDT
+          amount: 8
+```
+
+<Callout type="warning">
+**Important Considerations:**
+- When using `desired_fizz`, make sure your deployment mode is set to `fizz`
+- If combining `desired_provider` and `desired_fizz`, verify that the fizz node is connected to the specified provider
+- Invalid combinations will cause your deployment to fail
+</Callout>
+
+These placement attributes give you granular control over your deployments while maintaining the flexibility to scale across Spheron's network when needed.
 
 <Navigation name="Infrastructure Composition Language" />
-
