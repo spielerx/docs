@@ -67,7 +67,7 @@ expose:
 - Can be used to deploy P2P applications and clustering applications
 
 <Callout type="warning">
-When using Fizz Mode, ensure your application doesn't rely on standard HTTP/HTTPS ports (80/443) as these are not available.
+When using Fizz Mode, ensure your application doesn't rely on standard HTTP/HTTPS ports (80/443), as these are not available.
 </Callout>
 
 ### 2. Resource Management
@@ -114,8 +114,8 @@ profiles:
           size: 1Gi
 ```
 
-- Limited resource availability - max 32 units of CPU, 128Gi of memory and 2000Gi of storage and only 1 GPU in a Fizz node
-- Variable performance - Can have downtimw if fizz node is stopped by the user
+- Limited resource availability - max 32 units of CPU, 128Gi of memory and 2000Gi of storage, and only 1 GPU in a Fizz node
+- Variable performance - Can have downtime if fizz node is stopped by the user
 - Limited scaling options - Updating resource in runtime is not supported
 - Shared Memory (SHM) is not supported
 - You can't change count to multiple containers in a single deployment
@@ -132,7 +132,7 @@ sphnctl deployment logs --lid 123 --follow
 sphnctl deployment logs --lid 123 --service web
 ```
 
-- Real-time log streaming - your can follow the logs as they are generated
+- Real-time log streaming - you can follow the logs as they are generated
 - Advanced filtering options
 - Service-specific logging
 - Detailed event tracking - you can see all the events happening in your deployment
@@ -206,9 +206,9 @@ sphnctl deployment logs --lid 123
    - Can deploy multiple GPUs for a single deployment
 
 3. **Deployment Not Available**
-   - Check the Replicas if it is 0 - wait for a few minutes for deployment to pull the image and start the containers and check again
-   - You can check the logs for more details using flag `--follow` to see if there are any errors in the logs if the deployment is not available
-   - You can also check the events using `sphnctl deployment events --lid <lid>` to see if there are any errors in the events like pull image failure, start container failure etc.
+   - Check the Replicas if it is 0 - wait for a few minutes for deployment to pull the image and start the containers, and check again
+   - You can check the logs for more details using the flag `--follow` to see if there are any errors in the logs if the deployment is not available
+   - You can also check the events using `sphnctl deployment events --lid <lid>` to see if there are any errors in the events like pull image failure, start container failure, etc.
 
 ### Fizz Mode Issues
 
@@ -218,7 +218,7 @@ sphnctl deployment logs --lid 123
    - Can use `use_public_port` to expose your service so that container ports can be exposed to ports assigned by Spheron - this is useful for P2P applications and clustering applications
 
 2. **Performance**
-   - Can deploy consumer grade services with limited resources
+   - Can deploy consumer-grade services with limited resources
    - GPU deployment is limited to 1 GPU per deployment
 
 3. **Deployment Not Available**
