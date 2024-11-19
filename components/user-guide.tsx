@@ -21,6 +21,12 @@ const GUIDE_TYPE_LIST = [
     body: "Lease GPU with Protocol Native CLI.",
   },
   {
+    path: "/user-guide/fizz-vs-provider",
+    emoji: "🤝",
+    title: "Fizz vs Provider",
+    body: "Learn about the diff b/w Fizz and Provider Mode.",
+  },
+  {
     path: "/user-guide/supports#gpu-support",
     emoji: "📟",
     title: "GPU Supports",
