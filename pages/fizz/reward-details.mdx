@@ -87,19 +87,17 @@ Fizz Node can earn points based on the GPU resources they contribute to the netw
 | NVIDIA Tesla V100        | v100            | Medium 1 |    1        | 500 |   $0.088   |    $63.00  |  $0.75   |    $0.1     |      $0.01       |
 | NVIDIA A40               | a40             | Medium 1 |    1        | 500 |   $0.112   |    $79.80  |  $0.75   |    $0.1     |      $0.01       |
 
-We support almost all Nvidia GPUs and are continuously adding support for new GPUs, including AMD GPUs. This table is useful if you want to lease a GPU for deployment or become a provider and lend your GPU. Here is the definition of the columns:
+We support almost all Nvidia GPUs and are continuously adding support for new GPUs, including AMD GPUs. This table is useful if you want to become a fizz node and lend your GPU. Here is the definition of the columns:
 
 - **GPU Name:** This is useful for users who want to lease a GPU. When specifying the GPU you want to lease, you need to provide the GPU's short name instead of the full name. Otherwise, the network won't recognize the GPU type, and the deployment will fail.
-- **Tier:** This helps providers understand which resource tier and associated multiplier they are eligible for. This is important for receiving points as part of the provider network.
-- **Multiplier:** This is the multiplier for the tier. This is important for receiving points as part of the provider network.
+- **Tier:** This helps fizzer understand which resource tier and associated multiplier they are eligible for. This is important for receiving points as part of the fizz network.
+- **Multiplier:** This is the multiplier for the tier. This is important for receiving points as part of the fizz network.
 - **FN (Fizz Node Points):** This is the base point for all GPUs in the tier in Spheron Points.
 - **GPU / hr:** This is the price for the GPU leasing in USD per hour. The price is calculated based on the GPU model and the tier taken from the market price of multiple GPU marketplaces.
 - **GPU / mo:** This is the price for the GPU leasing in USD per month. The price is calculated based on the GPU model and the tier taken from the market price of multiple GPU marketplaces.
 - **CPU / mo:** This is the price for the CPU in USD per month. The price is fixed at $0.75 per month for all GPU types.
 - **RAM / GB/mo:** This is the price for RAM in USD per GB per month. The price is fixed at $0.1 per GB per month for all GPU types.
 - **Storage / GB/mo:** This is the price for storage in USD per GB per month. The price is fixed at $0.01 per GB per month for all GPU types.
-
-
 
 ### CPU Resource Tiering
 
@@ -123,12 +121,12 @@ The CPU Support & Tiering list categorizes various CPU types based on their perf
 | APPLE M4 Pro     | m4-pro   | Medium 1 | 1          | 25   | $0.074     | $53.28     | $0.1        | $0.01           |
 | APPLE M4 Max     | m4-max   | Medium 2 | 1.5        | 25   | $0.100     | $72.00     | $0.1        | $0.01           |
 
-We support almost all CPU types and are continuously adding support for new CPUs. This table is useful if you want to lease a CPU for deployment or become a provider and lend your CPU. Here is the definition of the columns:
+We support almost all CPU types and are continuously adding support for new CPUs. This table is useful if you want to become a fizz node and lend your CPU. Here is the definition of the columns:
 
 - **CPU Type:** This is the full name of the Compute.
 - **CPU Name:** This is useful for users who want to lease a CPU. When specifying the CPU you want to lease, you need to provide the CPU's short name instead of the full name. Otherwise, the network won't recognize the CPU type, and the deployment will fail.
-- **Tier:** This helps providers understand which resource tier and associated multiplier they are eligible for. This is important for receiving points as part of the provider network.
-- **Multiplier:** This is the multiplier for the tier. This is important for receiving points as part of the provider network.
+- **Tier:** This helps fizzers understand which resource tier and associated multiplier they are eligible for. This is important for receiving points as part of the fizz network.
+- **Multiplier:** This is the multiplier for the tier. This is important for receiving points as part of the fizz network.
 - **FN (Fizz Node Points):** This is the base point for all CPUs in the tier in Spheron Points.
 - **CPU / hr:** This is the price for the CPU leasing in USD per hour. The price is calculated based on the CPU model and the tier taken from the market price of multiple CPU marketplaces.
 - **CPU / mo:** This is the price for the CPU leasing in USD per month. The price is calculated based on the CPU model and the tier taken from the market price of multiple CPU marketplaces.
@@ -136,40 +134,45 @@ We support almost all CPU types and are continuously adding support for new CPUs
 - **Storage / GB/mo:** This is the price for storage in USD per GB per month. The price is fixed at $0.01 per GB per month for all CPU types.
 
 
-### Uptime Requirement
+### Liveness Requirement
 
-Unlike provider nodes, Fizz nodes do not have a trust tiering system. The network assumes Fizz nodes are less reliable and suitable for specific use cases that don't require highly stable systems. However, there is still a minimum uptime requirement to receive points:
+Unlike provider nodes, Fizz nodes do not have a trust tiering system. The network assumes Fizz nodes are less reliable and suitable for specific use cases that don't require highly stable systems. However, there is still a minimum liveness requirement to receive points:
 
-- Fizz nodes must maintain at least 50% uptime within an ERA to receive points.
-- If a Fizz node's uptime falls below 50% in an ERA, their points for that ERA will be slashed (i.e., they will receive no points).
+- Fizz nodes must maintain at least 50% liveness within an ERA to receive points.
+- If a Fizz node's liveness falls below 50% in an ERA, your will not accrue any points for that ERA.
 
-### How Uptime is Calculated
+### How Liveness is Calculated
 
-Uptime for Fizz nodes is calculated using a simple hourly challenge system:
+Liveness for Fizz nodes is calculated using a simple hourly challenge system:
 
 - Every hour, at a random time, the network checks if the Fizz node is live and operational.
-- If the node responds successfully to the challenge, it passes the liveness check for that hour.
-- If the node fails to respond, the liveness check for that hour fails.
+- During this hourly check, the network also validates that the available resources (GPU VRAM, CPU, RAM, and Storage) match what was claimed during node registration, excluding resources currently being utilized.
+- If the node responds successfully to the challenge and passes the resource validation, it passes the liveness check for that hour.
+- If the node fails to respond or fails the resource validation, the liveness check for that hour fails.
 - There are 24 challenges in total for each ERA (24-hour period).
-- If a Fizz node fails 12 or more challenges in an ERA (50% or more), its points for that ERA will be slashed.
+- If a Fizz node fails 12 or more challenges in an ERA (50% or more), you will not accrue any points for that ERA.
 
-This system ensures that Fizz nodes are incentivized to maintain a reasonable level of availability without the stricter requirements placed on provider nodes.
+<Callout type="warning">
+**Important:** Ensure that you verify your available resources in the dashboard after connecting your Fizz node. If the actual resources differ from what was claimed, update your setup and restart the node. Failing resource validation will result in failed liveness checks, which can lead to point slashing for the ERA if liveness falls below 50%.
+</Callout>
+
+This system ensures that Fizz nodes are incentivized to maintain both reasonable availability and accurate resource reporting without the stricter requirements placed on provider nodes.
 
 ## Reward Calculation
 
 The reward for Fizz nodes is calculated based on two main factors:
 
 1. **Resource Contribution**: The amount and quality of resources (e.g., GPU, CPU, storage) contributed to the network.
-2. **Uptime**: Whether the node maintained at least 50% uptime during the ERA.
+2. **Liveness**: Whether the node maintained at least 50% liveness during the ERA.
 
 The final reward for an ERA is calculated as follows:
 
 ```
-ERA Reward = Resource Reward Points * Uptime Factor
+ERA Reward = Resource Reward Points * Liveness Factor
 
 Where:
 - Resource Reward is calculated based on the contributed resources
-- Uptime Factor is 1 if uptime ≥ 50%, or 0 if uptime < 50%
+- Liveness Factor is 1 if liveness ≥ 50%, or 0 if liveness < 50%
 ```
 
 ## Direct Earnings from Users
@@ -189,7 +192,7 @@ In addition to the liveness points, Fizz node operators can earn directly from u
 While you receive the majority of the earnings from user leases, there are some fees associated with each transaction:
 
 - **Foundation Fee**: 5% of the earnings goes to the Spheron Foundation
-- **Provider Fee**: 5% of the earning goes to the provider
+- **Gateway Fee**: 5% of the earning goes to the gateway
 
 This means that as a Fizz node operator, you receive 90% of the total amount paid by the user for leasing your compute resources.
 
@@ -197,7 +200,7 @@ This means that as a Fizz node operator, you receive 90% of the total amount pai
 **Example**: If a user pays 100 USDT tokens to lease your compute resources:
 - You receive: 90 USDT tokens
 - Spheron Foundation receives: 5 USDT tokens
-- Provider receives: 5 USDT tokens
+- Gateway receives: 5 USDT tokens
 </Callout>
 
 By Offering competitive pricing and maintaining good resource availability can maximize your direct earnings from user leases and the liveness points.

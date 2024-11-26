@@ -1,11 +1,11 @@
 import Navigation from "components/navigation";
-import {Callout} from "nextra-theme-docs";
+import { Callout } from "nextra-theme-docs";
 
 # Fizz Nodes: The Community Compute Backbone
 
 ## Overview
 
-Fizz Nodes are lightweight versions of Provider Nodes designed to operate on smaller devices like personal computers and laptops. This innovative approach enhances the network's flexibility and accessibility, allowing community members to contribute their underutilized compute or GPU resources to the Spheron network. Fizz Nodes can collaborate to form subnets within the network, consisting of a Provider Node and multiple Fizz Nodes, creating their own economies and governance systems.
+Fizz Nodes are lightweight versions of Provider Nodes designed to operate on smaller devices like personal computers and laptops. This innovative approach enhances the network's flexibility and accessibility, allowing community members to contribute their underutilized compute or GPU resources to the Spheron network. Fizz Nodes can collaborate to form subnets within the network, consisting of a Gateway Node / Provider Node and multiple Fizz Nodes, creating their own economies and governance systems.
 
 <Callout type="warning">
 **NOTE:** While Fizz Nodes offer unprecedented scalability and decentralization, users should know that workloads should not contain sensitive data or secrets. We continuously develop methods to enhance privacy and restrict unauthorized access to private information.
@@ -20,7 +20,7 @@ Fizz Nodes utilize a Docker-based system where each node operates in a new Docke
 The main components of the Fizz Node system are:
 
 1. **Fizz Client:** This is run by individuals on small devices to provide underutilized compute resources to the network for monetary rewards.
-2. **Gateway Service:** Managed by providers, it facilitates user interactions with Fizz Clients and handles most communication.
+2. **Gateway Service:** Managed by providers / individual gateway runners, it facilitates user interactions with Fizz Clients and handles most communication.
 
 ## Fizz Client Components
 
@@ -32,7 +32,7 @@ The Fizz Client comprises three key components:
 
 ## Gateway Service
 
-The Gateway Service acts as the interface for all Fizz Clients connected to a provider:
+The Gateway Service acts as the interface for all Fizz Clients connected to a provider / gateway:
 
 1. **User Interaction:** Manages user requests for deploying and accessing services running inside Fizz Clients.
 2. **Pricing and Capacity Monitoring:** Continuously checks the current pricing and capacity of connected Fizz Clients.
