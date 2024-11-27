@@ -87,11 +87,11 @@ Fizz Node can earn points based on the GPU resources they contribute to the netw
 | NVIDIA Tesla V100        | v100            | Medium 1 |    1        | 500 |   $0.088   |    $63.00  |  $0.75   |    $0.1     |      $0.01       |
 | NVIDIA A40               | a40             | Medium 1 |    1        | 500 |   $0.112   |    $79.80  |  $0.75   |    $0.1     |      $0.01       |
 
-We support almost all Nvidia GPUs and are continuously adding support for new GPUs, including AMD GPUs. This table is useful if you want to become a fizz node and lend your GPU. Here is the definition of the columns:
+We support almost all Nvidia GPUs and continuously add support for new ones, including AMD GPUs. This table is useful if you want to become a fizz node and lend your GPU. Here is the definition of the columns:
 
 - **GPU Name:** This is useful for users who want to lease a GPU. When specifying the GPU you want to lease, you need to provide the GPU's short name instead of the full name. Otherwise, the network won't recognize the GPU type, and the deployment will fail.
-- **Tier:** This helps fizzer understand which resource tier and associated multiplier they are eligible for. This is important for receiving points as part of the fizz network.
-- **Multiplier:** This is the multiplier for the tier. This is important for receiving points as part of the fizz network.
+- **Tier:** This helps fizzers understand which resource tier and associated multiplier they are eligible for. This is important for receiving points as part of the Fizz network.
+- **Multiplier:** This is the multiplier for the tier. This is important for receiving points as part of the Fizz network.
 - **FN (Fizz Node Points):** This is the base point for all GPUs in the tier in Spheron Points.
 - **GPU / hr:** This is the price for the GPU leasing in USD per hour. The price is calculated based on the GPU model and the tier taken from the market price of multiple GPU marketplaces.
 - **GPU / mo:** This is the price for the GPU leasing in USD per month. The price is calculated based on the GPU model and the tier taken from the market price of multiple GPU marketplaces.
@@ -121,7 +121,7 @@ The CPU Support & Tiering list categorizes various CPU types based on their perf
 | APPLE M4 Pro     | m4-pro   | Medium 1 | 1          | 25   | $0.074     | $53.28     | $0.1        | $0.01           |
 | APPLE M4 Max     | m4-max   | Medium 2 | 1.5        | 25   | $0.100     | $72.00     | $0.1        | $0.01           |
 
-We support almost all CPU types and are continuously adding support for new CPUs. This table is useful if you want to become a fizz node and lend your CPU. Here is the definition of the columns:
+We support almost all CPU types and continuously add support for new CPUs. This table is helpful if you want to become a fizz node and lend your CPU. Here is the definition of the columns:
 
 - **CPU Type:** This is the full name of the Compute.
 - **CPU Name:** This is useful for users who want to lease a CPU. When specifying the CPU you want to lease, you need to provide the CPU's short name instead of the full name. Otherwise, the network won't recognize the CPU type, and the deployment will fail.
@@ -139,7 +139,7 @@ We support almost all CPU types and are continuously adding support for new CPUs
 Unlike provider nodes, Fizz nodes do not have a trust tiering system. The network assumes Fizz nodes are less reliable and suitable for specific use cases that don't require highly stable systems. However, there is still a minimum liveness requirement to receive points:
 
 - Fizz nodes must maintain at least 50% liveness within an ERA to receive points.
-- If a Fizz node's liveness falls below 50% in an ERA, your will not accrue any points for that ERA.
+- If a Fizz node's liveness falls below 50% in an ERA, you will not accrue any points for that ERA.
 
 ### How Liveness is Calculated
 
@@ -153,7 +153,7 @@ Liveness for Fizz nodes is calculated using a simple hourly challenge system:
 - If a Fizz node fails 12 or more challenges in an ERA (50% or more), you will not accrue any points for that ERA.
 
 <Callout type="warning">
-**Important:** Ensure that you verify your available resources in the dashboard after connecting your Fizz node. If the actual resources differ from what was claimed, update your setup and restart the node. Failing resource validation will result in failed liveness checks, which can lead to point slashing for the ERA if liveness falls below 50%.
+**Important:** Ensure you verify your available resources in the dashboard after connecting your Fizz node. If the actual resources differ from what was claimed, update your setup and restart the node. Failing resource validation will result in failed liveness checks, leading to point slashing for the ERA if liveness falls below 50%.
 </Callout>
 
 This system ensures that Fizz nodes are incentivized to maintain both reasonable availability and accurate resource reporting without the stricter requirements placed on provider nodes.
@@ -192,7 +192,7 @@ In addition to the liveness points, Fizz node operators can earn directly from u
 While you receive the majority of the earnings from user leases, there are some fees associated with each transaction:
 
 - **Foundation Fee**: 5% of the earnings goes to the Spheron Foundation
-- **Gateway Fee**: 5% of the earning goes to the gateway
+- **Gateway Fee**: 5% of the earnings go to the gateway
 
 This means that as a Fizz node operator, you receive 90% of the total amount paid by the user for leasing your compute resources.
 
